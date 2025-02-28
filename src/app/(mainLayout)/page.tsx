@@ -1,13 +1,13 @@
 
 
 
-const page = () => {
+const Home = () => {
 
     return (
         <div>
-            <div className="text-blue-500 font-bold text-4xl flex justify-center p-4"> The Component is Start page Main </div>
+            <div> The Component is Start Home </div>
         </div>
     );
 };
 
-export default page;
+export default Home;
