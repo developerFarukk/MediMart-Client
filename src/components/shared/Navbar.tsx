@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-import medimart from '@/assets/medimart.jpg'
+import medimart from '@/assets/nextmart.png'
 import Link from "next/link";
 
 const Navbar = () => {
@@ -14,8 +14,11 @@ const Navbar = () => {
                     <div className="flex h-16 items-center justify-between">
                         <div className="md:flex md:items-center md:gap-12">
                             <Link className="block text-teal-600" href="/">
-                                <span className="sr-only">Home</span>
-                                <Image className="h-10 w-24" src={medimart} height={100} width={100} alt="medimart" />
+                                <span className="sr-only">MediMart</span>
+                                <div className="flex justify-center items-center">
+                                    <Image src={medimart} height={40} width={40} alt="medimart" />
+                                    <span className="ml-2 text-xl font-bold text-blue-700 shadow-2xl">MediMart</span>
+                                </div>
                             </Link>
                         </div>
 
