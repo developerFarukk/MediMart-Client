@@ -44,11 +44,10 @@ const Login = () => {
     return (
         <div className='flex justify-center mt-4 p-2'>
             <div className="border-2 border-gray-300 rounded-xl flex-grow max-w-md w-full p-5">
-                <div className="flex items-center space-x-4 ">
+                <div className="flex items-center justify-center space-x-4 p-4 mb-4">
                     <Image src={medimart} height={40} width={40} alt="medimart" />
                     <div>
                         <h1 className="text-xl font-semibold">Login</h1>
-                        <p className="font-extralight text-sm text-gray-600">Welcome back!</p>
                     </div>
                 </div>
                 <Form {...form}>
@@ -66,19 +65,21 @@ const Login = () => {
                                 </FormItem>
                             )}
                         />
-                        <FormField
-                            control={form.control}
-                            name="password"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Password</FormLabel>
-                                    <FormControl>
-                                        <Input type="password" {...field} value={field.value || ""} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+                        <div className='mt-4'>
+                            <FormField
+                                control={form.control}
+                                name="password"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Password</FormLabel>
+                                        <FormControl>
+                                            <Input type="password" {...field} value={field.value || ""} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
 
                         {/* <div className="flex mt-3 w-full">
                             <ReCAPTCHA
@@ -100,7 +101,7 @@ const Login = () => {
                 </Form>
                 <p className="text-sm text-gray-600 text-center my-3">
                     Do not have any account ?
-                    <Link href="/register" className="text-primary">
+                    <Link href="/register" className="text-primary ml-2">
                         Register
                     </Link>
                 </p>
