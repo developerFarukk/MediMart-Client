@@ -1,19 +1,60 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 
 "use client"
 
 import React, { useState } from 'react';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import Link from 'next/link';
 import Image from 'next/image';
 import medimart from '@/assets/nextmart.png'
 import { Button } from '../ui/button';
+import { useUser } from '@/context/UserContext';
+import { usePathname, useRouter } from 'next/navigation';
+import { logout } from '@/services/AuthService';
+import { protectedRoutes } from '@/contants';
+import { toast } from 'sonner';
+import { LogOut } from 'lucide-react';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+    const pathname = usePathname();
+    const router = useRouter();
+
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
+
+    const { user, setIsLoading, setUser } = useUser();
+
+    console.log(user);
+
+
+    const handleLogOut = () => {
+
+        setIsLoading(true);
+
+        try {
+            logout();
+
+            toast.success("Logout successful!");
+
+            setUser(null);
+
+            if (protectedRoutes.some((route) => pathname.match(route))) {
+                router.push("/");
+            }
+
+
+        } catch (error) {
+            toast.error("Logout failed. Please try again.");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
 
     return (
         <header className="">
@@ -57,13 +98,45 @@ const Navbar = () => {
                     <div className="flex items-center gap-4">
                         <div className=" flex">
 
+
+
                             <div className="hidden sm:flex gap-4">
-                                <Link href="/login" >
-                                    <Button>Login</Button>
-                                </Link>
-                                <Link href="/register" >
-                                    <Button>Register</Button>
-                                </Link>
+
+                                {
+                                    user ? (
+                                        <>
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger>
+                                                    <Avatar>
+                                                        <AvatarImage src={user?.image} />
+                                                        <AvatarFallback>User</AvatarFallback>
+                                                    </Avatar>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContent>
+                                                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                                                    <DropdownMenuSeparator />
+                                                    <DropdownMenuItem>Profile</DropdownMenuItem>
+                                                    <DropdownMenuItem>
+                                                        <Link href={`/${user?.role}/dashboard`}>Dashboard</Link>
+                                                    </DropdownMenuItem>
+                                                    <DropdownMenuItem>My Shop</DropdownMenuItem>
+                                                    <DropdownMenuSeparator />
+                                                    <DropdownMenuItem
+                                                        className="bg-red-500 cursor-pointer"
+                                                        onClick={handleLogOut}
+                                                    >
+                                                        <LogOut />
+                                                        <span>Log Out</span>
+                                                    </DropdownMenuItem>
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
+                                        </>
+                                    ) : (
+                                        <Link href="/login" >
+                                            <Button>Login</Button>
+                                        </Link>
+                                    )
+                                }
                             </div>
                         </div>
 
@@ -124,16 +197,45 @@ const Navbar = () => {
                             <li>
                                 <a className="text-gray-500 transition hover:text-gray-500/75" href="#"> Blog </a>
                             </li>
+
                             <li>
-                                <Link href="/login" >
-                                    <Button>Login</Button>
-                                </Link>
+                                {
+                                    user ? (
+                                        <>
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger>
+                                                    <Avatar>
+                                                        <AvatarImage src="https://github.com/shadcn.png" />
+                                                        <AvatarFallback>User</AvatarFallback>
+                                                    </Avatar>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContent>
+                                                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                                                    <DropdownMenuSeparator />
+                                                    <DropdownMenuItem>Profile</DropdownMenuItem>
+                                                    <DropdownMenuItem>
+                                                        <Link href={`/${user?.role}/dashboard`}>Dashboard</Link>
+                                                    </DropdownMenuItem>
+                                                    <DropdownMenuItem>My Shop</DropdownMenuItem>
+                                                    <DropdownMenuSeparator />
+                                                    <DropdownMenuItem
+                                                        className="bg-red-500 cursor-pointer"
+                                                        onClick={handleLogOut}
+                                                    >
+                                                        <LogOut />
+                                                        <span>Log Out</span>
+                                                    </DropdownMenuItem>
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
+                                        </>
+                                    ) : (
+                                        <Link href="/login" >
+                                            <Button>Login</Button>
+                                        </Link>
+                                    )
+                                }
                             </li>
-                            <li>
-                                <Link href="/register" >
-                                    <Button>Register</Button>
-                                </Link>
-                            </li>
+
                         </ul>
                     </nav>
                 </div>
