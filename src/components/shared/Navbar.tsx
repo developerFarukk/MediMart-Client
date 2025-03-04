@@ -29,9 +29,6 @@ const Navbar = () => {
 
     const { user, setIsLoading, setUser } = useUser();
 
-    console.log(user);
-
-
     const handleLogOut = () => {
 
         setIsLoading(true);

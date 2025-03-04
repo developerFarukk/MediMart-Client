@@ -32,7 +32,6 @@ const Login = () => {
 
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-        console.log(data);
 
         try {
             const res = await loginUser(data);
