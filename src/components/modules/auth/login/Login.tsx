@@ -9,6 +9,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { loginSchema } from './loginValidation';
+import { loginUser } from '@/services/AuthService';
+import { useUser } from '@/context/UserContext';
+import { toast } from 'sonner';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 
 const Login = () => {
@@ -19,26 +23,33 @@ const Login = () => {
         }
     );
 
+    const { formState: { isSubmitting } } = form;
+
+    const { setIsLoading } = useUser();
+    const searchParams = useSearchParams();
+    const redirect = searchParams.get("redirectPath");
+    const router = useRouter();
+
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         console.log(data);
 
-        // try {
-        //     const res = await loginUser(data);
-        //     setIsLoading(true);
-        //     if (res?.success) {
-        //         toast.success(res?.message);
-        //         if (redirect) {
-        //             router.push(redirect);
-        //         } else {
-        //             router.push("/");
-        //         }
-        //     } else {
-        //         toast.error(res?.message);
-        //     }
-        // } catch (err: any) {
-        //     console.error(err);
-        // }
+        try {
+            const res = await loginUser(data);
+            setIsLoading(true);
+            if (res?.success) {
+                toast.success(res?.message);
+                if (redirect) {
+                    router.push(redirect);
+                } else {
+                    router.push("/");
+                }
+            } else {
+                toast.error(res?.message);
+            }
+        } catch (err: any) {
+            console.error(err);
+        }
     };
 
     return (
@@ -81,21 +92,11 @@ const Login = () => {
                             />
                         </div>
 
-                        {/* <div className="flex mt-3 w-full">
-                            <ReCAPTCHA
-                                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_CLIENT_KEY!}
-                                onChange={handleReCaptcha}
-                                className="mx-auto"
-                            />
-                        </div> */}
-
                         <Button
-                            // disabled={reCaptchaStatus ? false : true}
                             type="submit"
                             className="mt-5 w-full"
                         >
-                            {/* {isSubmitting ? "Logging...." : "Login"} */}
-                            Login
+                            {isSubmitting ? "Loading..." : "Login"}
                         </Button>
                     </form>
                 </Form>
