@@ -17,6 +17,8 @@ import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/context/UserContext';
 
+const MAX_FILE_SIZE = 300 * 1024;
+
 const Register = () => {
     const form = useForm({
         resolver: zodResolver(registrationSchema),
@@ -30,71 +32,51 @@ const Register = () => {
     const router = useRouter();
     const { setIsLoading } = useUser();
 
-    // const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    //     setIsLoading(true);
-
+    // const deleteImageFromCloudinary = async (publicId: string) => {
     //     try {
-    //         console.log("Form Data:", data); // Log form data
-
-    //         let imageUrl = "";
-
-    //         // Step 1: Upload image to Cloudinary (if image exists)
-    //         if (data.image && data.image[0]) {
-    //             const imageFile = data.image[0];
-
-    //             const formData = new FormData();
-    //             formData.append('file', imageFile);
-    //             formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!);
-
-    //             const cloudinaryResponse = await fetch(
-    //                 `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
-    //                 {
-    //                     method: 'POST',
-    //                     body: formData,
-    //                 }
-    //             );
-
-    //             const cloudinaryData = await cloudinaryResponse.json();
-    //             console.log("Cloudinary Response:", cloudinaryData); // Log Cloudinary response
-
-    //             if (cloudinaryData.secure_url) {
-    //                 imageUrl = cloudinaryData.secure_url; // Save the image URL
-    //             } else {
-    //                 throw new Error("Image upload failed");
+    //         const response = await fetch(
+    //             `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/destroy`,
+    //             {
+    //                 method: 'POST',
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                 },
+    //                 body: JSON.stringify({
+    //                     public_id: publicId,
+    //                     api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
+    //                     api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
+    //                     timestamp: Date.now(),
+    //                     signature: '',
+    //                 }),
     //             }
+    //         );
+
+    //         const result = await response.json();
+    //         if (result.result !== 'ok') {
+    //             throw new Error('Failed to delete image from Cloudinary');
     //         }
-
-    //         // Step 2: Add the image URL to the registration data
-    //         data.image = imageUrl;
-
-    //         // Step 3: Register the user
-    //         const res = await registerUser(data);
-    //         console.log("Registration Response:", res); // Log registration response
-
-    //         if (res?.success) {
-    //             toast.success(res?.message);
-    //             router.push("/");
-    //         } else {
-    //             toast.error(res?.message);
-    //         }
-    //     } catch (err: any) {
-    //         console.error("Error:", err); // Log the error
-    //         toast.error(err.message || 'Something went wrong');
-    //     } finally {
-    //         setIsLoading(false);
+    //     } catch (error) {
+    //         // console.error('Error deleting image:', error);
+    //         throw error;
     //     }
     // };
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         setIsLoading(true);
 
+        let imageUrl = "";
+        // let publicId = "";
+
         try {
-            console.log("Form Data:", data); // Log form data
 
-            let imageUrl = "";
+            // Step 1: Check image size
+            if (data.image && typeof data.image === "string") {
+                const base64Data = data.image.split(',')[1];
+                const fileSizeInBytes = (base64Data.length * 3) / 4;
+                if (fileSizeInBytes > MAX_FILE_SIZE) {
+                    throw new Error("Image size must be less than 300KB");
+                }
 
-            // Step 1: Upload image to Cloudinary (if image exists)
-            if (data.image && typeof data.image === "string") { // Check if image is a base64 string
                 const formData = new FormData();
                 formData.append('file', data.image);
                 formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!);
@@ -108,31 +90,40 @@ const Register = () => {
                 );
 
                 const cloudinaryData = await cloudinaryResponse.json();
-                console.log("Cloudinary Response:", cloudinaryData); // Log Cloudinary response
+                // console.log("Cloudinary Response:", cloudinaryData);
 
                 if (cloudinaryData.secure_url) {
-                    imageUrl = cloudinaryData.secure_url; // Save the image URL
+                    imageUrl = cloudinaryData.secure_url;
+                    // publicId = cloudinaryData.public_id;
                 } else {
                     throw new Error("Image upload failed");
                 }
             }
 
-            // Step 2: Add the image URL to the registration data
             data.image = imageUrl;
 
-            // Step 3: Register the user
+        
             const res = await registerUser(data);
-            console.log("Registration Response:", res); // Log registration response
+            // console.log("Registration Response:", res);
 
             if (res?.success) {
                 toast.success(res?.message);
                 router.push("/");
             } else {
+                
+                // if (publicId) {
+                //     await deleteImageFromCloudinary(publicId);
+                // }
                 toast.error(res?.message);
             }
         } catch (err: any) {
-            console.error("Error:", err); // Log the error
+            // console.error("Error:", err);
             toast.error(err.message || 'Something went wrong');
+
+            
+            // if (publicId) {
+            //     await deleteImageFromCloudinary(publicId);
+            // }
         } finally {
             setIsLoading(false);
         }
@@ -255,30 +246,6 @@ const Register = () => {
                         </div>
 
                         {/* Image Field (Optional) */}
-                        {/* <div className="mt-4">
-                            <FormField
-                                name="image"
-                                control={form.control}
-                                defaultValue=""
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Upload Profile Image (Optional)</FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                id="image"
-                                                type="file"
-                                                onChange={(e) => {
-                                                    const file = e.target.files?.[0];
-                                                    field.onChange(file || ""); // শুধুমাত্র ফাইল পাঠান, অ্যারে নয়
-                                                }}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                        </div> */}
-
                         <div className="mt-4">
                             <FormField
                                 name="image"
@@ -294,13 +261,20 @@ const Register = () => {
                                                 onChange={(e) => {
                                                     const file = e.target.files?.[0];
                                                     if (file) {
-                                                        const reader = new FileReader();
-                                                        reader.onloadend = () => {
-                                                            field.onChange(reader.result); // Convert file to base64 string
-                                                        };
-                                                        reader.readAsDataURL(file);
+                                                        if (file.size > MAX_FILE_SIZE) {
+                                                            form.setError("image", {
+                                                                type: "manual",
+                                                                message: "Image size must be less than 300KB",
+                                                            });
+                                                        } else {
+                                                            const reader = new FileReader();
+                                                            reader.onloadend = () => {
+                                                                field.onChange(reader.result);
+                                                            };
+                                                            reader.readAsDataURL(file);
+                                                        }
                                                     } else {
-                                                        field.onChange(""); // If no file, set to empty string
+                                                        field.onChange(""); 
                                                     }
                                                 }}
                                             />
