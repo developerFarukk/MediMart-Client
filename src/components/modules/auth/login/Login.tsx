@@ -101,8 +101,17 @@ const Login = () => {
                 </Form>
                 <p className="text-sm text-gray-600 text-center my-3">
                     Do not have any account ?
-                    <Link href="/register" className="text-primary ml-2">
+                    <Link href="/register" className="text-blue-400 hover:text-blue-700 ml-2 font-semibold">
                         Register
+                    </Link>
+                    <span className="flex items-center p-2">
+                        <span className="h-px flex-1 bg-black"></span>
+                        <span className="shrink-0 px-6">OR</span>
+                        <span className="h-px flex-1 bg-black"></span>
+                    </span>
+
+                    <Link href="/" className="text-blue-400 hover:text-blue-700 font-semibold">
+                        Back to Home
                     </Link>
                 </p>
             </div>
