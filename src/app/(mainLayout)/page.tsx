@@ -1,3 +1,4 @@
+import Banner from "@/components/modules/homePage/brandingSection/Banner";
 
 
 
@@ -5,7 +6,11 @@ const Home = () => {
 
     return (
         <div>
-            <div> The Component is Start Home </div>
+
+            {/* Branding Banner Sction */}
+            <div>
+                <Banner />
+            </div>
         </div>
     );
 };
