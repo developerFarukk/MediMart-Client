@@ -53,7 +53,7 @@ export function NavProjects({
                             <DropdownMenuTrigger asChild>
                                 <SidebarMenuAction showOnHover>
                                     <MoreHorizontal />
-                                    <span className="sr-only">More</span>
+                                    <span className="sr-only">Dashboard Home</span>
                                 </SidebarMenuAction>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent
@@ -81,7 +81,7 @@ export function NavProjects({
                 <SidebarMenuItem>
                     <SidebarMenuButton>
                         <MoreHorizontal />
-                        <span>More</span>
+                        <span>Dashboard Home</span>
                     </SidebarMenuButton>
                 </SidebarMenuItem>
             </SidebarMenu>

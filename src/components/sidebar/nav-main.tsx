@@ -1,6 +1,6 @@
 "use client"
 
-import { ChevronRight, type LucideIcon } from "lucide-react"
+import { ChevronRight, House, type LucideIcon } from "lucide-react"
 
 
 import {
@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/sidebar"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useUser } from "@/context/UserContext"
 
 export function NavMain({
     items,
@@ -37,8 +38,19 @@ export function NavMain({
     }[]
 }) {
     const pathname = usePathname();
+    const { user } = useUser();
     return (
         <SidebarGroup>
+            <SidebarMenuSubButton asChild>
+                <Link
+                    href={`/${user?.role}/dashboard`}
+                    className={`${pathname === `/${user?.role}/dashboard` ? "bg-slate-200 hover:bg-slate-300  text-fuchsia-500 font-bold" : "text-base"}`}
+                >
+                    <House />
+                    <span>Dashboard Home</span>
+                </Link>
+            </SidebarMenuSubButton>
+
             <SidebarGroupLabel>Platform</SidebarGroupLabel>
             <SidebarMenu>
                 {items.map((item) => (
