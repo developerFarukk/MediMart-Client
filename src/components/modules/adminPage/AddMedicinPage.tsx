@@ -1,5 +1,6 @@
 
 
+
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -11,34 +12,51 @@ import { addMedicinSchemaValidation } from "./addMedicinSchema";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { addmedicin } from "@/services/MedicinManagment";
+import { toast } from "sonner";
 
 const AddMedicinPage = () => {
     const form = useForm({
         resolver: zodResolver(addMedicinSchemaValidation),
-        // defaultValues: {
-        //     name: "",
-        //     description: "",
-        //     price: 0,
-        //     quantity: 1,
-        //     category: "",
-        //     requiredPrescription: "No",
-        //     massUnit: 0.1,
-        //     manufacturerDetails: {
-        //         name: "",
-        //         address: "",
-        //         contactNumber: "",
-        //     },
-        // },
     });
 
     const { formState: { isSubmitting, errors } } = form;
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-        console.log("Form submitted with data:", data);
+
+        console.log(data);
+        
+
+        // const modifiedData = {
+
+        //     body: {
+        //         name: data?.name
+        //     }
+        // };
+
         try {
-            console.log("Form submission successful!");
-        } catch (error) {
-            console.error("Form submission error:", error);
+
+            // const formData = new FormData();
+            // formData.append("data", JSON.stringify(modifiedData));
+
+            // console.log(formData);
+            
+
+            // Call the addmedicin function with JSON data
+            const res = await addmedicin(data);
+
+            console.log(res);
+
+
+            if (res.success) {
+                toast.success(res.message);
+                form.reset();
+            } else {
+                toast.error(res.message);
+                
+            }
+        } catch (err: any) {
+            toast.error(err.message || "Something went wrong");
         }
     };
 
