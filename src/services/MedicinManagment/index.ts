@@ -18,7 +18,7 @@ export const addmedicin = async (data: any): Promise<any> => {
                 "Content-Type": "application/json",
             },
         });
-        revalidateTag("PRODUCT");
+        revalidateTag("Medicin");
         return res.json();
     } catch (error: any) {
         return Error(error);

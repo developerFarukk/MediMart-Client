@@ -69,7 +69,6 @@ const Register = () => {
 
         try {
 
-            // Step 1: Check image size
             if (data.image && typeof data.image === "string") {
                 const base64Data = data.image.split(',')[1];
                 const fileSizeInBytes = (base64Data.length * 3) / 4;
@@ -108,7 +107,7 @@ const Register = () => {
 
             if (res?.success) {
                 toast.success(res?.message);
-                router.push("/");
+                router.push("/login");
             } else {
                 
                 // if (publicId) {

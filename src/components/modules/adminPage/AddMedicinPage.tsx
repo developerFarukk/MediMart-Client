@@ -14,49 +14,87 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { addmedicin } from "@/services/MedicinManagment";
 import { toast } from "sonner";
+import { useUser } from "@/context/UserContext";
+
+const MAX_FILE_SIZE = 300 * 1024;
 
 const AddMedicinPage = () => {
     const form = useForm({
         resolver: zodResolver(addMedicinSchemaValidation),
+        defaultValues: {
+            name: "",
+            description: "",
+            price: 0,
+            quantity: 0,
+            category: undefined,
+            requiredPrescription: undefined,
+            massUnit: 0.1,
+            manufacturerDetails: {
+                name: "",
+                address: "",
+                contactNumber: "",
+            },
+            mediImage: "",
+        },
     });
 
     const { formState: { isSubmitting, errors } } = form;
+    const { setIsLoading } = useUser();
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+        setIsLoading(true);
 
-        console.log(data);
-        
-
-        // const modifiedData = {
-
-        //     body: {
-        //         name: data?.name
-        //     }
-        // };
+        let imageUrl = "";
 
         try {
 
-            // const formData = new FormData();
-            // formData.append("data", JSON.stringify(modifiedData));
+            if (data.mediImage && typeof data.mediImage === "string") {
+                const base64Data = data.mediImage.split(',')[1];
+                const fileSizeInBytes = (base64Data.length * 3) / 4;
 
-            // console.log(formData);
-            
 
-            // Call the addmedicin function with JSON data
+                if (fileSizeInBytes > MAX_FILE_SIZE) {
+                    throw new Error("Image size must be less than 300KB");
+                }
+
+                const formData = new FormData();
+                formData.append('file', data.mediImage);
+                formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!);
+
+
+                const cloudinaryResponse = await fetch(
+                    `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+                    {
+                        method: 'POST',
+                        body: formData,
+                    }
+                );
+
+                const cloudinaryData = await cloudinaryResponse.json();
+
+                if (cloudinaryData.secure_url) {
+                    imageUrl = cloudinaryData.secure_url;
+                } else {
+                    throw new Error("Image upload failed");
+                }
+            }
+
+
+            data.mediImage = imageUrl;
+
+
             const res = await addmedicin(data);
-
-            console.log(res);
-
 
             if (res.success) {
                 toast.success(res.message);
                 form.reset();
             } else {
                 toast.error(res.message);
-                
             }
         } catch (err: any) {
             toast.error(err.message || "Something went wrong");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -268,6 +306,46 @@ const AddMedicinPage = () => {
                                                 <Input placeholder="Enter contact number" {...field} />
                                             </FormControl>
                                             <FormMessage>{errors.manufacturerDetails?.contactNumber?.message as string}</FormMessage>
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
+
+                            {/* Image Field (Optional) */}
+                            <div className="mt-4">
+                                <FormField
+                                    name="mediImage"
+                                    control={form.control}
+                                    defaultValue=""
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Upload Medicin Image (Optional)</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    id="mediImage"
+                                                    type="file"
+                                                    onChange={(e) => {
+                                                        const file = e.target.files?.[0];
+                                                        if (file) {
+                                                            if (file.size > MAX_FILE_SIZE) {
+                                                                form.setError("mediImage", {
+                                                                    type: "manual",
+                                                                    message: "Medicin Image size must be less than 300KB",
+                                                                });
+                                                            } else {
+                                                                const reader = new FileReader();
+                                                                reader.onloadend = () => {
+                                                                    field.onChange(reader.result);
+                                                                };
+                                                                reader.readAsDataURL(file);
+                                                            }
+                                                        } else {
+                                                            field.onChange("");
+                                                        }
+                                                    }}
+                                                />
+                                            </FormControl>
+                                            <FormMessage />
                                         </FormItem>
                                     )}
                                 />
