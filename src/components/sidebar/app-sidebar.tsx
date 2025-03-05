@@ -32,21 +32,23 @@ import Link from "next/link"
 import Image from "next/image"
 
 const data = {
+
     user: {
         name: "shadcn",
         email: "m@example.com",
         avatar: "/avatars/shadcn.jpg",
     },
+
     navMain: [
         {
-            title: "Playground",
+            title: "Medicin Managments",
             url: "#",
             icon: SquareTerminal,
             isActive: true,
             items: [
                 {
-                    title: "History",
-                    url: "#",
+                    title: "Add Medicin",
+                    url: "/admin/addmedicin",
                 },
                 {
                     title: "Starred",
@@ -124,6 +126,7 @@ const data = {
             ],
         },
     ],
+
     navSecondary: [
         {
             title: "Support",
@@ -136,6 +139,7 @@ const data = {
             icon: Send,
         },
     ],
+
     projects: [
         {
             name: "Design Engineering",
