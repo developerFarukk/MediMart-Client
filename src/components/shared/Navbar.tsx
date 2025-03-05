@@ -85,9 +85,6 @@ const Navbar = () => {
                                 <li>
                                     <a className="text-gray-500 transition hover:text-gray-500/75" href="#"> Projects </a>
                                 </li>
-                                <li>
-                                    <Link className="text-gray-500 transition hover:text-gray-500/75" href="/dashboard"> Dashboard </Link>
-                                </li>
                             </ul>
                         </nav>
                     </div>
