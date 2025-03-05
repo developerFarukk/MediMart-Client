@@ -2,10 +2,10 @@
 "use client"
 
 import * as React from "react"
+import medimart from '@/assets/nextmart.png'
 import {
     BookOpen,
     Bot,
-    Command,
     Frame,
     LifeBuoy,
     Map,
@@ -28,6 +28,8 @@ import { NavMain } from "./nav-main"
 import { NavProjects } from "./nav-projects"
 import { NavSecondary } from "./nav-secondary"
 import { NavUser } from "./nav-user"
+import Link from "next/link"
+import Image from "next/image"
 
 const data = {
     user: {
@@ -159,16 +161,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarHeader>
                 <SidebarMenu>
                     <SidebarMenuItem>
-                        <SidebarMenuButton size="lg" asChild>
-                            <a href="#">
-                                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                                    <Command className="size-4" />
+                        <SidebarMenuButton className="bg-fuchsia-400 hover:bg-fuchsia-500" size="lg" asChild>
+                            <Link href="/">
+                                <div className="flex aspect-square size-8 items-center justify-center rounded-lg  ">
+                                    <Image src={medimart} height={40} width={40} alt="medimart" />
                                 </div>
                                 <div className="grid flex-1 text-left text-sm leading-tight">
-                                    <span className="truncate font-semibold">Acme Inc</span>
+                                    <span className="truncate font-semibold">Medi Mart</span>
                                     <span className="truncate text-xs">Enterprise</span>
                                 </div>
-                            </a>
+                            </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>
