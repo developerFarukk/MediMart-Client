@@ -51,7 +51,7 @@ export function NavMain({
                 </Link>
             </SidebarMenuSubButton>
 
-            <SidebarGroupLabel>Platform</SidebarGroupLabel>
+            <SidebarGroupLabel>MEDICIN</SidebarGroupLabel>
             <SidebarMenu>
                 {items.map((item) => (
                     <Collapsible key={item.title} asChild defaultOpen={item.isActive}>
