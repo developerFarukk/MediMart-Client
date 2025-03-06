@@ -6,12 +6,10 @@ import { getAllMedicins } from "@/services/MedicinManagment";
 const AllMedicinPage = async () => {
 
     const { data: medicins } = await getAllMedicins()
-    console.log(medicins);
-    
 
     return (
         <div>
-            <AllMedi />
+            <AllMedi medicins={medicins} />
         </div>
     );
 };
