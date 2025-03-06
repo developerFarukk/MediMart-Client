@@ -6,7 +6,6 @@ import { cookies } from "next/headers";
 
 
 // add Medicin
-// export const addmedicin = async (medicinData: FormData): Promise<any> => {
 export const addmedicin = async (data: any): Promise<any> => {
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/medicins/create-medicin`, {
@@ -19,6 +18,22 @@ export const addmedicin = async (data: any): Promise<any> => {
             },
         });
         revalidateTag("Medicin");
+        return res.json();
+    } catch (error: any) {
+        return Error(error);
+    }
+};
+
+
+// All Medicin Data
+export const getAllMedicins = async () => {
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/medicins`, {
+            next: {
+                tags: ["Medicin"],
+            },
+        });
+
         return res.json();
     } catch (error: any) {
         return Error(error);
