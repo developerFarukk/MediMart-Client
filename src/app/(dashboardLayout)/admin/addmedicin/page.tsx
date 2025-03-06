@@ -1,4 +1,4 @@
-import AddMedicinPage from "@/components/modules/adminPage/AddMedicinPage";
+import AddMedicinPage from "@/components/modules/adminComponents/addmedicinpage/AddMedicinPage";
 
 
 

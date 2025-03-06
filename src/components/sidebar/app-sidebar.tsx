@@ -51,12 +51,8 @@ const data = {
                     url: "/admin/addmedicin",
                 },
                 {
-                    title: "Starred",
-                    url: "#",
-                },
-                {
-                    title: "Settings",
-                    url: "#",
+                    title: "All Medicins",
+                    url: "/admin/allmedicin",
                 },
             ],
         },
