@@ -5,11 +5,11 @@ import { getAllMedicins } from "@/services/MedicinManagment";
 
 const AllMedicinPage = async () => {
 
-    const { data: medicins } = await getAllMedicins()
+    const { data: medicins, isLoading } = await getAllMedicins()
 
     return (
         <div>
-            <AllMedi medicins={medicins} />
+            <AllMedi medicins={medicins} isLoading={isLoading} />
         </div>
     );
 };
