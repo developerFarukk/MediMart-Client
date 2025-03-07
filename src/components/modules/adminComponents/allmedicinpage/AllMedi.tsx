@@ -2,7 +2,6 @@
 
 "use client";
 
-import Loader from "@/components/shared/Loader";
 import TitleMedicin from "@/components/shared/TitleMedicin";
 import ToolTipePage from "@/components/shared/ToolTipePage";
 import { TMedicine } from "@/types/medicins";
@@ -12,19 +11,14 @@ import { useState } from "react";
 
 const AllMedi = ({ medicins }: any) => {
     const [currentPage, setCurrentPage] = useState(1);
-    const [medicinss, setMedicins] = useState(medicins);
-    console.log(medicinss);
+    console.log(medicins);
     
 
-    const totalMedicins = medicinss?.meta?.total || 0;
-    const limit = medicinss?.meta?.limit || 10;
-    const totalPage = medicinss?.meta?.totalPage || 1;
-    const medici = medicinss?.result || [];
+    const totalMedicins = medicins?.meta?.total || 0;
+    const limit = medicins?.meta?.limit || 10;
+    const totalPage = medicins?.meta?.totalPage || 1;
+    const medici = medicins?.result || [];
 
-    const [isLoading, setIsLoading] = useState(false)
-    if (isLoading) {
-        return <Loader />;
-    }
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
