@@ -67,10 +67,9 @@ const AllMedi = ({ medicins }: any) => {
         return <Loader />;
     }
 
-
-    // Products Delate Function
-    const handleDeleteMedicin = async (medi: any) => {
-        console.log(medi._id);
+    // Delete faunction
+    const handleDeleteMedicin = async (medi: TMedicine) => {
+        console.log(medi?._id);
 
         Swal.fire({
             title: "Are you sure?",
@@ -83,9 +82,15 @@ const AllMedi = ({ medicins }: any) => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await deleteMedicin({ id: medi?._id })
-                    // console.log("Delete Result:", deleteResult);
-                    // toast.success('User deleted successfully');
+                    await deleteMedicin(medi?._id);
+
+                    const { data: newMedicins } = await getAllMedicins(currentPage, 10);
+                    if (newMedicins) {
+                        setMedici(newMedicins.result);
+                        setTotalMedicins(newMedicins.meta.total);
+                        setTotalPage(newMedicins.meta.totalPage);
+                    }
+
                     Swal.fire({
                         title: "Deleted!",
                         text: "The Medicin has been deleted.",
