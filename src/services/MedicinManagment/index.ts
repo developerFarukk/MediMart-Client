@@ -25,42 +25,7 @@ export const addmedicin = async (data: any): Promise<any> => {
 };
 
 
-// All Medicin Data
-// export const getAllMedicins = async () => {
-//     try {
-//         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/medicins`, {
-//             next: {
-//                 tags: ["Medicin"],
-//             },
-//         });
-
-//         return res.json();
-//     } catch (error: any) {
-//         return Error(error);
-//     }
-// };
-
-
-
-// export const getAllMedicins = async ( page?: number, limit?: number) => {
-//     const params = new URLSearchParams();
-
-//     try {
-//         const res = await fetch( `${process.env.NEXT_PUBLIC_BASE_API}/medicins?limit=${limit}&page=${page}&${params}`,
-//             {
-//                 next: {
-//                     tags: ["Medicin"],
-//                 },
-//             }
-//         );
-//         const data = await res.json();
-//         return data;
-//     } catch (error: any) {
-//         return Error(error.message);
-//     }
-// };
-
-
+// Get All Medicin
 export const getAllMedicins = async (page?: number, limit?: number) => {
     const params = new URLSearchParams();
 
@@ -74,5 +39,25 @@ export const getAllMedicins = async (page?: number, limit?: number) => {
         return data;
     } catch (error: any) {
         return Error(error.message);
+    }
+};
+
+
+// Delete Medicin
+export const deleteMedicin = async ( id: string): Promise<any> => {
+    try {
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_API}/medicins/${id}`,
+            {
+                method: "DELETE",
+                headers: {
+                    Authorization: (await cookies()).get("accessToken")!.value,
+                },
+            }
+        );
+        revalidateTag("Medicin");
+        return res.json();
+    } catch (error: any) {
+        return Error(error);
     }
 };

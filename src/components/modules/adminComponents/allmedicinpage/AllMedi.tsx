@@ -1,20 +1,20 @@
 
-
-
-
-
 "use client";
 
 import Loader from "@/components/shared/Loader";
 import TitleMedicin from "@/components/shared/TitleMedicin";
 import ToolTipePage from "@/components/shared/ToolTipePage";
-import { getAllMedicins } from "@/services/MedicinManagment";
+import { deleteMedicin, getAllMedicins } from "@/services/MedicinManagment";
+import { TExtraError } from "@/types/global";
 import { TMedicine } from "@/types/medicins";
 import { Pencil, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import Swal from "sweetalert2";
 
 const AllMedi = ({ medicins }: any) => {
+
     const [currentPage, setCurrentPage] = useState(1);
     const [medici, setMedici] = useState(medicins?.result || []);
     const [totalMedicins, setTotalMedicins] = useState(medicins?.meta?.total || 0);
@@ -22,39 +22,28 @@ const AllMedi = ({ medicins }: any) => {
     const [totalPage, setTotalPage] = useState(medicins?.meta?.totalPage || 1);
     const [isLoading, setIsLoading] = useState(false);
 
-    // const handlePageChange = async (page: number) => {
-    //     setisLoading(true);
-    //     setCurrentPage(page); // Update currentPage state
-    //     const { data: newMedicins } = await getAllMedicins(page, 10); // Fetch new data
-    //     if (newMedicins) {
-    //         setMedici(newMedicins.result); // Update medici state
-    //         setTotalMedicins(newMedicins.meta.total); // Update totalMedicins
-    //         setLimit(newMedicins.meta.limit); // Update limit
-    //         setTotalPage(newMedicins.meta.totalPage); // Update totalPage
-    //     }
-    // };
 
     const handlePageChange = async (page: number) => {
-        setIsLoading(true); // Set loading to true
-        setCurrentPage(page); // Update currentPage state
+        setIsLoading(true);
+        setCurrentPage(page);
         try {
-            const { data: newMedicins } = await getAllMedicins(page, 10); // Fetch new data
+            const { data: newMedicins } = await getAllMedicins(page, 10);
             if (newMedicins) {
-                setMedici(newMedicins.result); // Update medici state
-                setTotalMedicins(newMedicins.meta.total); // Update totalMedicins
-                setLimit(newMedicins.meta.limit); // Update limit
-                setTotalPage(newMedicins.meta.totalPage); // Update totalPage
+                setMedici(newMedicins.result);
+                setTotalMedicins(newMedicins.meta.total);
+                setLimit(newMedicins.meta.limit);
+                setTotalPage(newMedicins.meta.totalPage);
             }
         } catch (error) {
             console.error("Error fetching data:", error);
         } finally {
-            setIsLoading(false); // Set loading to false
+            setIsLoading(false);
         }
     };
 
 
     useEffect(() => {
-        handlePageChange(currentPage); // Fetch data when currentPage changes
+        handlePageChange(currentPage);
     }, [currentPage]);
 
     const formatDate = (dateString: string) => {
@@ -64,19 +53,57 @@ const AllMedi = ({ medicins }: any) => {
 
     const handleNextPage = () => {
         if (currentPage < totalPage) {
-            setCurrentPage(currentPage + 1); // Go to next page
+            setCurrentPage(currentPage + 1);
         }
     };
 
     const handlePreviousPage = () => {
         if (currentPage > 1) {
-            setCurrentPage(currentPage - 1); // Go to previous page
+            setCurrentPage(currentPage - 1);
         }
     };
 
     if (isLoading) {
         return <Loader />;
     }
+
+
+    // Products Delate Function
+    const handleDeleteMedicin = async (medi: any) => {
+        console.log(medi._id);
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    await deleteMedicin({ id: medi?._id })
+                    // console.log("Delete Result:", deleteResult);
+                    // toast.success('User deleted successfully');
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "The Medicin has been deleted.",
+                        icon: "success"
+                    });
+                } catch (error) {
+                    console.error("Delete Error:", error);
+                    toast.error((error as TExtraError)?.data?.message || 'Failed to delete Medicin');
+                    Swal.fire({
+                        title: "Error!",
+                        text: (error as TExtraError)?.data?.message || 'Failed to delete Medicin',
+                        icon: "error"
+                    });
+                }
+            }
+        });
+    };
+
 
     return (
         <div>
@@ -145,7 +172,9 @@ const AllMedi = ({ medicins }: any) => {
                                                     <button className="text-blue-500 hover:underline" title="Update">
                                                         <Pencil />
                                                     </button>
-                                                    <button className="text-blue-500 hover:underline" title="Delete">
+                                                    <button
+                                                        onClick={() => handleDeleteMedicin(medi)}
+                                                        className="text-blue-500 hover:underline" title="Delete">
                                                         <Trash2 />
                                                     </button>
                                                 </td>
