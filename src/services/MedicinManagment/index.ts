@@ -26,16 +26,53 @@ export const addmedicin = async (data: any): Promise<any> => {
 
 
 // All Medicin Data
-export const getAllMedicins = async () => {
+// export const getAllMedicins = async () => {
+//     try {
+//         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/medicins`, {
+//             next: {
+//                 tags: ["Medicin"],
+//             },
+//         });
+
+//         return res.json();
+//     } catch (error: any) {
+//         return Error(error);
+//     }
+// };
+
+
+
+// export const getAllMedicins = async ( page?: number, limit?: number) => {
+//     const params = new URLSearchParams();
+
+//     try {
+//         const res = await fetch( `${process.env.NEXT_PUBLIC_BASE_API}/medicins?limit=${limit}&page=${page}&${params}`,
+//             {
+//                 next: {
+//                     tags: ["Medicin"],
+//                 },
+//             }
+//         );
+//         const data = await res.json();
+//         return data;
+//     } catch (error: any) {
+//         return Error(error.message);
+//     }
+// };
+
+
+export const getAllMedicins = async (page?: number, limit?: number) => {
+    const params = new URLSearchParams();
+
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/medicins`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/medicins?limit=${limit}&page=${page}&${params}`, {
             next: {
                 tags: ["Medicin"],
             },
         });
-
-        return res.json();
+        const data = await res.json();
+        return data;
     } catch (error: any) {
-        return Error(error);
+        return Error(error.message);
     }
 };

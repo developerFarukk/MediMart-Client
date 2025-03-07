@@ -4,9 +4,12 @@ import { getAllMedicins } from "@/services/MedicinManagment";
 
 
 
-const AllMedicinPage = async () => {
 
-    const { data: medicins, isLoading, isError } = await getAllMedicins();
+const AllMedicinPage = async ({ searchParams }: {searchParams: Promise<{ page: number }>}) => {
+
+    const { page } = await searchParams;
+
+    const { data: medicins, isLoading, isError } = await getAllMedicins(page, 10);
 
     if (isLoading) {
         return <Loader />;
@@ -16,11 +19,17 @@ const AllMedicinPage = async () => {
         return <div>Data no fatch</div>;
     }
 
+
+
     return (
         <div>
-            <AllMedi medicins={medicins} />
+            <AllMedi medicins={medicins}  />
         </div>
     );
 };
 
+
+
 export default AllMedicinPage;
+
+

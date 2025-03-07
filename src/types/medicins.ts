@@ -1,8 +1,8 @@
 
 interface ManufacturerDetails {
-    manufacturerName: string;
+    name: string;
     address: string;
-    contact: string;
+    contactNumber: string;
 }
 
 export interface TMedicine {
@@ -10,6 +10,7 @@ export interface TMedicine {
     name: string;
     description: string;
     price: number;
+    category: string;
     quantity: number;
     stockAvailability: string;
     requiredPrescription: string;

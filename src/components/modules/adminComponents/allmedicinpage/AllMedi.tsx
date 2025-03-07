@@ -1,24 +1,61 @@
 
 
+
+
+
 "use client";
 
+import Loader from "@/components/shared/Loader";
 import TitleMedicin from "@/components/shared/TitleMedicin";
 import ToolTipePage from "@/components/shared/ToolTipePage";
+import { getAllMedicins } from "@/services/MedicinManagment";
 import { TMedicine } from "@/types/medicins";
 import { Pencil, Trash2 } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const AllMedi = ({ medicins }: any) => {
     const [currentPage, setCurrentPage] = useState(1);
-    console.log(medicins);
-    
+    const [medici, setMedici] = useState(medicins?.result || []);
+    const [totalMedicins, setTotalMedicins] = useState(medicins?.meta?.total || 0);
+    const [limit, setLimit] = useState(medicins?.meta?.limit || 10);
+    const [totalPage, setTotalPage] = useState(medicins?.meta?.totalPage || 1);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const totalMedicins = medicins?.meta?.total || 0;
-    const limit = medicins?.meta?.limit || 10;
-    const totalPage = medicins?.meta?.totalPage || 1;
-    const medici = medicins?.result || [];
+    // const handlePageChange = async (page: number) => {
+    //     setisLoading(true);
+    //     setCurrentPage(page); // Update currentPage state
+    //     const { data: newMedicins } = await getAllMedicins(page, 10); // Fetch new data
+    //     if (newMedicins) {
+    //         setMedici(newMedicins.result); // Update medici state
+    //         setTotalMedicins(newMedicins.meta.total); // Update totalMedicins
+    //         setLimit(newMedicins.meta.limit); // Update limit
+    //         setTotalPage(newMedicins.meta.totalPage); // Update totalPage
+    //     }
+    // };
 
+    const handlePageChange = async (page: number) => {
+        setIsLoading(true); // Set loading to true
+        setCurrentPage(page); // Update currentPage state
+        try {
+            const { data: newMedicins } = await getAllMedicins(page, 10); // Fetch new data
+            if (newMedicins) {
+                setMedici(newMedicins.result); // Update medici state
+                setTotalMedicins(newMedicins.meta.total); // Update totalMedicins
+                setLimit(newMedicins.meta.limit); // Update limit
+                setTotalPage(newMedicins.meta.totalPage); // Update totalPage
+            }
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        } finally {
+            setIsLoading(false); // Set loading to false
+        }
+    };
+
+
+    useEffect(() => {
+        handlePageChange(currentPage); // Fetch data when currentPage changes
+    }, [currentPage]);
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -27,19 +64,19 @@ const AllMedi = ({ medicins }: any) => {
 
     const handleNextPage = () => {
         if (currentPage < totalPage) {
-            setCurrentPage(currentPage + 1);
+            setCurrentPage(currentPage + 1); // Go to next page
         }
     };
 
     const handlePreviousPage = () => {
         if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
+            setCurrentPage(currentPage - 1); // Go to previous page
         }
     };
 
-    const handlePageChange = (page: number) => {
-        setCurrentPage(page);
-    };
+    if (isLoading) {
+        return <Loader />;
+    }
 
     return (
         <div>
@@ -59,14 +96,13 @@ const AllMedi = ({ medicins }: any) => {
                                     <th className="px-4 py-2 font-medium whitespace-nowrap">
                                         <ToolTipePage title="M. Name" tole="Manufacture Name" />
                                     </th>
-
                                     <th className="px-4 py-2 font-medium whitespace-nowrap">
                                         <ToolTipePage title="M. Contact" tole="Manufacture Contact" />
                                     </th>
+                                    <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Category</th>
                                     <th className="px-4 py-2 font-medium whitespace-nowrap">
                                         <ToolTipePage title="Stock" tole="Stock Availability" />
                                     </th>
-
                                     <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Mass Unit</th>
                                     <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Quantity</th>
                                     <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Price</th>
@@ -76,54 +112,46 @@ const AllMedi = ({ medicins }: any) => {
 
                             <tbody className="divide-y divide-gray-200">
                                 {medici.length > 0 ? (
-                                    medici
-                                        .slice((currentPage - 1) * limit, currentPage * limit) // Pagination logic
-                                        .map((medi: TMedicine, index: number) => {
-                                            const globalIndex = (currentPage - 1) * limit + index;
-                                            return (
-                                                <tr key={medi?._id}>
-                                                    <td className="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                                                        {globalIndex + 1}
-                                                    </td>
-                                                    <td>
-                                                        <div className="flex items-center gap-x-2 p-1">
-                                                            <Image
-                                                                height={20}
-                                                                width={20}
-                                                                className="object-cover w-10 h-10 rounded-full"
-                                                                src={medi?.mediImage || "/default-image.png"} // Fallback image
-                                                                alt="medi"
-                                                            />
-                                                            <div>
-                                                                <h2 className="font-medium text-gray-800 dark:text-white">{medi?.name}</h2>
-                                                            </div>
+                                    medici.map((medi: TMedicine, index: number) => {
+                                        const globalIndex = (currentPage - 1) * limit + index;
+                                        return (
+                                            <tr key={medi?._id}>
+                                                <td className="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                                                    {globalIndex + 1}
+                                                </td>
+                                                <td>
+                                                    <div className="flex items-center gap-x-2 p-1">
+                                                        <Image
+                                                            height={20}
+                                                            width={20}
+                                                            className="object-cover w-10 h-10 rounded-full"
+                                                            src={medi?.mediImage || "/default-image.png"}
+                                                            alt="medi"
+                                                        />
+                                                        <div>
+                                                            <h2 className="font-medium text-gray-800 dark:text-white">{medi?.name}</h2>
                                                         </div>
-                                                    </td>
-                                                    <td className="px-4 py-2 whitespace-nowrap text-gray-700">{formatDate(medi?.createdAt)}</td>
-                                                    <td className="px-4 py-2 whitespace-nowrap text-gray-700">{medi?.manufacturerDetails?.manufacturerName || "N/A"}</td>
-
-                                                    <td className="px-4 py-2 whitespace-nowrap text-gray-700">{medi?.manufacturerDetails?.contact || "N/A"}</td>
-                                                    <td className="px-4 py-2 whitespace-nowrap text-gray-700">{medi?.stockAvailability}</td>
-
-                                                    <td className="px-4 py-2 whitespace-nowrap text-gray-700">{medi?.massUnit}</td>
-                                                    <td className="px-4 py-2 whitespace-nowrap text-gray-700">{medi?.quantity}</td>
-                                                    <td className="px-4 py-2 whitespace-nowrap text-gray-700">${medi?.price}</td>
-
-                                                    {/* <td className="px-4 py-2 whitespace-nowrap text-gray-700">
-                                                       
-                                                        <button className="text-blue-500 hover:underline"><Pencil /></button>
-                                                    </td> */}
-                                                    <td className="flex justify-center gap-4 px-4 py-2 whitespace-nowrap text-gray-700">
-                                                        <button className="text-blue-500 hover:underline" title="Update">
-                                                            <Pencil />
-                                                        </button>
-                                                        <button className="text-blue-500 hover:underline" title="Delete">
-                                                            <Trash2 />
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            );
-                                        })
+                                                    </div>
+                                                </td>
+                                                <td className="px-4 py-2 whitespace-nowrap text-gray-700">{formatDate(medi?.createdAt)}</td>
+                                                <td className="px-4 py-2 whitespace-nowrap text-gray-700">{medi?.manufacturerDetails?.name || "N/A"}</td>
+                                                <td className="px-4 py-2 whitespace-nowrap text-gray-700">{medi?.manufacturerDetails?.contactNumber || "N/A"}</td>
+                                                <td className="px-4 py-2 whitespace-nowrap text-gray-700">{medi?.category}</td>
+                                                <td className="px-4 py-2 whitespace-nowrap text-gray-700">{medi?.stockAvailability}</td>
+                                                <td className="px-4 py-2 whitespace-nowrap text-gray-700">{medi?.massUnit}</td>
+                                                <td className="px-4 py-2 whitespace-nowrap text-gray-700">{medi?.quantity}</td>
+                                                <td className="px-4 py-2 whitespace-nowrap text-gray-700">{medi?.price}</td>
+                                                <td className="flex justify-center gap-4 px-4 py-2 whitespace-nowrap text-gray-700">
+                                                    <button className="text-blue-500 hover:underline" title="Update">
+                                                        <Pencil />
+                                                    </button>
+                                                    <button className="text-blue-500 hover:underline" title="Delete">
+                                                        <Trash2 />
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })
                                 ) : (
                                     <tr>
                                         <td colSpan={12} className="text-center font-semibold text-xl py-4">
@@ -135,65 +163,6 @@ const AllMedi = ({ medicins }: any) => {
                         </table>
                     </div>
 
-                    {/* <div className="rounded-b-lg border-t border-gray-200 px-4 py-2">
-                        <ol className="flex justify-end gap-1 text-xs font-medium">
-                            <li>
-                                <button
-                                    onClick={handlePreviousPage}
-                                    disabled={currentPage === 1}
-                                    className="inline-flex size-8 items-center justify-center rounded-sm border border-gray-100 bg-white text-gray-900 rtl:rotate-180 hover:bg-gray-50"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="size-3"
-                                        viewBox="0 0 20 20"
-                                        fill="currentColor"
-                                    >
-                                        <path
-                                            fillRule="evenodd"
-                                            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                            clipRule="evenodd"
-                                        />
-                                    </svg>
-                                </button>
-                            </li>
-
-                            {Array.from({ length: totalPage }, (_, index) => (
-                                <li key={index + 1}>
-                                    <button
-                                        onClick={() => handlePageChange(index + 1)}
-                                        className={`inline-flex size-8 items-center justify-center rounded-sm border border-gray-100 text-center leading-8 ${currentPage === index + 1
-                                            ? "bg-blue-100/60 text-blue-500"
-                                            : "bg-white text-gray-900"
-                                            } hover:bg-gray-50`}
-                                    >
-                                        {index + 1}
-                                    </button>
-                                </li>
-                            ))}
-
-                            <li>
-                                <button
-                                    onClick={handleNextPage}
-                                    disabled={currentPage === totalPage}
-                                    className="inline-flex size-8 items-center justify-center rounded-sm border border-gray-100 bg-white text-gray-900 rtl:rotate-180 hover:bg-gray-50"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="size-3"
-                                        viewBox="0 0 20 20"
-                                        fill="currentColor"
-                                    >
-                                        <path
-                                            fillRule="evenodd"
-                                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                            clipRule="evenodd"
-                                        />
-                                    </svg>
-                                </button>
-                            </li>
-                        </ol>
-                    </div> */}
                     {/* Pagination */}
                     <div className="flex items-center justify-between mt-6 mb-10">
                         <button
@@ -237,6 +206,3 @@ const AllMedi = ({ medicins }: any) => {
 };
 
 export default AllMedi;
-
-
-
