@@ -44,7 +44,7 @@ export const getAllMedicins = async (page?: number, limit?: number) => {
 
 
 // Delete Medicin
-export const deleteMedicin = async ( id: string): Promise<any> => {
+export const deleteMedicin = async (id: string): Promise<any> => {
     try {
         const res = await fetch(
             `${process.env.NEXT_PUBLIC_BASE_API}/medicins/${id}`,
@@ -55,6 +55,25 @@ export const deleteMedicin = async ( id: string): Promise<any> => {
                 },
             }
         );
+        revalidateTag("Medicin");
+        return res.json();
+    } catch (error: any) {
+        return Error(error);
+    }
+};
+
+
+// // Update Medicin
+export const updateMedicin = async (data: any, medicinId: string): Promise<any> => {
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/medicins/${medicinId}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: (await cookies()).get("accessToken")!.value,
+            },
+            body: JSON.stringify(data),
+        });
         revalidateTag("Medicin");
         return res.json();
     } catch (error: any) {

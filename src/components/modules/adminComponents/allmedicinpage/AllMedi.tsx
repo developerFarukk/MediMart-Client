@@ -12,6 +12,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import Swal from "sweetalert2";
+import UpdateMedicin from "../updateMedicin/UpdateMedicin";
 
 const AllMedi = ({ medicins }: any) => {
 
@@ -174,9 +175,9 @@ const AllMedi = ({ medicins }: any) => {
                                                 <td className="px-4 py-2 whitespace-nowrap text-gray-700">{medi?.quantity}</td>
                                                 <td className="px-4 py-2 whitespace-nowrap text-gray-700">{medi?.price}</td>
                                                 <td className="flex justify-center gap-4 px-4 py-2 whitespace-nowrap text-gray-700">
-                                                    <button className="text-blue-500 hover:underline" title="Update">
-                                                        <Pencil />
-                                                    </button>
+                                                    <div className="text-blue-500 hover:underline" title="Update">
+                                                        <UpdateMedicin title={<Pencil />} medicin={medi} />
+                                                    </div>
                                                     <button
                                                         onClick={() => handleDeleteMedicin(medi)}
                                                         className="text-blue-500 hover:underline" title="Delete">
