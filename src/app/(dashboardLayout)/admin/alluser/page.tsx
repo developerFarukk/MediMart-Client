@@ -1,4 +1,4 @@
-// import AllUsersPage from "@/components/modules/adminComponents/allUsers/AllUsersPage";
+import AllUsersPage from "@/components/modules/adminComponents/allUsers/AllUsersPage";
 import Loader from "@/components/shared/Loader";
 import { getAllUsers } from "@/services/UserService";
 
@@ -17,13 +17,9 @@ const Alluser = async ({ searchParams }: { searchParams: Promise<{ page: number 
         return <div>Data no fatch</div>;
     }
 
-    console.log(users);
-
-
     return (
         <div>
-            <p>name</p>
-            {/* <AllUsersPage /> */}
+            <AllUsersPage users={users} />
         </div>
     );
 };
