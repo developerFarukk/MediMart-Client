@@ -15,6 +15,11 @@ import { useState } from "react";
 import { TMedicine } from "@/types/medicins";
 import { toast } from "sonner";
 import { updateMedicin } from "@/services/MedicinManagment";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import { CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
+import { Calendar } from "@/components/ui/calendar";
 const MAX_FILE_SIZE = 300 * 1024;
 
 interface TTitle {
@@ -25,6 +30,10 @@ interface TTitle {
 const UpdateMedicin = ({ title, medicin }: TTitle) => {
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+    const initialExpiryDate = medicin?.expiryDate
+        ? new Date(medicin.expiryDate)
+        : undefined;
 
     const form = useForm({
         resolver: zodResolver(updateMedicinSchemaValidation),
@@ -53,6 +62,7 @@ const UpdateMedicin = ({ title, medicin }: TTitle) => {
                 contactNumber: medicin?.manufacturerDetails?.contactNumber,
             },
             mediImage: medicin?.mediImage,
+            expiryDate: initialExpiryDate
         },
     });
 
@@ -68,10 +78,10 @@ const UpdateMedicin = ({ title, medicin }: TTitle) => {
             return;
         }
 
-        let imageUrl = medicin?.mediImage; 
+        let imageUrl = medicin?.mediImage;
 
         try {
-      
+
             if (data.mediImage && typeof data.mediImage === "string") {
                 const base64Data = data.mediImage.split(',')[1];
                 const fileSizeInBytes = (base64Data.length * 3) / 4;
@@ -124,7 +134,7 @@ const UpdateMedicin = ({ title, medicin }: TTitle) => {
                 toast.success(res.message);
                 form.reset();
                 setIsDialogOpen(false);
-          
+
                 window.location.reload();
             } else {
                 toast.error(res.message);
@@ -277,6 +287,42 @@ const UpdateMedicin = ({ title, medicin }: TTitle) => {
                                                 </SelectContent>
                                             </Select>
                                             <FormMessage>{errors.requiredPrescription?.message as string}</FormMessage>
+                                        </FormItem>
+                                    )}
+                                />
+
+                                {/* Expiry Date Field */}
+                                <FormField
+                                    control={form.control}
+                                    name="expiryDate"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Expiry Date</FormLabel>
+                                            <Popover>
+                                                <PopoverTrigger asChild>
+                                                    <FormControl>
+                                                        <Button
+                                                            variant={"outline"}
+                                                            className={cn(
+                                                                "w-[280px] justify-start text-left font-normal",
+                                                                !field.value && "text-muted-foreground"
+                                                            )}
+                                                        >
+                                                            <CalendarIcon className="mr-2 h-4 w-4" />
+                                                            {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
+                                                        </Button>
+                                                    </FormControl>
+                                                </PopoverTrigger>
+                                                <PopoverContent className="w-auto p-0">
+                                                    <Calendar
+                                                        mode="single"
+                                                        selected={field.value} // Use the current value
+                                                        onSelect={field.onChange} // Update the value on selection
+                                                        initialFocus
+                                                    />
+                                                </PopoverContent>
+                                            </Popover>
+                                            <FormMessage>{errors.expiryDate?.message as string}</FormMessage>
                                         </FormItem>
                                     )}
                                 />

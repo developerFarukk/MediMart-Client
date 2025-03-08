@@ -34,5 +34,6 @@ export const updateMedicinSchemaValidation = z.object({
     requiredPrescription: RequiredPrescriptions.optional(),
     massUnit: z.number().optional(),
     manufacturerDetails: manufacturerDetailsSchema.optional(),
-    mediImage: z.string().optional()
+    mediImage: z.string().optional(),
+    expiryDate: z.date(),
 });

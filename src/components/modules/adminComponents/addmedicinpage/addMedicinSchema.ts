@@ -35,5 +35,6 @@ export const addMedicinSchemaValidation = z.object({
     massUnit: z.number()
         .default(0.1),
     manufacturerDetails: manufacturerDetailsSchema,
+    expiryDate: z.date(),
     mediImage: z.string().optional()
 });

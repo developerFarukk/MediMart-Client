@@ -125,7 +125,7 @@ const AllMedi = ({ medicins }: any) => {
                                 <tr>
                                     <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">SL</th>
                                     <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Name</th>
-                                    <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Create Date</th>
+                                    <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Expaired Date</th>
                                     <th className="px-4 py-2 font-medium whitespace-nowrap">
                                         <ToolTipePage title="M. Name" tole="Manufacture Name" />
                                     </th>
@@ -166,7 +166,7 @@ const AllMedi = ({ medicins }: any) => {
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td className="px-4 py-2 whitespace-nowrap text-gray-700">{formatDate(medi?.createdAt)}</td>
+                                                <td className="px-4 py-2 whitespace-nowrap text-gray-700">{formatDate(medi?.expiryDate)}</td>
                                                 <td className="px-4 py-2 whitespace-nowrap text-gray-700">{medi?.manufacturerDetails?.name || "N/A"}</td>
                                                 <td className="px-4 py-2 whitespace-nowrap text-gray-700">{medi?.manufacturerDetails?.contactNumber || "N/A"}</td>
                                                 <td className="px-4 py-2 whitespace-nowrap text-gray-700">{medi?.category}</td>

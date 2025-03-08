@@ -17,6 +17,7 @@ export interface TMedicine {
     mediImage: string;
     massUnit: number;
     manufacturerDetails: ManufacturerDetails;
+    expiryDate: string;
     createdAt: string;
     updatedAt: string;
 }
