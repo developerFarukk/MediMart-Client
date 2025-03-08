@@ -10,6 +10,7 @@ export interface TUser {
     image?: string;
     number: string;
     passwordChangedAt?: Date;
+    createdAt: string
 }
 
 
