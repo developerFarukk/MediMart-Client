@@ -7,15 +7,15 @@ const Banner = () => {
     return (
         <div>
             <div>
-                <div className='relative lg:min-h-screen'>
-                    <video className='rounded-2xl' autoPlay loop muted>
+                <div className='relative '>
+                    <video className='' autoPlay loop muted>
                         <source
                             src='https://res.cloudinary.com/dmolqac67/video/upload/v1741451844/medicinvidio_ai18hh.mp4'
                             type='video/mp4'
                         />
                     </video>
                     <div className='absolute bottom-[1.5rem] left-1/2 z-20 w-full -translate-x-1/2 text-center lg:bottom-40'>
-                        <h1 className='text-lg font-medium italic leading-none text-white lg:text-[120px]'>
+                        <h1 className=' font-medium italic leading-none text-white lg:text-[120px]'>
                             Your Health, Our Priority, Find the Right Medicine
                         </h1>
                         <button className='group btn btn-outline relative mt-3 rounded-none border-white text-white hover:bg-transparent lg:mt-6'>
