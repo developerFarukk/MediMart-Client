@@ -98,7 +98,7 @@ const Navbar = () => {
         <section
             // className={` fixed z-50   ${scrolled ? ' bg-blue-100' : 'bg-base'}`}
         >
-            <header className={` fixed z-50 w-full   ${scrolled ? ' bg-blue-100' : 'bg-base'}`} >
+            <header className={` fixed z-1000 w-full   ${scrolled ? ' bg-blue-100' : 'bg-base'}`} >
                 <div className="mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 items-center justify-between">
                         <div className="md:flex md:items-center md:gap-12">
