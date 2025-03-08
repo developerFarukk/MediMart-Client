@@ -1,35 +1,33 @@
 'use client'
 
-import { Input } from "@/components/ui/input";
-import localImage from "../../../../../public/BannerImage.jpg";
+import Link from "next/link";
+
 
 const Banner = () => {
     return (
         <div>
-            <header>
-                <div
-                    className="w-full bg-center bg-cover h-[38rem]"
-                    style={{
-                        backgroundImage: `url(${localImage.src})`,
-                    }}
-                >
-                    <div className="flex items-center justify-center w-full h-full bg-gray-900/40">
-                        <div className="text-center">
-                            <h1 className="text-3xl font-semibold text-white lg:text-4xl">
-                                Wellcome to our <span className="text-blue-400">MediMart</span> Group
-                            </h1>
-                            <div className="flex justify-center items-center gap-4 mt-4 p-4">
-                                <div>
-                                    <Input className="lg:max-w-2xl" type="text" />
-                                </div>
-                                <button className="w-full px-5 py-2  text-sm font-medium text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-md lg:w-auto hover:bg-blue-500 focus:outline-none ">
-                                    Search
-                                </button>
-                            </div>
-                        </div>
+            <div>
+                <div className='relative lg:min-h-screen'>
+                    <video className='rounded-2xl' autoPlay loop muted>
+                        <source
+                            src='https://res.cloudinary.com/dmolqac67/video/upload/v1741451844/medicinvidio_ai18hh.mp4'
+                            type='video/mp4'
+                        />
+                    </video>
+                    <div className='absolute bottom-[1.5rem] left-1/2 z-20 w-full -translate-x-1/2 text-center lg:bottom-40'>
+                        <h1 className='text-lg font-medium italic leading-none text-white lg:text-[120px]'>
+                            Your Health, Our Priority, Find the Right Medicine
+                        </h1>
+                        <button className='group btn btn-outline relative mt-3 rounded-none border-white text-white hover:bg-transparent lg:mt-6'>
+                            <Link href="#">
+                                <p className='z-10 font-light group-hover:text-black lg:text-xl'>Explore Our Medicine Collection</p>
+                            </Link>
+                            <span className='absolute inset-0 w-0 bg-white duration-500 group-hover:w-full'></span>
+                        </button>
                     </div>
+                    <span className='absolute inset-0 hidden h-full w-full bg-black opacity-20 lg:flex'></span>
                 </div>
-            </header>
+            </div>
         </div>
     );
 };
