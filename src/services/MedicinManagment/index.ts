@@ -46,8 +46,7 @@ export const getAllMedicins = async (page?: number, limit?: number) => {
 // Delete Medicin
 export const deleteMedicin = async (id: string): Promise<any> => {
     try {
-        const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_API}/medicins/${id}`,
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/medicins/${id}`,
             {
                 method: "DELETE",
                 headers: {
