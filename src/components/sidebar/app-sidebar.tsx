@@ -5,14 +5,14 @@ import * as React from "react"
 import medimart from '@/assets/nextmart.png'
 import {
     BookOpen,
-    Bot,
+    BriefcaseMedical,
     Frame,
     LifeBuoy,
     Map,
     PieChart,
     Send,
     Settings2,
-    SquareTerminal,
+    User2,
 } from "lucide-react"
 
 import {
@@ -43,7 +43,7 @@ const data = {
         {
             title: "Medicin Managments",
             url: "#",
-            icon: SquareTerminal,
+            icon: BriefcaseMedical,
             isActive: true,
             items: [
                 {
@@ -57,21 +57,13 @@ const data = {
             ],
         },
         {
-            title: "Models",
+            title: "User Managments",
             url: "#",
-            icon: Bot,
+            icon: User2,
             items: [
                 {
-                    title: "Genesis",
-                    url: "#",
-                },
-                {
-                    title: "Explorer",
-                    url: "#",
-                },
-                {
-                    title: "Quantum",
-                    url: "#",
+                    title: "All Users",
+                    url: "/admin/alluser",
                 },
             ],
         },

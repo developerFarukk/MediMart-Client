@@ -52,7 +52,7 @@ const UpdateMedicin = ({ title, medicin }: TTitle) => {
                 address: medicin?.manufacturerDetails?.address,
                 contactNumber: medicin?.manufacturerDetails?.contactNumber,
             },
-            mediImage: "",
+            mediImage: medicin?.mediImage,
         },
     });
 
