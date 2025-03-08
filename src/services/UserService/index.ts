@@ -11,6 +11,7 @@ export const getAllUsers = async (page?: number, limit?: number) => {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/users?limit=${limit}&page=${page}&${params}`, {
             next: {
                 tags: ["User"],
+                revalidate: 10,
             },
             headers: {
                 Authorization: (await cookies()).get("accessToken")!.value,

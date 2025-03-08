@@ -33,6 +33,7 @@ export const getAllMedicins = async (page?: number, limit?: number) => {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/medicins?limit=${limit}&page=${page}&${params}`, {
             next: {
                 tags: ["Medicin"],
+                revalidate: 10,
             },
         });
         const data = await res.json();
