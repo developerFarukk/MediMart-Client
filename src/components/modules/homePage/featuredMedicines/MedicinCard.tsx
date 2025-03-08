@@ -45,33 +45,65 @@ const MedicinCard = ({ medici }: TMedicinss) => {
 
                                     {/* Medicine Details */}
                                     <div className="flex-1">
-                                        <h4 className="text-base font-semibold uppercase text-gray-500">{medici?.category}</h4>
-                                        <h1 className="text-2xl font-semibold uppercase italic text-black">{medici?.name}</h1>
-                                        <p className="text-base font-semibold text-gray-500 mt-2">{medici?.description}</p>
+                                        {/* Category */}
+                                        <h4 className="text-base font-semibold uppercase text-gray-500 mb-2">
+                                            {medici?.category}
+                                        </h4>
 
-                                        {/* Price */}
-                                        <p className="mb-4 mt-6 text-sm font-semibold text-gray-600 uppercase">Price</p>
-                                        <h5 className="text-2xl font-medium uppercase text-black">{medici?.price} TK</h5>
+                                        {/* Medicine Name */}
+                                        <h1 className="text-3xl font-bold uppercase italic text-black mb-4">
+                                            {medici?.name}
+                                        </h1>
 
-                                        {/* Quantity */}
-                                        <p className="mb-4 mt-6 text-sm font-semibold text-gray-600 uppercase">Quantity</p>
-                                        <h5 className="text-2xl font-medium uppercase text-black">{medici?.quantity}</h5>
+                                        {/* Description */}
+                                        <p className="text-base text-gray-600 mb-6 leading-relaxed">
+                                            {medici?.description}
+                                        </p>
+
+                                        {/* Price and Quantity */}
+                                        <div className="grid grid-cols-2 gap-6 mb-8">
+                                            <div>
+                                                <p className="text-sm font-semibold text-gray-600 uppercase mb-2">Price</p>
+                                                <h5 className="text-2xl font-bold text-[#DF2626]">
+                                                    {medici?.price} TK
+                                                </h5>
+                                            </div>
+                                            <div>
+                                                <p className="text-sm font-semibold text-gray-600 uppercase mb-2">Quantity</p>
+                                                <h5 className="text-2xl font-bold text-black">
+                                                    {medici?.quantity}
+                                                </h5>
+                                            </div>
+                                        </div>
 
                                         {/* Manufacturer Details */}
-                                        <p className="mb-4 mt-6 text-sm font-semibold text-gray-600 uppercase">Manufacturer Details</p>
-                                        <div className="space-y-2">
-                                            <p className="text-base font-semibold text-gray-500">Name: {medici?.manufacturerDetails?.name}</p>
-                                            <p className="text-base font-semibold text-gray-500">Address: {medici?.manufacturerDetails?.address}</p>
-                                            <p className="text-base font-semibold text-gray-500">Contact: {medici?.manufacturerDetails?.contactNumber}</p>
+                                        <div className="mb-8">
+                                            <p className="text-sm font-semibold text-gray-600 uppercase mb-4">
+                                                Manufacturer Details
+                                            </p>
+                                            <div className="space-y-3">
+                                                <div className="flex items-center">
+                                                    <span className="text-base font-medium text-gray-700 mr-2">Name:</span>
+                                                    <span className="text-base text-gray-600">{medici?.manufacturerDetails?.name}</span>
+                                                </div>
+                                                <div className="flex items-center">
+                                                    <span className="text-base font-medium text-gray-700 mr-2">Address:</span>
+                                                    <span className="text-base text-gray-600">{medici?.manufacturerDetails?.address}</span>
+                                                </div>
+                                                <div className="flex items-center">
+                                                    <span className="text-base font-medium text-gray-700 mr-2">Contact:</span>
+                                                    <span className="text-base text-gray-600">{medici?.manufacturerDetails?.contactNumber}</span>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         {/* Buttons */}
-                                        <div className="mt-5 flex items-center font-medium transition-all duration-500 ease-out">
-                                            <Button className="z-10 mr-2 rounded-[4px] border border-black px-6 py-3 leading-4 text-black shadow-2xl duration-500 hover:border-black hover:bg-black hover:text-white">
+                                        <div className="flex items-center gap-4">
+                                            <Button className="flex-1 py-3 text-base font-semibold bg-[#DF2626] text-white hover:bg-[#BF1E1E] transition-all duration-300 shadow-lg hover:shadow-xl">
                                                 ADD TO CART
                                             </Button>
-                                            <Button className="z-10 rounded-[4px] bg-black px-6 py-[10px] text-white shadow-2xl duration-500 hover:bg-[#DF2626] hover:text-white hover:shadow-lg">
-                                                Add To Wishlist
+                                            <Button className="flex-1 py-3 text-base font-semibold bg-black text-white hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl">
+                                                Buy Now
                                             </Button>
                                         </div>
                                     </div>
