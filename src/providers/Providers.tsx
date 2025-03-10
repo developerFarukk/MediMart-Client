@@ -9,7 +9,6 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
     return (
         <UserProvider>
             <StoreProvider>{children}</StoreProvider>
-            {/* {children} */}
         </UserProvider>
     );
 };
