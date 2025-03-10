@@ -15,10 +15,14 @@ const initialState: TInitialState = {
 const cartSlice = createSlice({
     name: "cart",
     initialState,
-    reducers: {}
+    reducers: {
+        addMedicin: (state, action) => {
+            state.medicins.push(action.payload);
+        }
+    }
 });
 
 
 
-
+export const { addMedicin } = cartSlice.actions;
 export default cartSlice.reducer;

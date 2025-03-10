@@ -4,14 +4,25 @@
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { addMedicin } from "@/redux/features/cart/cartSlice";
+import { useAppDispatch } from "@/redux/hooks";
 import { TMedicine } from "@/types/medicins";
 import Image from "next/image";
+
 
 interface TMedicinss {
     medici: TMedicine;
 }
 
 const MedicinCard = ({ medici }: TMedicinss) => {
+
+const dispatch = useAppDispatch();
+
+const handleAddProduct = (medici: TMedicine) => {
+    dispatch(addMedicin(medici));
+}
+
+
     return (
         <div>
             <div className='group'>
@@ -99,7 +110,9 @@ const MedicinCard = ({ medici }: TMedicinss) => {
 
                                         {/* Buttons */}
                                         <div className="flex items-center gap-4">
-                                            <Button className="flex-1 py-3 text-base font-semibold bg-[#DF2626] text-white hover:bg-[#BF1E1E] transition-all duration-300 shadow-lg hover:shadow-xl">
+                                            <Button
+                                                onClick={ () => handleAddProduct(medici)}
+                                                className="flex-1 py-3 text-base font-semibold bg-[#DF2626] text-white hover:bg-[#BF1E1E] transition-all duration-300 shadow-lg hover:shadow-xl">
                                                 ADD TO CART
                                             </Button>
                                             <Button className="flex-1 py-3 text-base font-semibold bg-black text-white hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl">
