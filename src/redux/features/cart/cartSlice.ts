@@ -1,9 +1,14 @@
 
+import { TMedicine } from "@/types/medicins";
 import { createSlice } from "@reduxjs/toolkit";
 
-interface TInitialState {}
+interface TInitialState {
+    medicins: TMedicine[];
+}
 
-const initialState: TInitialState = {};
+const initialState: TInitialState = {
+    medicins: []
+};
 
 
 
@@ -12,3 +17,8 @@ const cartSlice = createSlice({
     initialState,
     reducers: {}
 });
+
+
+
+
+export default cartSlice.reducer;

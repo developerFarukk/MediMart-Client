@@ -1,6 +1,8 @@
 
 
 import { configureStore } from "@reduxjs/toolkit";
+import cartSlice from "./features/cart/cartSlice"
+
 // import cartReducer from "./features/cartSlice";
 // import {
 //     persistReducer,
@@ -29,6 +31,7 @@ export const makeStore = () => {
     return configureStore({
         reducer: {
             // cart: cartReducer,
+            cart: cartSlice,
         },
         // middleware: (getDefaultMiddlewares: any) =>
         //     getDefaultMiddlewares({
