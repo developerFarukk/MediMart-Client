@@ -9,7 +9,14 @@ interface CartProps {
     medicin: TMedicine
 }
 
-const Cart = ( { idx, length, medicin }: CartProps ) => {
+
+
+const Cart = ({ idx, length, medicin }: CartProps) => {
+
+    const formatDate = (dateString: string) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString();
+    };
 
     return (
         <div>
@@ -30,9 +37,20 @@ const Cart = ( { idx, length, medicin }: CartProps ) => {
                                 />
                             </div>
                         </div>
-                        <h3 className='items-start justify-start  text-xl font-bold text-[#434343]'>
-                            {medicin?.name}
-                        </h3>
+                        <div>
+                            <h3 className='items-start justify-start  text-xl font-bold text-[#434343]'>
+                                {medicin?.name}
+                            </h3>
+                            <h3 className='items-start justify-start  text-base font-medium text-[#434343]'>
+                                Category: <span className="text-black font-normal ml-1">{medicin?.category}</span>
+                            </h3>
+                            <h3 className='items-start justify-start  text-base font-medium text-[#434343]'>
+                                Expiry Date: <span className="text-black font-normal ml-1">{formatDate(medicin?.expiryDate)}</span>
+                            </h3>
+                            <h3 className='items-start justify-start  text-base font-medium text-[#434343]'>
+                                Mass Unit: <span className="text-black font-normal ml-1">{medicin?.massUnit}</span>
+                            </h3>
+                        </div>
                     </div>
                     <div className='flex flex-col justify-between'>
                         {/* <GoPlus
@@ -46,8 +64,7 @@ const Cart = ( { idx, length, medicin }: CartProps ) => {
                             />
                         </div>
                         <p className='text-xl font-semibold text-black'>
-                            {/* €{discountPrice} */}
-                            1300TK
+                            {medicin?.price}
                         </p>
                     </div>
                 </div>
