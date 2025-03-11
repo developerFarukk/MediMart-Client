@@ -1,3 +1,4 @@
+import { Input } from "@/components/ui/input";
 import { TMedicine } from "@/types/medicins";
 import { Trash } from "lucide-react";
 import Image from "next/image";
@@ -50,6 +51,45 @@ const Cart = ({ idx, length, medicin }: CartProps) => {
                             <h3 className='items-start justify-start  text-base font-medium text-[#434343]'>
                                 Mass Unit: <span className="text-black font-normal ml-1">{medicin?.massUnit}</span>
                             </h3>
+
+                            {/* Inpute Quantity */}
+                            <div>
+                                <div className=" lg:flex lg:items-center lg:justify-start lg:gap-2">
+                                    <label htmlFor="Quantity" className=" font-bold text-gray-700 dark:text-gray-300">
+                                        Quantity :
+                                    </label>
+                                    <div className="flex items-center rounded-sm border w-fit">
+                                        <button
+                                            type="button"
+                                            // onClick={handleDecrement}
+                                            className="size-10 leading-10 text-gray-600 transition hover:opacity-75"
+                                        >
+                                            &minus;
+                                        </button>
+                                        <Input
+                                            type="number"
+                                            id="Quantity"
+                                            // value={quantity}
+                                            // onChange={(e) => {
+                                            //     const newQuantity = Number(e.target.value);
+                                            //     if (newQuantity <= bicycle.quantity && newQuantity >= 1) {
+                                            //         setQuantity(newQuantity);
+                                            //     } else {
+                                            //         toast.error("Quantity cannot exceed available stock.");
+                                            //     }
+                                            // }}
+                                            className="h-6 w-12  border-blue-600  text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
+                                        />
+                                        <button
+                                            type="button"
+                                            // onClick={handleIncrement}
+                                            className="size-10 leading-10 text-gray-600 transition hover:opacity-75"
+                                        >
+                                            +
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className='flex flex-col justify-between'>
@@ -64,7 +104,7 @@ const Cart = ({ idx, length, medicin }: CartProps) => {
                             />
                         </div>
                         <p className='text-xl font-semibold text-black'>
-                            {medicin?.price}
+                            {medicin?.price}TK
                         </p>
                     </div>
                 </div>
