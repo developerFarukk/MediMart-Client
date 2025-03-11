@@ -16,7 +16,7 @@ export default  function HomeLayout({ children }: Readonly<{ children: React.Rea
             <div>
                 <Navbar />
             </div>
-            <div className="min-h-screen mx-auto  px-2 sm:px-4 lg:px-6">
+            <div className="min-h-screen mx-auto ">
                 {children}
             </div>
             <Footer />

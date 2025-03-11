@@ -1,4 +1,5 @@
 
+import { RootState } from "@/redux/store";
 import { TMedicine } from "@/types/medicins";
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -22,7 +23,9 @@ const cartSlice = createSlice({
     }
 });
 
-
+export const orderMedicinsSelector = (state: RootState) => {
+    return state.cart.medicins
+}
 
 export const { addMedicin } = cartSlice.actions;
 export default cartSlice.reducer;

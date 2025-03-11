@@ -7,7 +7,7 @@ const Banner = () => {
     return (
         <div>
             <div>
-                <div className='relative '>
+                <div className='relative mx-auto flex justify-center'>
                     <video className='' autoPlay loop muted>
                         <source
                             src='https://res.cloudinary.com/dmolqac67/video/upload/v1741451844/medicinvidio_ai18hh.mp4'

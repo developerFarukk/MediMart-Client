@@ -15,9 +15,13 @@ import { usePathname, useRouter } from 'next/navigation';
 import { logout } from '@/services/AuthService';
 import { protectedRoutes } from '@/contants';
 import { toast } from 'sonner';
-import { LogOut } from 'lucide-react';
+import { LogOut, ShoppingCart } from 'lucide-react';
+import { useAppSelector } from '@/redux/hooks';
+import { orderMedicinsSelector } from '@/redux/features/cart/cartSlice';
 
 const Navbar = () => {
+    const medicins = useAppSelector(orderMedicinsSelector);
+
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const pathname = usePathname();
@@ -94,11 +98,14 @@ const Navbar = () => {
     ];
 
 
+
+
+
     return (
         <section
-            // className={` fixed z-50   ${scrolled ? ' bg-blue-100' : 'bg-base'}`}
+        // className={` fixed z-50   ${scrolled ? ' bg-blue-100' : 'bg-base'}`}
         >
-            <header className={` fixed z-1000 w-full   ${scrolled ? ' bg-blue-100' : 'bg-base'}`} >
+            <header className={` fixed z-1000 w-full   ${scrolled ? ' bg-blue-50' : 'bg-base'}`} >
                 <div className="mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 items-center justify-between">
                         <div className="md:flex md:items-center md:gap-12">
@@ -125,6 +132,24 @@ const Navbar = () => {
                                             </Link>
                                         </li>
                                     ))}
+                                    <li>
+                                        <div className="flex justify-center items-center md:block hover:bg-blue-100 duration-300 text-base font-medium p-4 rounded-full ">
+                                            <Link href="/">
+                                                <div className="flex justify-center items-center text-center">
+                                                    <div className="relative">
+                                                        <div className="t-0 absolute left-3 z-50 ">
+                                                            <p className="flex h-1 text-2xl  w-1 items-center justify-center rounded-full text-black font-semibold  ml-3 ">
+                                                                {medicins?.length}
+                                                            </p>
+                                                        </div>
+                                                        <div className=''>
+                                                            <ShoppingCart />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        </div>
+                                    </li>
                                 </ul>
                             </nav>
                         </div>
@@ -140,29 +165,31 @@ const Navbar = () => {
                                         user ? (
                                             <>
                                                 <DropdownMenu>
-                                                    <DropdownMenuTrigger>
+                                                    <DropdownMenuTrigger className='border-none'>
                                                         <Avatar>
                                                             <AvatarImage src={user?.image} />
                                                             <AvatarFallback>User</AvatarFallback>
                                                         </Avatar>
                                                     </DropdownMenuTrigger>
-                                                    <DropdownMenuContent>
-                                                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                                                        <DropdownMenuSeparator />
-                                                        <DropdownMenuItem>Profile</DropdownMenuItem>
-                                                        <DropdownMenuItem>
-                                                            <Link href={`/${user?.role}/dashboard`}>Dashboard</Link>
-                                                        </DropdownMenuItem>
-                                                        <DropdownMenuItem>My Shop</DropdownMenuItem>
-                                                        <DropdownMenuSeparator />
-                                                        <DropdownMenuItem
-                                                            className="bg-red-500 cursor-pointer"
-                                                            onClick={handleLogOut}
-                                                        >
-                                                            <LogOut />
-                                                            <span>Log Out</span>
-                                                        </DropdownMenuItem>
-                                                    </DropdownMenuContent>
+                                                    <div className=''>
+                                                        <DropdownMenuContent className='mr-16'>
+                                                            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                                                            <DropdownMenuSeparator />
+                                                            <DropdownMenuItem>Profile</DropdownMenuItem>
+                                                            <DropdownMenuItem>
+                                                                <Link href={`/${user?.role}/dashboard`}>Dashboard</Link>
+                                                            </DropdownMenuItem>
+                                                            <DropdownMenuItem>My Shop</DropdownMenuItem>
+                                                            <DropdownMenuSeparator />
+                                                            <DropdownMenuItem
+                                                                className="bg-red-500 cursor-pointer"
+                                                                onClick={handleLogOut}
+                                                            >
+                                                                <LogOut />
+                                                                <span>Log Out</span>
+                                                            </DropdownMenuItem>
+                                                        </DropdownMenuContent>
+                                                    </div>
                                                 </DropdownMenu>
                                             </>
                                         ) : (
@@ -224,6 +251,23 @@ const Navbar = () => {
                                         </Link>
                                     </li>
                                 ))}
+
+                                <li>
+                                    <div className="flex justify-center items-center md:block hover:bg-blue-100 duration-300 text-base font-medium p-4 rounded-full ">
+                                        <Link href="/">
+                                            <div className="flex justify-center items-center text-center">
+                                                <div className="relative">
+                                                    <div className="t-0 absolute left-3">
+                                                        <p className="flex h-1 text-2xl  w-1 items-center justify-center rounded-full text-black font-semibold  ml-3 ">
+                                                            {medicins?.length}
+                                                        </p>
+                                                    </div>
+                                                    <ShoppingCart />
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    </div>
+                                </li>
 
                                 <li>
                                     {

@@ -6,16 +6,20 @@ import FeaturedMedicines from "@/components/modules/homePage/featuredMedicines/F
 const Home = () => {
 
     return (
-        <div>
+        <div className="">
 
             {/* Branding Banner Sction */}
             <div>
                 <Banner />
             </div>
 
-            {/* featuredMedicines Section */}
-            <div>
-                <FeaturedMedicines />
+
+            <div className="px-2 sm:px-4 lg:px-6">
+
+                {/* featuredMedicines Section */}
+                <div>
+                    <FeaturedMedicines />
+                </div>
             </div>
         </div>
     );
