@@ -132,24 +132,31 @@ const Navbar = () => {
                                             </Link>
                                         </li>
                                     ))}
-                                    <li>
-                                        <div className="flex justify-center items-center md:block hover:bg-blue-100 duration-300 text-base font-medium p-4 rounded-full ">
-                                            <Link href="/">
-                                                <div className="flex justify-center items-center text-center">
-                                                    <div className="relative">
-                                                        <div className="t-0 absolute left-3 z-50 ">
-                                                            <p className="flex h-1 text-2xl  w-1 items-center justify-center rounded-full text-black font-semibold  ml-3 ">
-                                                                {medicins?.length}
-                                                            </p>
+                                    {
+                                        user?.role === "customer" && (
+                                            <li>
+                                                <div className="flex justify-center items-center md:block hover:bg-blue-100 duration-300 text-base font-medium p-4 rounded-full ">
+                                                    <Link
+                                                        href={`${user?.role}/mycard`}
+                                                    >
+                                                        <div className="flex justify-center items-center text-center">
+                                                            <div className="relative">
+                                                                <div className="t-0 absolute left-3 z-50 ">
+                                                                    <p className="flex h-1 text-2xl  w-1 items-center justify-center rounded-full text-black font-semibold  ml-3 ">
+                                                                        {medicins?.length}
+                                                                    </p>
+                                                                </div>
+                                                                <div className=''>
+                                                                    <ShoppingCart />
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div className=''>
-                                                            <ShoppingCart />
-                                                        </div>
-                                                    </div>
+                                                    </Link>
                                                 </div>
-                                            </Link>
-                                        </div>
-                                    </li>
+                                            </li>
+                                        )
+                                    }
+
                                 </ul>
                             </nav>
                         </div>
@@ -252,22 +259,30 @@ const Navbar = () => {
                                     </li>
                                 ))}
 
-                                <li>
-                                    <div className="flex justify-center items-center md:block hover:bg-blue-100 duration-300 text-base font-medium p-4 rounded-full ">
-                                        <Link href="/">
-                                            <div className="flex justify-center items-center text-center">
-                                                <div className="relative">
-                                                    <div className="t-0 absolute left-3">
-                                                        <p className="flex h-1 text-2xl  w-1 items-center justify-center rounded-full text-black font-semibold  ml-3 ">
-                                                            {medicins?.length}
-                                                        </p>
+                                {
+                                    user?.role === "customer" && (
+                                        <li>
+                                            <div className="flex justify-center items-center md:block hover:bg-blue-100 duration-300 text-base font-medium p-4 rounded-full ">
+                                                <Link
+                                                    href={`${user?.role}/mycard`}
+                                                >
+                                                    <div className="flex justify-center items-center text-center">
+                                                        <div className="relative">
+                                                            <div className="t-0 absolute left-3 z-50 ">
+                                                                <p className="flex h-1 text-2xl  w-1 items-center justify-center rounded-full text-black font-semibold  ml-3 ">
+                                                                    {medicins?.length}
+                                                                </p>
+                                                            </div>
+                                                            <div className=''>
+                                                                <ShoppingCart />
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <ShoppingCart />
-                                                </div>
+                                                </Link>
                                             </div>
-                                        </Link>
-                                    </div>
-                                </li>
+                                        </li>
+                                    )
+                                }
 
                                 <li>
                                     {

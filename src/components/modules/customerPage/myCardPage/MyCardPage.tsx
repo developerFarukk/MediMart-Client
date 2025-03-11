@@ -1,9 +1,18 @@
+
+"use client"
+
 import { Button } from "@/components/ui/button";
 import Cart from "./Cart";
+import { useAppSelector } from "@/redux/hooks";
+import { orderMedicinsSelector } from "@/redux/features/cart/cartSlice";
+import { TMedicine } from "@/types/medicins";
 
 
 
 const MyCardPage = () => {
+
+    const medicins = useAppSelector(orderMedicinsSelector);
+
 
     return (
         <div>
@@ -12,18 +21,36 @@ const MyCardPage = () => {
                     <div className='lg:flow-row mx-auto flex w-[90%] flex-col gap-20 lg:w-[85%] lg:flex-row'>
                         {/* cards */}
                         <div className='flex-1'>
-                            <h3 className='text-2xl font-semibold'>An overview order</h3>
+                            <h3 className='text-2xl font-semibold'>
+                                Overview order
+                                <span className="flex items-center">
+                                    <span className="h-px flex-1 bg-black font-semibold"></span>
+                                </span>
+                            </h3>
+
 
                             {/* single cards */}
-                            <div className='gap mt-9 flex flex-col rounded-xl bg-gray-200 p-6'>
-                                {/* {cart?.map((shoe, idx) => <Cart key={shoe._id} idx={idx} length={cart.length} shoe={shoe}></Cart>)} */}
-                                <Cart  />
+                            <div className='gap mt-9 flex flex-col rounded-xl  p-6'>
+                                {medicins.length > 0 ? (
+                                    medicins?.map((medicin: TMedicine, idx: number) => <Cart key={medicin?._id} idx={idx} length={medicin.length} medicin={medicin} />)
+                                ) :
+
+                                    <div>
+                                        <h3 className='text-xl text-blue-600 font-semibold flex justify-center'>No Medicin cart data </h3>
+                                    </div>
+
+                                }
                             </div>
                         </div>
 
                         {/* order details part */}
                         <div>
-                            <h3 className='text-2xl font-semibold'>Oder details</h3>
+                            <h3 className='text-2xl font-semibold'>
+                                Oder details
+                                <span className="flex items-center">
+                                    <span className="h-px flex-1 bg-black font-semibold"></span>
+                                </span>
+                            </h3>
                             <div className=''>
                                 <div className='mb-4 mt-9 w-full rounded-xl border bg-[#FAFAFA] p-5 text-lg font-semibold *:w-full md:w-80'>
                                     <div className='flex justify-between text-lg font-normal text-[#656565]'>
