@@ -12,7 +12,7 @@ const LoginPage = () => {
             <Suspense fallback={<Loader />}>
                 <Login />
             </Suspense>
-
+            {/* <Login /> */}
 
         </div>
     );

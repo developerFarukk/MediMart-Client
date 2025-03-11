@@ -3,33 +3,16 @@
 
 import * as React from "react"
 import medimart from '@/assets/nextmart.png'
-import {
-    BookOpen,
-    BriefcaseMedical,
-    Frame,
-    LifeBuoy,
-    Map,
-    PieChart,
-    Send,
-    Settings2,
-    User2,
-} from "lucide-react"
-
-import {
-    Sidebar,
-    SidebarContent,
-    SidebarFooter,
-    SidebarHeader,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
-} from "@/components/ui/sidebar"
+import { BookOpen, BriefcaseMedical, Frame, IdCardIcon, LifeBuoy, Map, PieChart, Send, Settings2, User2 } from "lucide-react"
+import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar"
 import { NavMain } from "./nav-main"
-import { NavProjects } from "./nav-projects"
-import { NavSecondary } from "./nav-secondary"
+// import { NavProjects } from "./nav-projects"
+// import { NavSecondary } from "./nav-secondary"
 import { NavUser } from "./nav-user"
 import Link from "next/link"
 import Image from "next/image"
+import { useUser } from "@/context/UserContext"
+import { NavCustomer } from "./nav-customer"
 
 const data = {
 
@@ -44,7 +27,7 @@ const data = {
             title: "Medicin Managments",
             url: "#",
             icon: BriefcaseMedical,
-            isActive: true,
+            isActive: false,
             items: [
                 {
                     title: "Add Medicin",
@@ -145,9 +128,38 @@ const data = {
             icon: Map,
         },
     ],
+
+    navCustomer: [
+        {
+            title: "Cart Managments",
+            url: "#",
+            icon: IdCardIcon,
+            isActive: false,
+            items: [
+                {
+                    title: "My Card",
+                    url: "#",
+                },
+            ],
+        },
+        {
+            title: "Order Managments",
+            url: "#",
+            icon: User2,
+            items: [
+                {
+                    title: "All Users",
+                    url: "#",
+                },
+            ],
+        },
+    ],
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+
+    const { user } = useUser();
+
     return (
         <Sidebar variant="inset" {...props}>
             <SidebarHeader>
@@ -160,7 +172,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                 </div>
                                 <div className="grid flex-1 text-left text-sm leading-tight">
                                     <span className="truncate font-semibold">Medi Mart</span>
-                                    <span className="truncate text-xs">Enterprise</span>
+                                    <span className="truncate text-xs">{user?.role}</span>
                                 </div>
                             </Link>
                         </SidebarMenuButton>
@@ -168,10 +180,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </SidebarMenu>
             </SidebarHeader>
             <SidebarContent>
-                
                 <NavMain items={data.navMain} />
-                <NavProjects projects={data.projects} />
-                <NavSecondary items={data.navSecondary} className="mt-auto" />
+                {
+                    user?.role === "customer" && (
+                        <NavCustomer items={data.navCustomer} />
+                    )
+                }
+
+                {/* <NavProjects projects={data.projects} /> */}
+                {/* <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
             </SidebarContent>
             <SidebarFooter>
                 <NavUser user={data.user} />

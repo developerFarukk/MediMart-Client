@@ -1,11 +1,14 @@
 
 
+import CustomerDashboardPage from "@/components/modules/adminComponents/CustomerDashboardPage";
+
+
 
 const CustomerDashboard = () => {
 
     return (
         <div>
-            <div> The Component is Start CustomerDashboard </div>
+            <CustomerDashboardPage />
         </div>
     );
 };
