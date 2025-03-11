@@ -30,14 +30,15 @@ const MyCardPage = () => {
 
 
                             {/* single cards */}
-                            <div className='gap mt-9 flex flex-col rounded-xl  p-6'>
+                            <div className=' mt-9 flex flex-col rounded-xl  p-1'>
                                 {medicins.length > 0 ? (
                                     medicins?.map((medicin: TMedicine, idx: number) => <Cart key={medicin?._id} idx={idx} length={medicin.length} medicin={medicin} />)
                                 ) :
-
-                                    <div>
-                                        <h3 className='text-xl text-blue-600 font-semibold flex justify-center'>No Medicin cart data </h3>
-                                    </div>
+                                    (
+                                        <div>
+                                            <h3 className='text-xl text-blue-600 font-semibold flex justify-center'>No Medicin cart data </h3>
+                                        </div>
+                                    )
 
                                 }
                             </div>

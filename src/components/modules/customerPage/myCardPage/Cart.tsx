@@ -14,14 +14,14 @@ const Cart = ( { idx, length, medicin }: CartProps ) => {
     return (
         <div>
             <div>
-                <div className='flex justify-between gap-4 bg-gray-200'>
+                <div className='flex justify-between gap-4 bg-gray-200 rounded-lg p-4'>
                     <div className='flex gap-5'>
                         <div className='flex flex-col items-center gap-3 md:flex-row'>
 
                             <div className='relative h-32 w-32 bg-cover'>
                                 <Image
                                     className='w-full rounded-md border bg-[#EAEAEA] p-1'
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSd5GoZzI6363LYhvWJrtfncBfsZ23U-rA6C9BDSyQRLXOe3Z3rij0vk9DhvpyG2k-nKWE&usqp=CAU"
+                                    src={medicin?.mediImage}
                                     alt='asdf'
                                     layout='fill'
                                     objectFit='cover'
