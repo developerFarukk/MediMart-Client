@@ -66,8 +66,8 @@ const Cart = ({ idx, length, medicin }: CartProps) => {
                                         </button>
                                         <Input
                                             type="number"
-                                            id="Quantity"
-                                            // value={quantity}
+                                            id="orderQuantity"
+                                            value={medicin?.orderQuantity}
                                             // onChange={(e) => {
                                             //     const newQuantity = Number(e.target.value);
                                             //     if (newQuantity <= bicycle.quantity && newQuantity >= 1) {

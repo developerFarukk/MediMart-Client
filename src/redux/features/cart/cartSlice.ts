@@ -18,7 +18,17 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         addMedicin: (state, action) => {
-            state.medicins.push(action.payload);
+
+            const medicinToAdd = state.medicins.find(
+                (medicin) => medicin._id === action.payload._id
+            );
+
+            if (medicinToAdd) {
+                medicinToAdd.orderQuantity += 1;
+                return;
+            }
+
+            state.medicins.push({ ...action.payload, orderQuantity: 1 });
         }
     }
 });

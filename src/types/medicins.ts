@@ -20,5 +20,6 @@ export interface TMedicine {
     expiryDate: string;
     createdAt: string;
     updatedAt: string;
-    length: number
+    length: number;
+    orderQuantity: number;
 }
