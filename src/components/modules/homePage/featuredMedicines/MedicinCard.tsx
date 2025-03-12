@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useUser } from "@/context/UserContext";
-import { addMedicin, decrementOrderQuantity, incrementOrderQuantity, orderMedicinsSelector } from "@/redux/features/cart/cartSlice";
+import { addMedicin, orderMedicinsSelector, updateQuantity } from "@/redux/features/cart/cartSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { TMedicine } from "@/types/medicins";
 import { BadgeMinus, BadgePlus } from "lucide-react";
@@ -24,25 +24,27 @@ const MedicinCard = ({ medici }: TMedicinss) => {
     const medicinsCard = useAppSelector(orderMedicinsSelector);
     const dispatch = useAppDispatch()
     const { user } = useUser();
-    const [quantity, setQuantity] = useState<number>(1);
+    const [orderQuantity, setOrderQuantity] = useState<number>(1);
 
-    const handleIncrementQuantity = (id: string) => {
-        dispatch(incrementOrderQuantity(id))
+    const handleIncrementQuantity = () => {
+        // dispatch(incrementOrderQuantity(id))
 
-        // if (quantity < medici?.quantity) {
-        //     setQuantity((prev) => prev + 1);
-        // } else {
-        //     toast.error("You cannot add more than available stock.");
-        // }
+        if (orderQuantity < medici?.quantity) {
+            setOrderQuantity((prev) => prev + 1);
+        } else {
+            toast.error("You cannot add more than available stock.");
+        }
     };
 
-    const handleDecrementQuantity = ( id: string) => {
+    const handleDecrementQuantity = () => {
 
-        dispatch(decrementOrderQuantity(id))
+        // dispatch(decrementOrderQuantity(id))
 
-        // if (quantity > 1) {
-        //     setQuantity((prev) => prev - 1);
-        // }
+        if (orderQuantity > 1) {
+            setOrderQuantity((prev) => prev - 1);
+        } else {
+            toast.error("Order medicin cannot be nagative");
+        }
     };
 
     const handleAddProduct = (medici: TMedicine) => {
@@ -57,17 +59,16 @@ const MedicinCard = ({ medici }: TMedicinss) => {
             return;
         }
 
-        const mediCart = medicinsCard.find((medis: TMedicine) => medis?._id === medici?._id);
+        const mediCart = medicinsCard.find((medis: any) => medis?._id === medici?._id);
 
-        console.log(mediCart);
+        // console.log(mediCart);
 
-
-        // if (mediCart) {
-        //     dispatch(updateQuantity({ id: bi._id, quantity }));
-        //     toast.success("Quantity updated successfully");
-        //     setIsDialogOpen(false);
-        //     return;
-        // }
+        if (mediCart) {
+            dispatch(updateQuantity({ id: medici?._id, orderQuantity }));
+            toast.success("Order Quantity updated successfully");
+            // setIsDialogOpen(false);
+            return;
+        }
 
 
         dispatch(addMedicin(medici));
@@ -204,7 +205,7 @@ const MedicinCard = ({ medici }: TMedicinss) => {
                                                 <div className="flex items-center rounded-sm border w-fit">
                                                     <button
                                                         type="button"
-                                                        onClick={() => handleDecrementQuantity(medici._id)}
+                                                        onClick={handleDecrementQuantity}
                                                         className="size-10 leading-10 text-gray-600 transition hover:opacity-75 p-2"
                                                     >
                                                         <BadgeMinus />
@@ -212,20 +213,20 @@ const MedicinCard = ({ medici }: TMedicinss) => {
                                                     <Input
                                                         type="number"
                                                         id="orderQuantity"
-                                                        value={medici?.orderQuantity}
-                                                        // onChange={(e) => {
-                                                        //     const newQuantity = Number(e.target.value);
-                                                        //     if (newQuantity <= medici?.quantity && newQuantity >= 1) {
-                                                        //         setQuantity(newQuantity);
-                                                        //     } else {
-                                                        //         toast.error("Quantity cannot exceed available stock.");
-                                                        //     }
-                                                        // }}
+                                                        value={orderQuantity}
+                                                        onChange={(e) => {
+                                                            const newQuantity = Number(e.target.value);
+                                                            if (newQuantity <= medici?.quantity && newQuantity >= 1) {
+                                                                setOrderQuantity(newQuantity);
+                                                            } else {
+                                                                toast.error("Quantity cannot exceed available stock.");
+                                                            }
+                                                        }}
                                                         className="h-6 w-10 border-blue-600 text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none mx-2"
                                                     />
                                                     <button
                                                         type="button"
-                                                        onClick={() => handleIncrementQuantity(medici._id)}
+                                                        onClick={handleIncrementQuantity}
                                                         className="size-10 leading-10 text-gray-600 transition hover:opacity-75 p-2"
                                                     >
                                                         <BadgePlus />

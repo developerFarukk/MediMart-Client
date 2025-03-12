@@ -33,8 +33,23 @@ const cartSlice = createSlice({
             } else {
                 state.medicins.push(action.payload);
             }
+            state.totalQuantity += action.payload.orderQuantity;
+            // state.medicins.push({ ...action.payload, orderQuantity: 1 });
+            state.totalPrice += action.payload.price * action.payload.orderQuantity;
+        },
 
-            state.medicins.push({ ...action.payload, orderQuantity: 1 });
+        updateQuantity(
+            state,
+            action: PayloadAction<{ id: string; orderQuantity: number }>
+        ) {
+            const { id, orderQuantity } = action.payload;
+            const existingItem = state.medicins.find((item) => item._id === id);
+            if (existingItem && orderQuantity > 0) {
+                const quantityDifference = orderQuantity - existingItem.orderQuantity;
+                existingItem.orderQuantity = orderQuantity;
+                state.totalQuantity += quantityDifference;
+                state.totalPrice += quantityDifference * existingItem.price;
+            }
         },
 
         incrementOrderQuantity: (state, action) => {
@@ -63,5 +78,5 @@ const cartSlice = createSlice({
 
 export const orderMedicinsSelector = (state: RootState) => { return state.cart.medicins }
 
-export const { addMedicin, incrementOrderQuantity, decrementOrderQuantity } = cartSlice.actions;
+export const { addMedicin, incrementOrderQuantity, decrementOrderQuantity, updateQuantity } = cartSlice.actions;
 export default cartSlice.reducer;
