@@ -11,7 +11,10 @@ import { TMedicine } from "@/types/medicins";
 
 const MyCardPage = () => {
 
-    const medicins = useAppSelector(orderMedicinsSelector);
+    const medicins  = useAppSelector(orderMedicinsSelector);
+
+    console.log(medicins);
+    
 
 
     return (
