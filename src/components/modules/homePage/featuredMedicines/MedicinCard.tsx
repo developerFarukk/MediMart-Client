@@ -5,11 +5,13 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { addMedicin } from "@/redux/features/cart/cartSlice";
-import { useAppDispatch } from "@/redux/hooks";
+import { useUser } from "@/context/UserContext";
+import { addMedicin, orderMedicinsSelector } from "@/redux/features/cart/cartSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { TMedicine } from "@/types/medicins";
 import { BadgeMinus, BadgePlus } from "lucide-react";
 import Image from "next/image";
+import { toast } from "sonner";
 
 
 interface TMedicinss {
@@ -18,9 +20,35 @@ interface TMedicinss {
 
 const MedicinCard = ({ medici }: TMedicinss) => {
 
+    const medicinsCard = useAppSelector(orderMedicinsSelector);
+
+    const { user } = useUser();
     const dispatch = useAppDispatch();
 
+    const handleIncrement = () => {
+        if (quantity < bicycle.quantity) {
+            setQuantity((prev) => prev + 1);
+        } else {
+            toast.error("You cannot add more than available stock.");
+        }
+    };
+
     const handleAddProduct = (medici: TMedicine) => {
+
+        if (user?.role === "admin") {
+            toast.error("Admins cannot place orders.");
+            return;
+        }
+
+        if (!user) {
+            toast.error("You must be logged in to add to cart.");
+            return;
+        }
+
+        const mediCart = medicinsCard.find((medis: TMedicine) => medis?._id === medici?._id);
+        console.log(mediCart);
+        
+
         dispatch(addMedicin(medici));
     }
 
@@ -176,7 +204,7 @@ const MedicinCard = ({ medici }: TMedicinss) => {
                                                     />
                                                     <button
                                                         type="button"
-                                                        // onClick={handleIncrement}
+                                                        onClick={handleIncrement}
                                                         className="size-10 leading-10 text-gray-600 transition hover:opacity-75 p-2"
                                                     >
                                                         <BadgePlus />
