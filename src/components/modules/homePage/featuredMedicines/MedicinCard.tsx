@@ -16,12 +16,17 @@ interface TMedicinss {
 
 const MedicinCard = ({ medici }: TMedicinss) => {
 
-const dispatch = useAppDispatch();
+    const dispatch = useAppDispatch();
 
-const handleAddProduct = (medici: TMedicine) => {
-    dispatch(addMedicin(medici));
-}
+    const handleAddProduct = (medici: TMedicine) => {
+        dispatch(addMedicin(medici));
+    }
 
+
+    const formatDate = (dateString: string) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString();
+    };
 
     return (
         <div>
@@ -56,62 +61,93 @@ const handleAddProduct = (medici: TMedicine) => {
 
                                     {/* Medicine Details */}
                                     <div className="flex-1">
-                                        {/* Category */}
-                                        <h4 className="text-base font-semibold uppercase text-gray-500 mb-2">
-                                            {medici?.category}
-                                        </h4>
 
                                         {/* Medicine Name */}
-                                        <h1 className="text-3xl font-bold uppercase italic text-black mb-4">
+                                        <h1 className="text-2xl font-bold uppercase italic text-black mb-2">
                                             {medici?.name}
                                         </h1>
 
+                                        {/* Category */}
+                                        <h4 className="text-base font-medium  mb-2">
+                                            <span className="uppercase text-gray-500">Category: </span>{medici?.category}
+                                        </h4>
+
                                         {/* Description */}
-                                        <p className="text-base text-gray-600 mb-6 leading-relaxed">
-                                            {medici?.description}
-                                        </p>
+                                        <h4 className="text-base font-medium  mb-2">
+                                            <span className="uppercase text-gray-500">Desception: </span>{medici?.description}
+                                        </h4>
+
+                                        {/* requiredPrescription */}
+                                        <div className="">
+                                            <h4 className="text-base font-medium  mb-2">
+                                                <span className="uppercase text-gray-500">Required Prescription: </span>{medici?.requiredPrescription}
+                                            </h4>
+
+                                        </div>
 
                                         {/* Price and Quantity */}
-                                        <div className="grid grid-cols-2 gap-6 mb-8">
+                                        <div className="grid grid-cols-2 gap-6 mb-2">
                                             <div>
-                                                <p className="text-sm font-semibold text-gray-600 uppercase mb-2">Price</p>
+                                                <p className="text-sm font-semibold text-gray-600 uppercase mb-2">Price:</p>
                                                 <h5 className="text-2xl font-bold text-[#DF2626]">
                                                     {medici?.price} TK
                                                 </h5>
                                             </div>
                                             <div>
-                                                <p className="text-sm font-semibold text-gray-600 uppercase mb-2">Quantity</p>
+                                                <p className="text-sm font-semibold text-gray-600 uppercase mb-2">Quantity:</p>
                                                 <h5 className="text-2xl font-bold text-black">
                                                     {medici?.quantity}
                                                 </h5>
                                             </div>
                                         </div>
 
+                                        {/* Stock Avility and Mass Unite */}
+                                        <div className="lg:flex justify-between">
+                                            <h4 className="text-base font-medium  mb-2">
+                                                <span className="uppercase text-gray-500">Stock Availability: </span>{medici?.stockAvailability}
+                                            </h4>
+                                            <h4 className="text-base font-medium  mb-2 lg:mr-4">
+                                                <span className="uppercase text-gray-500">Mass Unit: </span>{medici?.massUnit}
+                                            </h4>
+                                        </div>
+
+                                        {/* Manufacture date and expire date */}
+                                        <div className="lg:flex justify-between mb-4">
+                                            <h4 className="text-base font-medium  mb-2">
+                                                <span className="uppercase text-gray-500">Manufacture date: </span>{formatDate(medici?.createdAt)}
+                                            </h4>
+                                            <h4 className="text-base font-medium  mb-2 lg:mr-4">
+                                                <span className="uppercase text-gray-500">Expire Date: </span>{formatDate(medici?.expiryDate)}
+                                            </h4>
+                                        </div>
+
                                         {/* Manufacturer Details */}
-                                        <div className="mb-8">
-                                            <p className="text-sm font-semibold text-gray-600 uppercase mb-4">
+                                        <div className="mb-6">
+                                            <p className="text-xl font-bold text-gray-600 uppercase mb-2 underline">
                                                 Manufacturer Details
                                             </p>
-                                            <div className="space-y-3">
-                                                <div className="flex items-center">
-                                                    <span className="text-base font-medium text-gray-700 mr-2">Name:</span>
-                                                    <span className="text-base text-gray-600">{medici?.manufacturerDetails?.name}</span>
+                                            <div className="">
+                                                {/* Stock Name  and Contact */}
+                                                <div className="lg:flex justify-between">
+                                                    <h4 className="text-base font-medium  mb-2">
+                                                        <span className="uppercase text-gray-500">Company Name: </span>{medici?.manufacturerDetails?.name}
+                                                    </h4>
+                                                    <h4 className="text-base font-medium  mb-2 lg:mr-4">
+                                                        <span className="uppercase text-gray-500">Contact: </span>{medici?.manufacturerDetails?.contactNumber}
+                                                    </h4>
                                                 </div>
-                                                <div className="flex items-center">
-                                                    <span className="text-base font-medium text-gray-700 mr-2">Address:</span>
-                                                    <span className="text-base text-gray-600">{medici?.manufacturerDetails?.address}</span>
-                                                </div>
-                                                <div className="flex items-center">
-                                                    <span className="text-base font-medium text-gray-700 mr-2">Contact:</span>
-                                                    <span className="text-base text-gray-600">{medici?.manufacturerDetails?.contactNumber}</span>
-                                                </div>
+
+                                                {/* Description */}
+                                                <h4 className="text-base font-medium  mb-2">
+                                                    <span className="uppercase text-gray-500">Address: </span>{medici?.manufacturerDetails?.address}
+                                                </h4>
                                             </div>
                                         </div>
 
                                         {/* Buttons */}
                                         <div className="flex items-center gap-4">
                                             <Button
-                                                onClick={ () => handleAddProduct(medici)}
+                                                onClick={() => handleAddProduct(medici)}
                                                 className="flex-1 py-3 text-base font-semibold bg-[#DF2626] text-white hover:bg-[#BF1E1E] transition-all duration-300 shadow-lg hover:shadow-xl">
                                                 ADD TO CART
                                             </Button>

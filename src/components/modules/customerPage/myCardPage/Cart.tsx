@@ -33,8 +33,6 @@ const Cart = ({ idx, length, medicin }: CartProps) => {
                                     alt='asdf'
                                     layout='fill'
                                     objectFit='cover'
-                                // height={50}
-                                // width={50}
                                 />
                             </div>
                         </div>
@@ -83,7 +81,7 @@ const Cart = ({ idx, length, medicin }: CartProps) => {
                                         <button
                                             type="button"
                                             // onClick={handleIncrement}
-                                            className="size-10 leading-10 text-gray-600 transition hover:opacity-75 ml-3"
+                                            className="size-10 leading-10 text-gray-600 transition hover:opacity-75 ml-4"
                                         >
                                             <BadgePlus />
                                         </button>
