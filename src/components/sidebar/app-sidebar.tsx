@@ -134,7 +134,7 @@ const data = {
             title: "Cart Managments",
             url: null,
             icon: IdCardIcon,
-            isActive: false,
+            isActive: true,
             items: [
                 {
                     title: "My Card",
