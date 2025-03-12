@@ -42,6 +42,7 @@ const cartSlice = createSlice({
                 return;
             }
         },
+        
         decrementOrderQuantity: (state, action) => {
             const medicinToIncrement = state.medicins.find(
                 (medicin) => medicin._id === action.payload

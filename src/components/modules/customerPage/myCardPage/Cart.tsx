@@ -1,4 +1,6 @@
 import { Input } from "@/components/ui/input";
+import { decrementOrderQuantity, incrementOrderQuantity } from "@/redux/features/cart/cartSlice";
+import { useAppDispatch } from "@/redux/hooks";
 import { TMedicine } from "@/types/medicins";
 import { BadgeMinus, BadgePlus, Trash } from "lucide-react";
 import Image from "next/image";
@@ -13,6 +15,18 @@ interface CartProps {
 
 
 const Cart = ({ idx, length, medicin }: CartProps) => {
+
+    const dispatch = useAppDispatch()
+
+    // Increment Quantity
+    const handleIncrementQuantity = (id: string) => {
+        dispatch(incrementOrderQuantity(id))
+    };
+
+    // Decrement Quantity
+    const handleDecrementQuantity = (id: string) => {
+        dispatch(decrementOrderQuantity(id))
+    };
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -59,7 +73,7 @@ const Cart = ({ idx, length, medicin }: CartProps) => {
                                     <div className="flex items-center rounded-sm border w-fit">
                                         <button
                                             type="button"
-                                            // onClick={handleDecrement}
+                                            onClick={ () => handleDecrementQuantity(medicin?._id)}
                                             className="size-10 leading-10 text-gray-600 transition hover:opacity-75 p-2"
                                         >
                                             <BadgeMinus />
@@ -80,7 +94,7 @@ const Cart = ({ idx, length, medicin }: CartProps) => {
                                         />
                                         <button
                                             type="button"
-                                            // onClick={handleIncrement}
+                                            onClick={() => handleIncrementQuantity(medicin?._id)}
                                             className="size-10 leading-10 text-gray-600 transition hover:opacity-75 p-2"
                                         >
                                             <BadgePlus />

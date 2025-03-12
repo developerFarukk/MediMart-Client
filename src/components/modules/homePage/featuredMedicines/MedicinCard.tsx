@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useUser } from "@/context/UserContext";
-import { addMedicin, orderMedicinsSelector } from "@/redux/features/cart/cartSlice";
+import { addMedicin, decrementOrderQuantity, incrementOrderQuantity, orderMedicinsSelector } from "@/redux/features/cart/cartSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { TMedicine } from "@/types/medicins";
 import { BadgeMinus, BadgePlus } from "lucide-react";
@@ -22,22 +22,27 @@ interface TMedicinss {
 const MedicinCard = ({ medici }: TMedicinss) => {
 
     const medicinsCard = useAppSelector(orderMedicinsSelector);
+    const dispatch = useAppDispatch()
     const { user } = useUser();
-    const dispatch = useAppDispatch();
     const [quantity, setQuantity] = useState<number>(1);
 
-    const handleIncrement = () => {
-        if (quantity < medici?.quantity) {
-            setQuantity((prev) => prev + 1);
-        } else {
-            toast.error("You cannot add more than available stock.");
-        }
+    const handleIncrementQuantity = (id: string) => {
+        dispatch(incrementOrderQuantity(id))
+
+        // if (quantity < medici?.quantity) {
+        //     setQuantity((prev) => prev + 1);
+        // } else {
+        //     toast.error("You cannot add more than available stock.");
+        // }
     };
 
-    const handleDecrement = () => {
-        if (quantity > 1) {
-            setQuantity((prev) => prev - 1);
-        }
+    const handleDecrementQuantity = ( id: string) => {
+
+        dispatch(decrementOrderQuantity(id))
+
+        // if (quantity > 1) {
+        //     setQuantity((prev) => prev - 1);
+        // }
     };
 
     const handleAddProduct = (medici: TMedicine) => {
@@ -55,7 +60,7 @@ const MedicinCard = ({ medici }: TMedicinss) => {
         const mediCart = medicinsCard.find((medis: TMedicine) => medis?._id === medici?._id);
 
         console.log(mediCart);
-        
+
 
         // if (mediCart) {
         //     dispatch(updateQuantity({ id: bi._id, quantity }));
@@ -199,28 +204,28 @@ const MedicinCard = ({ medici }: TMedicinss) => {
                                                 <div className="flex items-center rounded-sm border w-fit">
                                                     <button
                                                         type="button"
-                                                        onClick={handleDecrement}
+                                                        onClick={() => handleDecrementQuantity(medici._id)}
                                                         className="size-10 leading-10 text-gray-600 transition hover:opacity-75 p-2"
                                                     >
                                                         <BadgeMinus />
                                                     </button>
                                                     <Input
                                                         type="number"
-                                                        id="Quantity"
-                                                        value={quantity}
-                                                        onChange={(e) => {
-                                                            const newQuantity = Number(e.target.value);
-                                                            if (newQuantity <= medici?.quantity && newQuantity >= 1) {
-                                                                setQuantity(newQuantity);
-                                                            } else {
-                                                                toast.error("Quantity cannot exceed available stock.");
-                                                            }
-                                                        }}
+                                                        id="orderQuantity"
+                                                        value={medici?.orderQuantity}
+                                                        // onChange={(e) => {
+                                                        //     const newQuantity = Number(e.target.value);
+                                                        //     if (newQuantity <= medici?.quantity && newQuantity >= 1) {
+                                                        //         setQuantity(newQuantity);
+                                                        //     } else {
+                                                        //         toast.error("Quantity cannot exceed available stock.");
+                                                        //     }
+                                                        // }}
                                                         className="h-6 w-10 border-blue-600 text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none mx-2"
                                                     />
                                                     <button
                                                         type="button"
-                                                        onClick={handleIncrement}
+                                                        onClick={() => handleIncrementQuantity(medici._id)}
                                                         className="size-10 leading-10 text-gray-600 transition hover:opacity-75 p-2"
                                                     >
                                                         <BadgePlus />
