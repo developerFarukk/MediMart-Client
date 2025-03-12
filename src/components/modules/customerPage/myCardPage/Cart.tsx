@@ -52,15 +52,15 @@ const Cart = ({ idx, length, medicin }: CartProps) => {
 
                             {/* Inpute Quantity */}
                             <div>
-                                <div className=" lg:flex lg:items-center lg:justify-start lg:gap-2">
-                                    <label htmlFor="Quantity" className=" font-bold text-gray-700 dark:text-gray-300">
-                                        Quantity :
+                                <div className="lg:flex lg:items-center lg:justify-start lg:gap-2">
+                                    <label htmlFor="Quantity" className="font-bold text-gray-700 dark:text-gray-300 mr-2">
+                                        Order Quantity :
                                     </label>
                                     <div className="flex items-center rounded-sm border w-fit">
                                         <button
                                             type="button"
                                             // onClick={handleDecrement}
-                                            className="size-10 leading-10 text-gray-600 transition hover:opacity-75"
+                                            className="size-10 leading-10 text-gray-600 transition hover:opacity-75 p-2"
                                         >
                                             <BadgeMinus />
                                         </button>
@@ -76,12 +76,12 @@ const Cart = ({ idx, length, medicin }: CartProps) => {
                                             //         toast.error("Quantity cannot exceed available stock.");
                                             //     }
                                             // }}
-                                            className="h-6 w-10  border-blue-600  text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
+                                            className="h-6 w-10 border-blue-600 text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none mx-2"
                                         />
                                         <button
                                             type="button"
                                             // onClick={handleIncrement}
-                                            className="size-10 leading-10 text-gray-600 transition hover:opacity-75 ml-4"
+                                            className="size-10 leading-10 text-gray-600 transition hover:opacity-75 p-2"
                                         >
                                             <BadgePlus />
                                         </button>

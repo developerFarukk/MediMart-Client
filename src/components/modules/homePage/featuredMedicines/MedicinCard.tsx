@@ -4,9 +4,11 @@
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 import { addMedicin } from "@/redux/features/cart/cartSlice";
 import { useAppDispatch } from "@/redux/hooks";
 import { TMedicine } from "@/types/medicins";
+import { BadgeMinus, BadgePlus } from "lucide-react";
 import Image from "next/image";
 
 
@@ -102,7 +104,7 @@ const MedicinCard = ({ medici }: TMedicinss) => {
                                         </div>
 
                                         {/* Stock Avility and Mass Unite */}
-                                        <div className="lg:flex justify-between">
+                                        <div className="lg:flex justify-between mb-2">
                                             <h4 className="text-base font-medium  mb-2">
                                                 <span className="uppercase text-gray-500">Stock Availability: </span>{medici?.stockAvailability}
                                             </h4>
@@ -111,18 +113,8 @@ const MedicinCard = ({ medici }: TMedicinss) => {
                                             </h4>
                                         </div>
 
-                                        {/* Manufacture date and expire date */}
-                                        <div className="lg:flex justify-between mb-4">
-                                            <h4 className="text-base font-medium  mb-2">
-                                                <span className="uppercase text-gray-500">Manufacture date: </span>{formatDate(medici?.createdAt)}
-                                            </h4>
-                                            <h4 className="text-base font-medium  mb-2 lg:mr-4">
-                                                <span className="uppercase text-gray-500">Expire Date: </span>{formatDate(medici?.expiryDate)}
-                                            </h4>
-                                        </div>
-
                                         {/* Manufacturer Details */}
-                                        <div className="mb-6">
+                                        <div className="mb-2">
                                             <p className="text-xl font-bold text-gray-600 uppercase mb-2 underline">
                                                 Manufacturer Details
                                             </p>
@@ -137,11 +129,61 @@ const MedicinCard = ({ medici }: TMedicinss) => {
                                                     </h4>
                                                 </div>
 
-                                                {/* Description */}
+                                                {/* Manufacture date and expire date */}
+                                                <div className="lg:flex justify-between">
+                                                    <h4 className="text-base font-medium  mb-2">
+                                                        <span className="uppercase text-gray-500">Manufacture date: </span>{formatDate(medici?.createdAt)}
+                                                    </h4>
+                                                    <h4 className="text-base font-medium  mb-2 lg:mr-4">
+                                                        <span className="uppercase text-gray-500">Expire Date: </span>{formatDate(medici?.expiryDate)}
+                                                    </h4>
+                                                </div>
+
+                                                {/* Address */}
                                                 <h4 className="text-base font-medium  mb-2">
                                                     <span className="uppercase text-gray-500">Address: </span>{medici?.manufacturerDetails?.address}
                                                 </h4>
                                             </div>
+                                        </div>
+
+                                        <div className="mb-4">
+
+                                            <div className="lg:flex lg:items-center lg:justify-start lg:gap-2">
+                                                <label htmlFor="Quantity" className="font-bold text-gray-700 dark:text-gray-300 mr-2">
+                                                    Order Quantity :
+                                                </label>
+                                                <div className="flex items-center rounded-sm border w-fit">
+                                                    <button
+                                                        type="button"
+                                                        // onClick={handleDecrement}
+                                                        className="size-10 leading-10 text-gray-600 transition hover:opacity-75 p-2"
+                                                    >
+                                                        <BadgeMinus />
+                                                    </button>
+                                                    <Input
+                                                        type="number"
+                                                        id="Quantity"
+                                                        // value={quantity}
+                                                        // onChange={(e) => {
+                                                        //     const newQuantity = Number(e.target.value);
+                                                        //     if (newQuantity <= bicycle.quantity && newQuantity >= 1) {
+                                                        //         setQuantity(newQuantity);
+                                                        //     } else {
+                                                        //         toast.error("Quantity cannot exceed available stock.");
+                                                        //     }
+                                                        // }}
+                                                        className="h-6 w-10 border-blue-600 text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none mx-2"
+                                                    />
+                                                    <button
+                                                        type="button"
+                                                        // onClick={handleIncrement}
+                                                        className="size-10 leading-10 text-gray-600 transition hover:opacity-75 p-2"
+                                                    >
+                                                        <BadgePlus />
+                                                    </button>
+                                                </div>
+                                            </div>
+
                                         </div>
 
                                         {/* Buttons */}
