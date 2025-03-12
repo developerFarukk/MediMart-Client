@@ -27,7 +27,6 @@ const MedicinCard = ({ medici }: TMedicinss) => {
     const [orderQuantity, setOrderQuantity] = useState<number>(1);
 
     const handleIncrementQuantity = () => {
-        // dispatch(incrementOrderQuantity(id))
 
         if (orderQuantity < medici?.quantity) {
             setOrderQuantity((prev) => prev + 1);
@@ -37,8 +36,6 @@ const MedicinCard = ({ medici }: TMedicinss) => {
     };
 
     const handleDecrementQuantity = () => {
-
-        // dispatch(decrementOrderQuantity(id))
 
         if (orderQuantity > 1) {
             setOrderQuantity((prev) => prev - 1);
@@ -70,8 +67,24 @@ const MedicinCard = ({ medici }: TMedicinss) => {
             return;
         }
 
-
-        dispatch(addMedicin(medici));
+        // dispatch(addMedicin(medici)); 
+        dispatch(addMedicin({
+            _id: medici?._id,
+            name: medici?.name,
+            description: medici?.description,
+            price: medici?.price,
+            category: medici?.category,
+            orderQuantity: orderQuantity,
+            stockAvailability: medici?.stockAvailability,
+            requiredPrescription: medici?.requiredPrescription,
+            mediImage: medici?.mediImage,
+            massUnit: medici?.massUnit,
+            manufacturerDetails: medici?.manufacturerDetails,
+            expiryDate: medici?.expiryDate,
+            createdAt: medici?.createdAt,
+            updatedAt: medici?.updatedAt,
+            length: medici?.length,
+        }));
     }
 
 
