@@ -23,3 +23,22 @@ export interface TMedicine {
     length: number;
     orderQuantity: number;
 }
+
+
+export type TCartItem = {
+    _id: string;
+    name: string;
+    description: string;
+    price: number;
+    category: string;
+    orderQuantity: number;
+    stockAvailability: string;
+    requiredPrescription: string;
+    mediImage: string | undefined ;
+    massUnit: number;
+    manufacturerDetails: ManufacturerDetails;
+    expiryDate: string;
+    createdAt: string;
+    updatedAt: string;
+    length: number;
+};
