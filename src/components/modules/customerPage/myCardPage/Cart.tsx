@@ -82,14 +82,6 @@ const Cart = ({ idx, length, medicin }: CartProps) => {
                                             type="number"
                                             id="orderQuantity"
                                             value={medicin?.orderQuantity}
-                                            // onChange={(e) => {
-                                            //     const newQuantity = Number(e.target.value);
-                                            //     if (newQuantity <= bicycle.quantity && newQuantity >= 1) {
-                                            //         setQuantity(newQuantity);
-                                            //     } else {
-                                            //         toast.error("Quantity cannot exceed available stock.");
-                                            //     }
-                                            // }}
                                             className="h-6 w-10 border-blue-600 text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none mx-2"
                                         />
                                         <button
