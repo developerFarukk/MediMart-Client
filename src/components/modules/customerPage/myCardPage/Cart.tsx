@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import { decrementOrderQuantity, incrementOrderQuantity } from "@/redux/features/cart/cartSlice";
+import { decrementOrderQuantity, incrementOrderQuantity, removeFromMedicin } from "@/redux/features/cart/cartSlice";
 import { useAppDispatch } from "@/redux/hooks";
 import { TMedicine } from "@/types/medicins";
 import { BadgeMinus, BadgePlus, Trash } from "lucide-react";
@@ -97,13 +97,9 @@ const Cart = ({ idx, length, medicin }: CartProps) => {
                         </div>
                     </div>
                     <div className='flex flex-col justify-between'>
-                        {/* <GoPlus
-                            onClick={() => deleteCart(id)}
-                            className='ml-auto rotate-45 cursor-pointer text-3xl text-[#939393]'
-                        /> */}
                         <div className="">
                             <Trash
-                                // onClick={() => deleteCart(id)}
+                                onClick={() => dispatch(removeFromMedicin(medicin?._id))}
                                 className='ml-auto hover:text-blue-500 cursor-pointer text-3xl'
                             />
                         </div>

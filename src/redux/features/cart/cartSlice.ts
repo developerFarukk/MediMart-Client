@@ -20,21 +20,21 @@ const cartSlice = createSlice({
     name: "cart",
     initialState,
     reducers: {
-        
+
         addMedicin: (state, action: PayloadAction<TCartItem>) => {
             const medicinToAdd = state.medicins.find(
                 (medicin) => medicin._id === action.payload._id
             );
 
             if (medicinToAdd) {
-                
+
                 medicinToAdd.orderQuantity += action.payload.orderQuantity;
             } else {
-              
+
                 state.medicins.push(action.payload);
             }
 
-           
+
             state.totalQuantity += action.payload.orderQuantity;
             state.totalPrice += action.payload.price * action.payload.orderQuantity;
         },
@@ -91,6 +91,16 @@ const cartSlice = createSlice({
                 state.totalPrice -= medicinToDecrement.price;
             }
         },
+
+        removeFromMedicin(state, action: PayloadAction<string>) {
+            const itemId = action.payload;
+            const existingItem = state.medicins.find((item) => item._id === itemId);
+            if (existingItem) {
+                state.totalQuantity -= existingItem.orderQuantity;
+                state.totalPrice -= existingItem.price * existingItem.orderQuantity;
+                state.medicins = state.medicins.filter((item) => item._id !== itemId);
+            }
+        },
     },
 });
 
@@ -98,7 +108,7 @@ const cartSlice = createSlice({
 export const orderMedicinsSelector = (state: RootState) => state.cart.medicins;
 
 // Export actions
-export const { addMedicin, incrementOrderQuantity, decrementOrderQuantity, updateQuantity } = cartSlice.actions;
+export const { addMedicin, incrementOrderQuantity, decrementOrderQuantity, updateQuantity, removeFromMedicin } = cartSlice.actions;
 
 
 export default cartSlice.reducer;
