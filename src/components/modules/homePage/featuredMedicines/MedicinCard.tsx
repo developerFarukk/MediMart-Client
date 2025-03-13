@@ -41,6 +41,7 @@ const MedicinCard = ({ medici }: TMedicinss) => {
         }
     };
 
+
     const handleAddProduct = (medici: TMedicine) => {
         if (user?.role === "admin") {
             toast.error("Admins cannot place orders.");
@@ -88,7 +89,7 @@ const MedicinCard = ({ medici }: TMedicinss) => {
             if (existingProduct?.orderQuantity === orderQuantity) {
                 // If orderQuantity is not updated
                 toast.error("Product is already added to cart.");
-                setIsDialogOpen(false);
+                setIsDialogOpen(false); 
             } else {
                 // If orderQuantity is updated
                 dispatch(updateQuantity({ id: medici?._id, orderQuantity }));
