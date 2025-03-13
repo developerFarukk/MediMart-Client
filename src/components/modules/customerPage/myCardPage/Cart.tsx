@@ -1,15 +1,16 @@
 import { Input } from "@/components/ui/input";
 import { decrementOrderQuantity, incrementOrderQuantity, removeFromMedicin } from "@/redux/features/cart/cartSlice";
 import { useAppDispatch } from "@/redux/hooks";
-import { TMedicine } from "@/types/medicins";
+import { TCartItem } from "@/types/medicins";
 import { BadgeMinus, BadgePlus, Trash } from "lucide-react";
 import Image from "next/image";
+import { toast } from "sonner";
 
 
 interface CartProps {
     idx: number;
     length: number;
-    medicin: TMedicine
+    medicin: TCartItem
 }
 
 
@@ -20,12 +21,28 @@ const Cart = ({ idx, length, medicin }: CartProps) => {
 
     // Increment Quantity
     const handleIncrementQuantity = (id: string) => {
-        dispatch(incrementOrderQuantity(id))
+        if (medicin?.orderQuantity < medicin?.quantity) {
+            dispatch(incrementOrderQuantity(id));
+            toast.success("Increment order quantity successfully");
+        } else {
+
+            toast.error("Limited Stock");
+        }
+
     };
 
     // Decrement Quantity
     const handleDecrementQuantity = (id: string) => {
-        dispatch(decrementOrderQuantity(id))
+        if (medicin?.orderQuantity > 1) {
+            dispatch(decrementOrderQuantity(id));
+            toast.success("Decrement order quantity successfully");
+
+        } else {
+            toast.error("Minimum  order quantity 1");
+
+        }
+
+
     };
 
     const formatDate = (dateString: string) => {
@@ -58,6 +75,9 @@ const Cart = ({ idx, length, medicin }: CartProps) => {
                                 Category: <span className="text-black font-normal ml-1">{medicin?.category}</span>
                             </h3>
                             <h3 className='items-start justify-start  text-base font-medium text-[#434343]'>
+                                Required Prescription: <span className="text-blue-600 font-normal ml-1">{medicin?.requiredPrescription}</span>
+                            </h3>
+                            <h3 className='items-start justify-start  text-base font-medium text-[#434343]'>
                                 Expiry Date: <span className="text-black font-normal ml-1">{formatDate(medicin?.expiryDate)}</span>
                             </h3>
                             <h3 className='items-start justify-start  text-base font-medium text-[#434343]'>
@@ -73,7 +93,7 @@ const Cart = ({ idx, length, medicin }: CartProps) => {
                                     <div className="flex items-center rounded-sm border w-fit">
                                         <button
                                             type="button"
-                                            onClick={ () => handleDecrementQuantity(medicin?._id)}
+                                            onClick={() => handleDecrementQuantity(medicin?._id)}
                                             className="size-10 leading-10 text-gray-600 transition hover:opacity-75 p-2"
                                         >
                                             <BadgeMinus />

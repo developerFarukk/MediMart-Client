@@ -41,4 +41,5 @@ export type TCartItem = {
     createdAt: string;
     updatedAt: string;
     length: number;
+    quantity: number;
 };

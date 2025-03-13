@@ -66,7 +66,7 @@ const cartSlice = createSlice({
                 (medicin) => medicin._id === action.payload
             );
 
-            if (medicinToIncrement) {
+            if (medicinToIncrement && medicinToIncrement.orderQuantity < medicinToIncrement.quantity) {
                 // Increment the quantity
                 medicinToIncrement.orderQuantity += 1;
 

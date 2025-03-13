@@ -67,6 +67,7 @@ const MedicinCard = ({ medici }: TMedicinss) => {
                     description: medici?.description,
                     price: medici?.price,
                     category: medici?.category,
+                    quantity: medici?.quantity,
                     orderQuantity: orderQuantity,
                     stockAvailability: medici?.stockAvailability,
                     requiredPrescription: medici?.requiredPrescription,
