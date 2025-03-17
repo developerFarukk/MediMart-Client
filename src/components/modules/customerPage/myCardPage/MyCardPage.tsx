@@ -10,6 +10,7 @@ import DeleverycartAddress from "./DeleverycartAddress";
 import PrescriptionInpute from "./PrescriptionInpute";
 import ClearButton from "./ClearButton";
 import PaymentMathodSelect from "./PaymentMathodSelect";
+import CheckOutButton from "./CheckOutButton";
 
 
 
@@ -111,9 +112,13 @@ const MyCardPage = () => {
                                     <PaymentMathodSelect />
                                 </div>
 
-                                <Button className="w-full">
+                                <div>
+                                    <CheckOutButton order={orderMedicinss} />
+                                </div>
+
+                                {/* <Button className="w-full">
                                     <span className='-mb-1'>Go to Checkout</span>
-                                </Button>
+                                </Button> */}
                             </div>
                         </div>
                     </div>
