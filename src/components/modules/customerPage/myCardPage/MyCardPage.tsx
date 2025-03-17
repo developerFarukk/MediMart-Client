@@ -3,24 +3,22 @@
 
 import { Button } from "@/components/ui/button";
 import Cart from "./Cart";
-import { useAppSelector } from "@/redux/hooks";
+import {  useAppSelector } from "@/redux/hooks";
 import { TCartItem } from "@/types/medicins";
 import { RootState } from "@/redux/store";
 import DeleverycartAddress from "./DeleverycartAddress";
+import PrescriptionInpute from "./PrescriptionInpute";
+import ClearButton from "./ClearButton";
 
 
 
 const MyCardPage = () => {
-
     const orderMedicinss = useAppSelector((state: RootState) => state.cart);
-    const medicins =orderMedicinss?.medicins;
-    
+    const medicins = orderMedicinss?.medicins;
 
-    console.log(medicins);
+
+    // console.log(medicins);
     // console.log(orderMedicinss);
-    
-    
-
 
     return (
         <div>
@@ -30,7 +28,11 @@ const MyCardPage = () => {
                         {/* cards */}
                         <div className='flex-1'>
                             <h3 className='text-2xl font-semibold'>
-                                Overview order
+                                <div className="lg:flex md:flex justify-between">
+                                    <h4>Overview Order</h4>
+                                    <ClearButton />
+                                    {/* <h4>clear Card</h4> */}
+                                </div>
                                 <span className="flex items-center">
                                     <span className="h-px flex-1 bg-black font-semibold"></span>
                                 </span>
@@ -63,6 +65,10 @@ const MyCardPage = () => {
 
                             <div>
                                 <DeleverycartAddress />
+                            </div>
+
+                            <div>
+                                <PrescriptionInpute />
                             </div>
 
 

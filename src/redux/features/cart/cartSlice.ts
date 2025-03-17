@@ -10,6 +10,7 @@ interface TInitialState {
     totalPrice: number;
     city: string;
     shippingAddress: string;
+    precriptionImage: string
 
 }
 
@@ -19,6 +20,7 @@ const initialState: TInitialState = {
     totalPrice: 0,
     city: "",
     shippingAddress: "",
+    precriptionImage: ""
 };
 
 const cartSlice = createSlice({
@@ -114,6 +116,19 @@ const cartSlice = createSlice({
         updateShippingAddress: (state, action) => {
             state.shippingAddress = action.payload;
         },
+
+        updatePrecriptionImage: (state, action) => {
+            state.precriptionImage = action.payload;
+        },
+
+        clearCart: (state) => {
+            state.medicins = [];
+            state.city = "";
+            state.shippingAddress = "";
+            state.precriptionImage = "";
+            state.totalQuantity = 0;
+            state.totalPrice = 0;
+        },
     },
 });
 
@@ -122,7 +137,7 @@ export const orderMedicinsSelector = (state: RootState) => state.cart.medicins;
 
 // Export actions
 export const { addMedicin, incrementOrderQuantity, decrementOrderQuantity, updateQuantity, removeFromMedicin, updateCity,
-    updateShippingAddress } = cartSlice.actions;
+    updateShippingAddress, updatePrecriptionImage, clearCart } = cartSlice.actions;
 
 
 export default cartSlice.reducer;
