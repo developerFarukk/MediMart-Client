@@ -86,7 +86,7 @@ const PrescriptionInpute = () => {
                                         defaultValue=""
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Upload Profile Image (Optional)</FormLabel>
+                                                <FormLabel>Upload Prescription</FormLabel>
                                                 <FormControl>
                                                     <Input
                                                         id="image"
