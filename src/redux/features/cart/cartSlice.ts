@@ -8,12 +8,17 @@ interface TInitialState {
     medicins: TCartItem[];
     totalQuantity: number;
     totalPrice: number;
+    city: string;
+    shippingAddress: string;
+
 }
 
 const initialState: TInitialState = {
     medicins: [],
     totalQuantity: 0,
     totalPrice: 0,
+    city: "",
+    shippingAddress: "",
 };
 
 const cartSlice = createSlice({
@@ -101,6 +106,14 @@ const cartSlice = createSlice({
                 state.medicins = state.medicins.filter((item) => item._id !== itemId);
             }
         },
+
+        updateCity: (state, action) => {
+            state.city = action.payload;
+        },
+
+        updateShippingAddress: (state, action) => {
+            state.shippingAddress = action.payload;
+        },
     },
 });
 
@@ -108,7 +121,8 @@ const cartSlice = createSlice({
 export const orderMedicinsSelector = (state: RootState) => state.cart.medicins;
 
 // Export actions
-export const { addMedicin, incrementOrderQuantity, decrementOrderQuantity, updateQuantity, removeFromMedicin } = cartSlice.actions;
+export const { addMedicin, incrementOrderQuantity, decrementOrderQuantity, updateQuantity, removeFromMedicin, updateCity,
+    updateShippingAddress } = cartSlice.actions;
 
 
 export default cartSlice.reducer;

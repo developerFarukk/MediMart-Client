@@ -63,7 +63,8 @@ const Cart = ({ idx, length, medicin }: CartProps) => {
                                     src={medicin?.mediImage}
                                     alt='asdf'
                                     layout='fill'
-                                    objectFit='cover'
+                                    objectFit="cover"
+                                    
                                 />
                             </div>
                         </div>

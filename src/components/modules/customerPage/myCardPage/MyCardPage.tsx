@@ -6,6 +6,7 @@ import Cart from "./Cart";
 import { useAppSelector } from "@/redux/hooks";
 import { TCartItem } from "@/types/medicins";
 import { RootState } from "@/redux/store";
+import DeleverycartAddress from "./DeleverycartAddress";
 
 
 
@@ -15,7 +16,9 @@ const MyCardPage = () => {
     const medicins =orderMedicinss?.medicins;
     
 
-    // console.log(medicins);
+    console.log(medicins);
+    // console.log(orderMedicinss);
+    
     
 
 
@@ -57,6 +60,12 @@ const MyCardPage = () => {
                                     <span className="h-px flex-1 bg-black font-semibold"></span>
                                 </span>
                             </h3>
+
+                            <div>
+                                <DeleverycartAddress />
+                            </div>
+
+
                             <div className=''>
                                 <div className='mb-4 mt-9 w-full rounded-xl border bg-[#FAFAFA] p-5 text-lg font-semibold *:w-full md:w-80'>
                                     <div className='flex justify-between text-lg font-normal text-[#656565]'>
