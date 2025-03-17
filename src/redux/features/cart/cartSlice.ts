@@ -4,13 +4,16 @@ import { RootState } from "@/redux/store";
 import { TCartItem } from "@/types/medicins";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+type TPaymentMethod = 'Cash' | 'Online' | '';
+
 interface TInitialState {
     medicins: TCartItem[];
     totalQuantity: number;
     totalPrice: number;
     city: string;
     shippingAddress: string;
-    precriptionImage: string
+    precriptionImage: string;
+    paymentMethod: TPaymentMethod
 
 }
 
@@ -20,7 +23,8 @@ const initialState: TInitialState = {
     totalPrice: 0,
     city: "",
     shippingAddress: "",
-    precriptionImage: ""
+    precriptionImage: "",
+    paymentMethod: ''
 };
 
 const cartSlice = createSlice({
@@ -121,6 +125,10 @@ const cartSlice = createSlice({
             state.precriptionImage = action.payload;
         },
 
+        updatePaymentMathod: (state, action) => {
+            state.paymentMethod = action.payload
+        },
+
         clearCart: (state) => {
             state.medicins = [];
             state.city = "";
@@ -137,7 +145,7 @@ export const orderMedicinsSelector = (state: RootState) => state.cart.medicins;
 
 // Export actions
 export const { addMedicin, incrementOrderQuantity, decrementOrderQuantity, updateQuantity, removeFromMedicin, updateCity,
-    updateShippingAddress, updatePrecriptionImage, clearCart } = cartSlice.actions;
+    updateShippingAddress, updatePrecriptionImage, clearCart, updatePaymentMathod } = cartSlice.actions;
 
 
 export default cartSlice.reducer;

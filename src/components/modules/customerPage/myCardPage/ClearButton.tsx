@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { clearCart } from "@/redux/features/cart/cartSlice";
 import { useAppDispatch } from "@/redux/hooks";
+import { toast } from "sonner";
 
 
 
@@ -11,7 +12,8 @@ const ClearButton = () => {
     const dispatch = useAppDispatch();
 
     const handelClearButton = () => {
-        dispatch(clearCart())
+        dispatch(clearCart());
+        toast.success("Clear cart successfully!");
     }
 
     return (
