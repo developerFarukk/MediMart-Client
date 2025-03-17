@@ -19,7 +19,7 @@ const MyCardPage = () => {
 
 
     // console.log(medicins);
-    console.log(orderMedicinss);
+    // console.log(orderMedicinss);
 
     return (
         <div>

@@ -40,9 +40,14 @@ const cartSlice = createSlice({
             if (medicinToAdd) {
 
                 medicinToAdd.orderQuantity += action.payload.orderQuantity;
+                medicinToAdd.subTotalPrice = action.payload.subTotalPrice
             } else {
 
-                state.medicins.push(action.payload);
+                // state.medicins.push(action.payload);
+                state.medicins.push({
+                    ...action.payload,
+                    subTotalPrice: action.payload.price * action.payload.orderQuantity
+                });
             }
 
 
@@ -61,6 +66,8 @@ const cartSlice = createSlice({
             if (existingItem && orderQuantity > 0) {
                 // Calculate the difference in quantity
                 const quantityDifference = orderQuantity - existingItem.orderQuantity;
+
+                existingItem.subTotalPrice = existingItem.price * existingItem.orderQuantity;
 
                 // Update the item's quantity
                 existingItem.orderQuantity = orderQuantity;
@@ -81,6 +88,8 @@ const cartSlice = createSlice({
                 // Increment the quantity
                 medicinToIncrement.orderQuantity += 1;
 
+                medicinToIncrement.subTotalPrice = medicinToIncrement.price * medicinToIncrement.orderQuantity;
+
                 // Update total quantity and total price
                 state.totalQuantity += 1;
                 state.totalPrice += medicinToIncrement.price;
@@ -97,9 +106,12 @@ const cartSlice = createSlice({
                 // Decrement the quantity
                 medicinToDecrement.orderQuantity -= 1;
 
+                medicinToDecrement.subTotalPrice = medicinToDecrement.price * medicinToDecrement.orderQuantity;
+
                 // Update total quantity and total price
                 state.totalQuantity -= 1;
                 state.totalPrice -= medicinToDecrement.price;
+
             }
         },
 

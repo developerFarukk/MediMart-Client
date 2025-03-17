@@ -56,6 +56,8 @@ const MedicinCard = ({ medici }: TMedicinss) => {
         // Check if the product is already in the cart
         const isProductAlreadyAdded = medicinsCard.some((medis: any) => medis?._id === medici?._id);
 
+        const subMediPrice = orderQuantity * medici?.price
+
         if (!isProductAlreadyAdded) {
             // If the product is not already in the cart, add it
             const toastId = toast.loading("Adding to cart...");
@@ -78,6 +80,7 @@ const MedicinCard = ({ medici }: TMedicinss) => {
                     createdAt: medici?.createdAt,
                     updatedAt: medici?.updatedAt,
                     length: medici?.length,
+                    subTotalPrice: subMediPrice
                 })
             );
 

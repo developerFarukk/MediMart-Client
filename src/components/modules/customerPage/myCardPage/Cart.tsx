@@ -84,6 +84,9 @@ const Cart = ({ idx, length, medicin }: CartProps) => {
                             <h3 className='items-start justify-start  text-base font-medium text-[#434343]'>
                                 Mass Unit: <span className="text-black font-normal ml-1">{medicin?.massUnit}</span>
                             </h3>
+                            <h3 className='items-start justify-start  text-base font-medium text-[#434343]'>
+                            Unit Price: <span className="text-black font-normal ml-1">{medicin?.price}</span>
+                            </h3>
 
                             {/* Inpute Quantity */}
                             <div>
@@ -125,7 +128,7 @@ const Cart = ({ idx, length, medicin }: CartProps) => {
                             />
                         </div>
                         <p className='text-xl font-semibold text-black'>
-                            {medicin?.price}TK
+                            {medicin?.subTotalPrice}TK
                         </p>
                     </div>
                 </div>

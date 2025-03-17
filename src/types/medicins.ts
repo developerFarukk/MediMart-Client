@@ -42,4 +42,5 @@ export type TCartItem = {
     updatedAt: string;
     length: number;
     quantity: number;
+    subTotalPrice: number;
 };
