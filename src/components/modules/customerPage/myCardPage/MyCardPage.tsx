@@ -3,12 +3,13 @@
 
 import { Button } from "@/components/ui/button";
 import Cart from "./Cart";
-import {  useAppSelector } from "@/redux/hooks";
+import { useAppSelector } from "@/redux/hooks";
 import { TCartItem } from "@/types/medicins";
 import { RootState } from "@/redux/store";
 import DeleverycartAddress from "./DeleverycartAddress";
 import PrescriptionInpute from "./PrescriptionInpute";
 import ClearButton from "./ClearButton";
+import PaymentMathodSelect from "./PaymentMathodSelect";
 
 
 
@@ -105,6 +106,11 @@ const MyCardPage = () => {
                                         </div>
                                     </div>
                                 </div>
+
+                                <div>
+                                    <PaymentMathodSelect />
+                                </div>
+
                                 <Button className="w-full">
                                     <span className='-mb-1'>Go to Checkout</span>
                                 </Button>
