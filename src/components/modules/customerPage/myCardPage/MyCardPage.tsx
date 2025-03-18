@@ -1,7 +1,6 @@
 
 "use client"
 
-import { Button } from "@/components/ui/button";
 import Cart from "./Cart";
 import { useAppSelector } from "@/redux/hooks";
 import { TCartItem } from "@/types/medicins";

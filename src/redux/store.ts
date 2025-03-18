@@ -17,6 +17,7 @@ import storage from "./storage";
 const persistOptions = {
     key: "cart",
     storage,
+    whitelist: ["medicins", "totalQuantity", "totalPrice", "city", "shippingAddress", "precriptionImage", "paymentMethod"]
 };
 
 const persistedCart = persistReducer(persistOptions, cartReducer);
