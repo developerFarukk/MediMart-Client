@@ -6,9 +6,6 @@ import { useUser } from "@/context/UserContext";
 import { clearCart, TInitialState } from "@/redux/features/cart/cartSlice";
 import { useAppDispatch } from "@/redux/hooks";
 import { createOrder } from "@/services/OrderMangment";
-// import { TOrderf } from "@/types/order";
-// import { TCartItem } from "@/types/medicins";
-// import { TOrder } from "@/types/order";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -21,7 +18,7 @@ interface Torderss {
 
 const CheckOutButton = ({ order }: Torderss) => {
 
-     const dispatch = useAppDispatch();
+    const dispatch = useAppDispatch();
 
     // console.log(order);
 
@@ -50,11 +47,11 @@ const CheckOutButton = ({ order }: Torderss) => {
 
             const requiresPrescription = order.medicins.some(medicine => medicine.requiredPrescription === "Yes");
             if (requiresPrescription && !order.precriptionImage) {
-                throw new Error("Upload your prescription image or document!");
+                throw new Error("Prescription is required.  Upload your prescription image or document!");
             }
 
 
-            const orderData = {
+            const orderData: any = {
                 products: order.medicins.map(medicine => ({
                     medicins: medicine._id,
                     orderQuantity: medicine.orderQuantity,
@@ -69,13 +66,16 @@ const CheckOutButton = ({ order }: Torderss) => {
 
             const res = await createOrder(orderData);
 
-            console.log(res);
-            
 
             if (res.success) {
                 toast.success(res.message, { id: orderLoading });
                 dispatch(clearCart());
-                router.push(res.data.paymentUrl);
+
+                if (res.data.paymentUrl) {
+                    router.push(res.data.paymentUrl);
+                } else {
+                    router.push("/");
+                }
             }
 
             if (!res.success) {
