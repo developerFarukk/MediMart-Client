@@ -13,6 +13,7 @@ const ShopPage = () => {
     const [medicins, setMedicins] = useState<TMedicine[]>([]);
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
+    const [searchQuery, setSearchQuery] = useState("");
 
     // Fetch medicines
     const getMedicins = useCallback(async (page: number) => {
@@ -49,7 +50,7 @@ const ShopPage = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, [isLoading, hasMore]);
 
-
+    // Intersection Observer for card animations
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
@@ -70,6 +71,13 @@ const ShopPage = () => {
         return () => observer.disconnect();
     }, [medicins]);
 
+    // Filter medicines by name and category
+    const filteredMedicins = medicins.filter((medici) => {
+        const matchesName = medici.name.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesCategory = medici.category.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesName || matchesCategory;
+    });
+
     return (
         <div className="pt-12">
             <div>
@@ -80,11 +88,22 @@ const ShopPage = () => {
                 </div>
             </div>
 
+            {/* Search Bar */}
+            <div className="mb-6 p-2 flex justify-center">
+                <input
+                    type="text"
+                    placeholder="Search by medicines name, category..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="lg:w-[60%] md:w-[80%] w-[95%] p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+            </div>
+
             <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-6 px-5 md:grid-cols-2 lg:grid-cols-3 lg:px-0">
-                {medicins.map((medici: TMedicine, index: number) => (
+                {filteredMedicins.map((medici: TMedicine, index: number) => (
                     <MedicinCard
                         medici={medici}
-                        key={index+1}
+                        key={index + 1}
                     />
                 ))}
             </div>
