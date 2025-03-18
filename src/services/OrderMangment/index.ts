@@ -41,3 +41,25 @@ export const veryfyOrder = async (order_id?: string) => {
         return Error(error.message);
     }
 };
+
+// get all orders
+export const getAllOrders = async (page?: number, limit?: number) => {
+    const params = new URLSearchParams();
+
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/orders?limit=${limit}&page=${page}&${params}`, {
+            headers: {
+                Authorization: (await cookies()).get("accessToken")!.value,
+            },
+            next: {
+                tags: ["Orders"],
+                revalidate: 10,
+            },
+        });
+        const data = await res.json();
+
+        return data;
+    } catch (error: any) {
+        return Error(error.message);
+    }
+};

@@ -7,35 +7,50 @@ export interface TOrderProduct {
     orderQuantity: number;
     // subTotalPrice: number;
 }
+export interface TOrderProductt {
+    medicins: string | TMedicine;
+    orderQuantity: number;
+    subTotalPrice: number;
+}
 
-// export interface TUserr {
-//     userId: string
-//     name: string;
-//     email: string;
-//     number: string;
-// }
+export interface TUserr {
+    userId: string
+    name: string;
+    email: string;
+    number: string;
+}
 
-export interface TOrderf extends Document {
-    // user: TUserr;
-    products: TOrderProduct[];
-    // totalQuantity: number;
-    // totalPrice: number;
-    // status: 'Pending' | 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled';
+export interface TOrder extends Document {
+    user: TUserr;
+    products: TOrderProductt[];
+    totalQuantity: number;
+    totalPrice: number;
+    status: 'Pending' | 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled';
     paymentMethod: 'Cash' | 'Online';
-    // paymentStatus: 'Pending' | 'Paid' | 'Cancelled';
+    paymentStatus: 'Pending' | 'Paid' | 'Cancelled';
     shippingAddress: string;
     precriptionImage: string;
     city: string;
-    // createdAt?: Date;
-    // updatedAt?: Date;
-    // tranjectionId?: string;
-    // transaction: {
-    //     id: string;
-    //     transactionStatus: string;
-    //     bank_status: string;
-    //     sp_code: string;
-    //     sp_message: string;
-    //     method: string;
-    //     date_time: string;
-    // };
+    createdAt?: Date;
+    updatedAt?: Date;
+    tranjectionId?: string;
+    transaction: {
+        id: string;
+        transactionStatus: string;
+        bank_status: string;
+        sp_code: string;
+        sp_message: string;
+        method: string;
+        date_time: string;
+    };
+}
+
+
+
+export interface TOrderf extends Document {
+    products: TOrderProduct[];
+    paymentMethod: 'Cash' | 'Online';
+    shippingAddress: string;
+    precriptionImage: string;
+    city: string;
 }
