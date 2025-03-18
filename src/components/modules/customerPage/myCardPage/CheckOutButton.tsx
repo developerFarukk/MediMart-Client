@@ -3,13 +3,15 @@
 
 import { Button } from "@/components/ui/button";
 import { useUser } from "@/context/UserContext";
-import { TCartItem } from "@/types/medicins";
-import { TOrder } from "@/types/order";
+import { TInitialState } from "@/redux/features/cart/cartSlice";
+// import { TCartItem } from "@/types/medicins";
+// import { TOrder } from "@/types/order";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 interface Torderss {
-    order: TCartItem
+    // order: TCartItem
+    order: TInitialState
     // order: TOrder
 }
 

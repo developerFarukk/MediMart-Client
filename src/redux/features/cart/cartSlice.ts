@@ -6,7 +6,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type TPaymentMethod = 'Cash' | 'Online';
 
-interface TInitialState {
+export interface TInitialState {
     medicins: TCartItem[];
     totalQuantity: number;
     totalPrice: number;
