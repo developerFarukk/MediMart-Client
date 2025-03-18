@@ -2,6 +2,7 @@
 "use server";
 
 import { TOrderf } from "@/types/order";
+import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
 export const createOrder = async (order: TOrderf) => {
@@ -61,5 +62,28 @@ export const getAllOrders = async (page?: number, limit?: number) => {
         return data;
     } catch (error: any) {
         return Error(error.message);
+    }
+};
+
+
+// Delete order
+export const deleteOrder = async (id: string): Promise<any> => {
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/orders/${id}`,
+            {
+                method: "DELETE",
+                headers: {
+                    Authorization: (await cookies()).get("accessToken")!.value,
+                },
+                next: {
+                    tags: ["Order"],
+                    revalidate: 10,
+                },
+            }
+        );
+        revalidateTag("Order");
+        return res.json();
+    } catch (error: any) {
+        return Error(error);
     }
 };
