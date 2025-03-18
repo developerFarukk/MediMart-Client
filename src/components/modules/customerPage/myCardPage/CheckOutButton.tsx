@@ -3,7 +3,10 @@
 
 import { Button } from "@/components/ui/button";
 import { useUser } from "@/context/UserContext";
-import { TInitialState } from "@/redux/features/cart/cartSlice";
+import { clearCart, TInitialState } from "@/redux/features/cart/cartSlice";
+import { useAppDispatch } from "@/redux/hooks";
+import { createOrder } from "@/services/OrderMangment";
+// import { TOrderf } from "@/types/order";
 // import { TCartItem } from "@/types/medicins";
 // import { TOrder } from "@/types/order";
 import { useRouter } from "next/navigation";
@@ -16,10 +19,12 @@ interface Torderss {
 }
 
 
-const CheckOutButton = ({order}: Torderss) => {
+const CheckOutButton = ({ order }: Torderss) => {
 
-    console.log(order);
-    
+     const dispatch = useAppDispatch();
+
+    // console.log(order);
+
 
     const user = useUser();
     const router = useRouter();
@@ -32,30 +37,50 @@ const CheckOutButton = ({order}: Torderss) => {
                 throw new Error("You are not loged customer!");
             }
 
-            // if (!city) {
-            //     throw new Error("City is missing");
-            // }
-            // if (!shippingAddress) {
-            //     throw new Error("Shipping address is missing");
-            // }
+            if (!order?.city) {
+                throw new Error("City is missing");
+            }
+            if (!order?.shippingAddress) {
+                throw new Error("Shipping address is missing");
+            }
 
-            // if (cartProducts.length === 0) {
-            //     throw new Error("Cart is empty, what are you trying to order ??");
-            // }
+            if (order?.medicins?.length === 0) {
+                throw new Error("Cart is empty, Plese select order");
+            }
+
+            const requiresPrescription = order.medicins.some(medicine => medicine.requiredPrescription === "Yes");
+            if (requiresPrescription && !order.precriptionImage) {
+                throw new Error("Upload your prescription image or document!");
+            }
+
+
+            const orderData = {
+                products: order.medicins.map(medicine => ({
+                    medicins: medicine._id,
+                    orderQuantity: medicine.orderQuantity,
+                })),
+                paymentMethod: order.paymentMethod,
+                shippingAddress: order.shippingAddress,
+                precriptionImage: order.precriptionImage,
+                city: order.city,
+            };
 
             // let orderData;
 
-            // const res = await createOrder(orderData);
+            const res = await createOrder(orderData);
 
-            // if (res.success) {
-            //     toast.success(res.message, { id: orderLoading });
-            //     dispatch(clearCart());
-            //     router.push(res.data.paymentUrl);
-            // }
+            console.log(res);
+            
 
-            // if (!res.success) {
-            //     toast.error(res.message, { id: orderLoading });
-            // }
+            if (res.success) {
+                toast.success(res.message, { id: orderLoading });
+                dispatch(clearCart());
+                router.push(res.data.paymentUrl);
+            }
+
+            if (!res.success) {
+                toast.error(res.message, { id: orderLoading });
+            }
         } catch (error: any) {
             toast.error(error.message, { id: orderLoading });
         }
