@@ -13,11 +13,24 @@ export interface TOrderProductt {
     subTotalPrice: number;
 }
 
+
 export interface TUserr {
-    userId: string
+    // userId: string;
+    // name: string;
+    // email: string;
+    // role: "admin" | "customer";
+    // image: string;
+    _id?: string;
     name: string;
     email: string;
+    password: string;
+    role: "admin" | "customer";
+    status: 'in-progress' | 'blocked';
+    isDeleted: boolean;
+    address: string;
+    image?: string;
     number: string;
+    passwordChangedAt?: Date;
 }
 
 export interface TOrder extends Document {
@@ -43,6 +56,7 @@ export interface TOrder extends Document {
         method: string;
         date_time: string;
     };
+    _id: string
 }
 
 
