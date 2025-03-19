@@ -67,8 +67,8 @@ const data = {
             icon: DollarSign,
             items: [
                 {
-                    title: "All Orders",
-                    url: "/admin/orders",
+                    title: "Success payments",
+                    url: "/admin/successpayment",
                 },
             ],
         },

@@ -111,6 +111,22 @@ const AllMedi = ({ medicins }: any) => {
     };
 
 
+    const styles = `
+    @keyframes blinkBackground {
+        0% { background-color: red; }
+        50% { background-color: blue; }
+        100% { background-color: red; }
+    }
+
+    .blinking-bg {
+        animation: blinkBackground 1s infinite;
+        
+    }
+
+    
+`;
+
+
     return (
         <div>
             <div className="mt-2">
@@ -172,7 +188,17 @@ const AllMedi = ({ medicins }: any) => {
                                                 <td className="px-4 py-2 whitespace-nowrap text-gray-700">{medi?.category}</td>
                                                 <td className="px-4 py-2 whitespace-nowrap text-gray-700">{medi?.stockAvailability}</td>
                                                 <td className="px-4 py-2 whitespace-nowrap text-gray-700">{medi?.massUnit}</td>
-                                                <td className="px-4 py-2 whitespace-nowrap text-gray-700">{medi?.quantity}</td>
+                                                <style>{styles}</style>
+                                                <td
+                                                    className={`px-4 py-2 whitespace-nowrap text-center rounded-full ${medi?.quantity < 5 ? "blinking-bg text-lg tooltip text-center items-center justify-center flex" : ""
+                                                        }`}
+                                                >
+                                                    {medi?.quantity}
+                                                    {medi?.quantity < 5 && (
+                                                        // <span className="tooltiptext">Limited Stock, Increment your medicin quantity.</span>
+                                                        <ToolTipePage title="" tole="Limited Stock ,  Update quantity" />
+                                                    )}
+                                                </td>
                                                 <td className="px-4 py-2 whitespace-nowrap text-gray-700">{medi?.price}</td>
                                                 <td className="flex justify-center gap-4 px-4 py-2 whitespace-nowrap text-gray-700">
                                                     <div className="text-blue-500 hover:underline" title="Update">

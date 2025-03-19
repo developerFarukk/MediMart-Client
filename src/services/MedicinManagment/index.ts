@@ -76,6 +76,7 @@ export const updateMedicin = async (data: any, medicinId: string): Promise<any> 
         });
         revalidateTag("Medicin");
         return res.json();
+        
     } catch (error: any) {
         return Error(error);
     }

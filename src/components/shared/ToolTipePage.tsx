@@ -1,7 +1,7 @@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 
 interface TTolls {
-    title: string;
+    title: string| number;
     tole: string;
 }
 
