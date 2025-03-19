@@ -94,6 +94,8 @@ const styles = StyleSheet.create({
 });
 
 const DownloadRicipt = ({ orderData }: DownloadRiciptProps) => (
+    
+    
     <Document>
         <Page size="A4" style={styles.page}>
             {/* Watermark */}
@@ -124,51 +126,52 @@ const DownloadRicipt = ({ orderData }: DownloadRiciptProps) => (
             {/* Order Details */}
             <View style={styles.section}>
                 <Text style={styles.label}>Order ID:</Text>
-                <Text style={styles.value}>{orderData.order_id}</Text>
+                <Text style={styles.value}>{orderData?.order_id}</Text>
             </View>
 
             <View style={styles.section}>
                 <Text style={styles.label}>Amount:</Text>
                 <Text style={styles.value}>
-                    {orderData.currency} {orderData.amount.toFixed(2)}
+                    {/* {orderData?.currency} {orderData?.amount.toFixed(2)} */}
+                    {orderData?.currency} {orderData?.amount.toFixed(2)}
                 </Text>
             </View>
 
             <View style={styles.section}>
                 <Text style={styles.label}>Status:</Text>
-                <Text style={styles.value}>{orderData.bank_status}</Text>
+                <Text style={styles.value}>{orderData?.bank_status}</Text>
             </View>
 
             <View style={styles.section}>
                 <Text style={styles.label}>Date:</Text>
                 <Text style={styles.value}>
-                    {new Date(orderData.date_time || "").toLocaleString()}
+                    {new Date(orderData?.date_time || "").toLocaleString()}
                 </Text>
             </View>
 
             <View style={styles.section}>
                 <Text style={styles.label}>Transaction ID:</Text>
-                <Text style={styles.value}>{orderData.bank_trx_id}</Text>
+                <Text style={styles.value}>{orderData?.bank_trx_id}</Text>
             </View>
 
             <View style={styles.section}>
                 <Text style={styles.label}>Invoice No:</Text>
-                <Text style={styles.value}>{orderData.invoice_no}</Text>
+                <Text style={styles.value}>{orderData?.invoice_no}</Text>
             </View>
 
             <View style={styles.section}>
                 <Text style={styles.label}>Name:</Text>
-                <Text style={styles.value}>{orderData.name}</Text>
+                <Text style={styles.value}>{orderData?.name}</Text>
             </View>
 
             <View style={styles.section}>
                 <Text style={styles.label}>Email:</Text>
-                <Text style={styles.value}>{orderData.email}</Text>
+                <Text style={styles.value}>{orderData?.email}</Text>
             </View>
 
             <View style={styles.section}>
                 <Text style={styles.label}>Phone:</Text>
-                <Text style={styles.value}>{orderData.phone_no}</Text>
+                <Text style={styles.value}>{orderData?.phone_no}</Text>
             </View>
 
             {/* Divider */}

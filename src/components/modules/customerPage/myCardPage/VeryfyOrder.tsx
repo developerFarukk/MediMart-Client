@@ -51,7 +51,7 @@ export interface OrderData {
     value4: string | null;
     transaction_status: string | null;
     method: string;
-    date_time: string | undefined
+    date_time: string
 }
 
 const VerifyOrder = () => {
@@ -66,7 +66,6 @@ const VerifyOrder = () => {
             try {
                 setIsLoading(true);
                 const response = await veryfyOrder(order_id || "");
-                console.log(response);
 
                 setData(response.data?.[0]);
             } catch (error) {

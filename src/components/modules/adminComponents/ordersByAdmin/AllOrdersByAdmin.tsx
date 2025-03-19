@@ -14,6 +14,8 @@ import { toast } from "sonner";
 import { Trash2 } from "lucide-react";
 import { TExtraError } from "@/types/global";
 import UpdateStatusByAdmin from "./UpdateStatusByAdmin";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 interface TOrderAdmin {
     orders: any;
@@ -132,7 +134,10 @@ const AllOrdersByAdmin = ({ orders }: TOrderAdmin) => {
                                     <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Order Email</th>
                                     <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Order Number</th>
                                     <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Order Date</th>
-                                    <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Status</th>
+                                    <th className="px-4 py-2 font-medium whitespace-nowrap">
+                                        <ToolTipePage title="Prescription" tole="Show Prescription Image" />
+                                    </th>
+                                    <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Status Approv</th>
                                     <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Transaction ID</th>
                                     <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Quantity</th>
                                     <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Price</th>
@@ -168,7 +173,21 @@ const AllOrdersByAdmin = ({ orders }: TOrderAdmin) => {
                                                 <td className="px-4 py-2 whitespace-nowrap text-gray-700">
                                                     {formatDate(order?.createdAt)}
                                                 </td>
-                                                <td className="px-4 py-2 whitespace-nowrap text-gray-700">
+                                                {
+                                                    order?.precriptionImage === "" || !order?.precriptionImage ? (
+                                                        <td className=" text-gray-700 text-center">
+                                                            <Button variant="outline">No Need</Button>
+                                                        </td>
+
+                                                    ) : (
+                                                        <td className="text-gray-700 text-center">
+                                                            <Link href={order?.precriptionImage} target="_blank" className="text-blue-500">
+                                                                <Button variant="outline">Open</Button>
+                                                            </Link>
+                                                        </td>
+                                                    )
+                                                }
+                                                <td className="px-4 py-2 whitespace-nowrap text-gray-700 text-center">
                                                     {/* {order?.status} */}
                                                     <UpdateStatusByAdmin orders={order} />
                                                 </td>

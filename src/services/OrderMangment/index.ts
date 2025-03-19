@@ -34,7 +34,11 @@ export const veryfyOrder = async (order_id?: string) => {
                 next: {
                     tags: ["Order"],
                 },
+                headers: {
+                    Authorization: (await cookies()).get("accessToken")!.value,
+                },
             }
+
         );
         const data = await res.json();
         return data;
