@@ -1,3 +1,5 @@
+
+
 "use client"
 
 import Loader from "@/components/shared/Loader";
@@ -8,24 +10,19 @@ import { TOrder } from "@/types/order";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+// interface TOrderAdmin {
+//     orders: any;
+// }
 
-
-interface TOrderAdmin {
-    orders: any;
-}
-
-
-const PaymentSuccess = ({ orders }: TOrderAdmin) => {
-
+const PaymentSuccess = (
+    // { orders }: TOrderAdmin
+) => {
     const [currentPage, setCurrentPage] = useState(1);
-    const [order, setOrder] = useState(orders?.result || []);
-    const [totalorder, setTotalOrder] = useState(orders?.meta?.total || 0);
-    const [limit, setLimit] = useState(orders?.meta?.limit || 10);
-    const [totalPage, setTotalPage] = useState(orders?.meta?.totalPage || 1);
+    const [order, setOrder] = useState<TOrder[]>([]);
+    const [totalorder, setTotalOrder] = useState(0);
+    const [limit, setLimit] = useState(10);
+    const [totalPage, setTotalPage] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
-
-    // console.log(order);
-
 
     const handlePageChange = async (page: number) => {
         setIsLoading(true);
@@ -33,8 +30,10 @@ const PaymentSuccess = ({ orders }: TOrderAdmin) => {
         try {
             const { data: newOrder } = await getAllOrders(page, 10);
             if (newOrder) {
-                setOrder(newOrder.result);
-                setTotalOrder(newOrder.meta.total);
+                // Filter orders where bank_status is "Success"
+                const successfulOrders = newOrder.result.filter((order: TOrder) => order?.transaction?.bank_status === "Success");
+                setOrder(successfulOrders);
+                setTotalOrder(successfulOrders.length);
                 setLimit(newOrder.meta.limit);
                 setTotalPage(newOrder.meta.totalPage);
             }
@@ -66,18 +65,15 @@ const PaymentSuccess = ({ orders }: TOrderAdmin) => {
         }
     };
 
-
-
     if (isLoading) {
         return <Loader />;
     }
-
 
     return (
         <div>
             <div>
                 <div className="mt-2">
-                    <TitleMedicin title={`All Orders - ${totalorder}`} />
+                    <TitleMedicin title={`All Success Orders - ${totalorder}`} />
                 </div>
 
                 <div className="p-4">
