@@ -10,10 +10,10 @@ import { TOrder } from "@/types/order";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Swal from "sweetalert2";
-import { deleteMedicin } from "@/services/MedicinManagment";
 import { toast } from "sonner";
-import { Trash2, Pencil } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { TExtraError } from "@/types/global";
+import UpdateStatusByAdmin from "./UpdateStatusByAdmin";
 
 interface TOrderAdmin {
     orders: any;
@@ -27,7 +27,7 @@ const AllOrdersByAdmin = ({ orders }: TOrderAdmin) => {
     const [totalPage, setTotalPage] = useState(orders?.meta?.totalPage || 1);
     const [isLoading, setIsLoading] = useState(false);
 
-    console.log(order);
+    // console.log(order);
 
 
     const handlePageChange = async (page: number) => {
@@ -52,7 +52,7 @@ const AllOrdersByAdmin = ({ orders }: TOrderAdmin) => {
         handlePageChange(currentPage);
     }, [currentPage]);
 
-    const formatDate = (dateString: string) => {
+    const formatDate = (dateString: any) => {
         const date = new Date(dateString);
         return date.toLocaleDateString();
     };
@@ -70,7 +70,7 @@ const AllOrdersByAdmin = ({ orders }: TOrderAdmin) => {
     };
 
     const handleDeleteOrder = async (order: any) => {
-        
+
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -82,9 +82,7 @@ const AllOrdersByAdmin = ({ orders }: TOrderAdmin) => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                   const or = await deleteOrder(order);
-                   console.log(or);
-                   
+                    await deleteOrder(order);
 
                     const { data: newOrder } = await getAllOrders(currentPage, 10);
                     if (newOrder) {
@@ -167,15 +165,20 @@ const AllOrdersByAdmin = ({ orders }: TOrderAdmin) => {
                                                 </td>
                                                 <td className="px-4 py-2 whitespace-nowrap text-gray-700">{order?.user?.email}</td>
                                                 <td className="px-4 py-2 whitespace-nowrap text-gray-700">{order?.user?.number}</td>
-                                                <td className="px-4 py-2 whitespace-nowrap text-gray-700">{formatDate(order?.createdAt)}</td>
-                                                <td className="px-4 py-2 whitespace-nowrap text-gray-700">{order?.status}</td>
+                                                <td className="px-4 py-2 whitespace-nowrap text-gray-700">
+                                                    {formatDate(order?.createdAt)}
+                                                </td>
+                                                <td className="px-4 py-2 whitespace-nowrap text-gray-700">
+                                                    {/* {order?.status} */}
+                                                    <UpdateStatusByAdmin orders={order} />
+                                                </td>
                                                 <td className="px-4 py-2 whitespace-nowrap text-gray-700">{order?.transaction?.id || "N/A"}</td>
                                                 <td className="px-4 py-2 whitespace-nowrap text-gray-700 text-center">{order?.totalQuantity}</td>
                                                 <td className="px-4 py-2 whitespace-nowrap text-gray-700 text-center">{order?.totalPrice}</td>
                                                 <td className="flex justify-center gap-4 px-4 py-2 whitespace-nowrap text-gray-700 ">
-                                                    <div className="text-blue-500 hover:underline" title="Update">
-                                                        {/* <UpdateMedicin title={<Pencil />} medicin={order} /> */}
-                                                    </div>
+                                                    {/* <div className="text-blue-500 hover:underline" title="Update">
+                                                        <UpdateMedicin title={<Pencil />} medicin={order} />
+                                                    </div> */}
                                                     <button
                                                         onClick={() => handleDeleteOrder(order?._id)}
                                                         className="text-blue-500 hover:underline" title="Delete">

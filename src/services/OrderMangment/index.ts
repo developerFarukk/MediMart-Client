@@ -53,7 +53,7 @@ export const getAllOrders = async (page?: number, limit?: number) => {
                 Authorization: (await cookies()).get("accessToken")!.value,
             },
             next: {
-                tags: ["Orders"],
+                tags: ["Order"],
                 revalidate: 10,
             },
         });
@@ -81,6 +81,29 @@ export const deleteOrder = async (id: string): Promise<any> => {
                 },
             }
         );
+        revalidateTag("Order");
+        return res.json();
+    } catch (error: any) {
+        return Error(error);
+    }
+};
+
+
+// // Update Update
+export const updateOrder = async (data: any, orderId: string): Promise<any> => {
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/orders/${orderId}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: (await cookies()).get("accessToken")!.value,
+            },
+            next: {
+                tags: ["Order"],
+                revalidate: 10,
+            },
+            body: JSON.stringify(data),
+        });
         revalidateTag("Order");
         return res.json();
     } catch (error: any) {
