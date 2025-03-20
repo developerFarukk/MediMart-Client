@@ -5,7 +5,13 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { addReiewSchemaValidation } from "./addReviewSchema";
+import { useUser } from "@/context/UserContext";
+import { toast } from "sonner";
+import { addReview } from "@/services/ReviewService";
 
 
 interface TReviews {
@@ -13,9 +19,62 @@ interface TReviews {
 }
 
 const AddReviewModal = ({ medicinId }: TReviews) => {
+    // console.log("id", medicinId);
+
     const [isOpen, setIsOpen] = useState(false);
 
-    console.log(medicinId);
+    const form = useForm({
+        resolver: zodResolver(addReiewSchemaValidation),
+        defaultValues: {
+            title: "",
+            message: "",
+            reviewCount: 1,
+        },
+    });
+
+    const { formState: { isSubmitting, errors } } = form;
+    const { setIsLoading } = useUser();
+
+    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+
+        console.log(data);
+        
+
+        setIsLoading(true);
+
+        // const formData = new FormData();
+        const products = {
+            ...data,
+            product: medicinId
+        }
+
+        // console.log(products);
+        const formData = new FormData();
+
+        formData.append('data', JSON.stringify(products));
+        
+
+
+        try {
+
+            const res = await addReview(products);
+            console.log(res);
+            
+
+            if (res.success) {
+                toast.success(res.message);
+                form.reset();
+            } else {
+                toast.error(res.message);
+            }
+        } catch (err: any) {
+            toast.error(err.message || "Something went wrong");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+
 
 
     return (
@@ -32,9 +91,6 @@ const AddReviewModal = ({ medicinId }: TReviews) => {
                                 Please add this product review
                             </DialogDescription>
                         </DialogHeader>
-                        <div className="flex items-center space-x-2">
-                            ami
-                        </div>
                         <div>
                             <Form {...form}>
                                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
