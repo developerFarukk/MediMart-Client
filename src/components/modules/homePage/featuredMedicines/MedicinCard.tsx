@@ -13,6 +13,7 @@ import { BadgeMinus, BadgePlus } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { toast } from "sonner";
+import AddReviewModal from "../reviewPage/AddReviewModal";
 
 interface TMedicinss {
     medici: TMedicine;
@@ -93,12 +94,12 @@ const MedicinCard = ({ medici }: TMedicinss) => {
             if (existingProduct?.orderQuantity === orderQuantity) {
                 // If orderQuantity is not updated
                 toast.error("Product is already added to cart.");
-                setIsDialogOpen(false); 
+                setIsDialogOpen(false);
             } else {
                 // If orderQuantity is updated
                 dispatch(updateQuantity({ id: medici?._id, orderQuantity }));
                 toast.success("Product is already added to cart and orderQuantity updated successfully.");
-                setIsDialogOpen(false); 
+                setIsDialogOpen(false);
             }
         }
     };
@@ -109,7 +110,7 @@ const MedicinCard = ({ medici }: TMedicinss) => {
     };
 
     return (
-        <div>
+        <div className="border-2 p-2 rounded-xl">
             <div className="group">
                 <div className="relative h-60 w-full rounded-md bg-cover">
                     <div className="absolute bottom-5 left-7 z-10 mt-5 flex scale-y-0 items-center font-medium opacity-0 transition-all duration-500 ease-out group-hover:scale-y-100 group-hover:opacity-100">
@@ -290,7 +291,7 @@ const MedicinCard = ({ medici }: TMedicinss) => {
                             alt={medici?.name}
                             layout="fill"
                             objectFit="cover"
-                            className="z-0 h-full w-full"
+                            className="z-0 h-full w-full rounded-xl"
                         />
                     )}
                 </div>
@@ -300,9 +301,15 @@ const MedicinCard = ({ medici }: TMedicinss) => {
                     <h3 className="z-50 w-fit cursor-pointer text-lg font-semibold duration-300 hover:text-[#DF2626]">
                         {medici?.name}
                     </h3>
-                    <div className="mt-2 flex items-end gap-1">
-                        <p className="text-xl font-bold text-[#DF2626]">{medici?.price} TK</p>
+                    <div className="flex justify-between p-1">
+                        <div className="mt-2 flex items-end gap-1">
+                            <p className="text-xl font-bold text-[#DF2626]">{medici?.price} TK</p>
+                        </div>
+                        <div>
+                            <AddReviewModal medicinId={medici?._id} />
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
