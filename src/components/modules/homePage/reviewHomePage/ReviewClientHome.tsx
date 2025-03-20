@@ -22,7 +22,7 @@ const ReviewClientHome = ({ reviews }: TReviewss) => {
         if (sliderRef.current && !sliderInstance.current) {
             sliderInstance.current = new KeenSlider(sliderRef.current, {
                 loop: true,
-                
+
                 defaultAnimation: {
                     duration: 750,
                 },
@@ -130,110 +130,118 @@ const ReviewClientHome = ({ reviews }: TReviewss) => {
                             <h1 className="text-3xl font-semibold">Review our Medicines</h1>
                         </div>
                     </div>
-
-                    <div className="mt-8">
-                        <div id="keen-slider" className="keen-slider" ref={sliderRef}>
-                            {reviews.map((review: TReview) => (
-                                <div key={review?._id} className="keen-slider__slide opacity-40 transition-opacity duration-500">
-                                    <blockquote className="rounded-lg bg-gray-50 p-6 shadow-xs sm:p-8">
-                                        <div className="flex items-center gap-4">
-                                            <Image
-                                                alt="review user image"
-                                                src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
-                                                // src={review?.user?.image}
-                                                width={70}
-                                                height={70}
-                                                className="rounded-full"
-                                            />
-                                            {/* <Image
+                    {
+                        reviews?.length > 0 ? (
+                            <div className="mt-8">
+                                <div id="keen-slider" className="keen-slider" ref={sliderRef}>
+                                    {reviews.map((review: TReview) => (
+                                        <div key={review?._id} className="keen-slider__slide opacity-40 transition-opacity duration-500">
+                                            <blockquote className="rounded-lg bg-gray-50 p-6 shadow-xs sm:p-8">
+                                                <div className="flex items-center gap-4">
+                                                    <Image
+                                                        alt="review user image"
+                                                        src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
+                                                        // src={review?.user?.image}
+                                                        width={70}
+                                                        height={70}
+                                                        className="rounded-full"
+                                                    />
+                                                    {/* <Image
                                                 src={review?.user?.image || "https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"}
                                                 width={70}
                                                 height={70}
                                                 className="rounded-full"
                                                 alt="User Image"
                                             /> */}
-                                            <div>
-                                                <p className="text-lg font-medium text-gray-900">{review?.user?.name}</p>
-                                                <p className="-mt-1 text-sm font-medium text-gray-900">{review?.user?.email}</p>
-                                                <div className="text-green-500">
-                                                    <div className="flex justify-start mt-2">
-                                                        {[1, 2, 3, 4, 5].map((star) => (
-                                                            <Star
-                                                                key={star}
-                                                                className={`cursor-pointer ${star <= review?.reviewCount ? starColors[star] : "bg-gray-300"
-                                                                    } rounded-full`}
-                                                            />
-                                                        ))}
+                                                    <div>
+                                                        <p className="text-lg font-medium text-gray-900">{review?.user?.name}</p>
+                                                        <p className="-mt-1 text-sm font-medium text-gray-900">{review?.user?.email}</p>
+                                                        <div className="text-green-500">
+                                                            <div className="flex justify-start mt-2">
+                                                                {[1, 2, 3, 4, 5].map((star) => (
+                                                                    <Star
+                                                                        key={star}
+                                                                        className={`cursor-pointer ${star <= review?.reviewCount ? starColors[star] : "bg-gray-300"
+                                                                            } rounded-full`}
+                                                                    />
+                                                                ))}
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                                <div>
+                                                    <p className="mt-4 font-bold text-2xl text-gray-700">
+                                                        {review?.title} <span className="text-sm font-normal">{`(${formatDate(review?.createdAt)})`}</span>
+                                                    </p>
+                                                    <Textarea value={review?.message} className="text-lg" disabled />
+                                                </div>
+                                                <div className="mt-8">
+                                                    <h2 className="font-bold text-xl underline">Review Details</h2>
+                                                    <div>
+                                                        <h3><span className="font-medium mr-2">Medicin Name:</span>{review?.product?.name}</h3>
+                                                        <h3><span className="font-medium mr-2">Medicin Category:</span>{review?.product?.category}</h3>
+                                                        <h3><span className="font-medium mr-2">Company Name:</span>{review?.product?.manufacturerDetails?.name}</h3>
+                                                    </div>
+                                                </div>
+                                            </blockquote>
                                         </div>
-                                        <div>
-                                            <p className="mt-4 font-bold text-2xl text-gray-700">
-                                                {review?.title} <span className="text-sm font-normal">{`(${formatDate(review?.createdAt)})`}</span>
-                                            </p>
-                                            <Textarea value={review?.message} className="text-lg" disabled />
-                                        </div>
-                                        <div className="mt-8">
-                                            <h2 className="font-bold text-xl underline">Review Details</h2>
-                                            <div>
-                                                <h3><span className="font-medium mr-2">Medicin Name:</span>{review?.product?.name}</h3>
-                                                <h3><span className="font-medium mr-2">Medicin Category:</span>{review?.product?.category}</h3>
-                                                <h3><span className="font-medium mr-2">Company Name:</span>{review?.product?.manufacturerDetails?.name}</h3>
-                                            </div>
-                                        </div>
-                                    </blockquote>
+                                    ))}
                                 </div>
-                            ))}
-                        </div>
 
-                        {/* নেভিগেশন বাটন */}
-                        <div className="mt-6 flex items-center justify-center gap-4">
-                            <button
-                                aria-label="Previous slide"
-                                id="keen-slider-previous"
-                                className="text-gray-600 transition-colors hover:text-gray-900"
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth="1.5"
-                                    stroke="currentColor"
-                                    className="size-5"
-                                >
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                                </svg>
-                            </button>
+                                {/* নেভিগেশন বাটন */}
+                                <div className="mt-6 flex items-center justify-center gap-4">
+                                    <button
+                                        aria-label="Previous slide"
+                                        id="keen-slider-previous"
+                                        className="text-gray-600 transition-colors hover:text-gray-900"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth="1.5"
+                                            stroke="currentColor"
+                                            className="size-5"
+                                        >
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                                        </svg>
+                                    </button>
 
-                            <p className="w-16 text-center text-sm text-gray-700">
-                                <span id="keen-slider-active"></span>
-                                /
-                                <span id="keen-slider-count"></span>
-                            </p>
+                                    <p className="w-16 text-center text-sm text-gray-700">
+                                        <span id="keen-slider-active"></span>
+                                        /
+                                        <span id="keen-slider-count"></span>
+                                    </p>
 
-                            <button
-                                aria-label="Next slide"
-                                id="keen-slider-next"
-                                className="text-gray-600 transition-colors hover:text-gray-900"
-                            >
-                                <svg
-                                    className="size-5"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M9 5l7 7-7 7"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
+                                    <button
+                                        aria-label="Next slide"
+                                        id="keen-slider-next"
+                                        className="text-gray-600 transition-colors hover:text-gray-900"
+                                    >
+                                        <svg
+                                            className="size-5"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                d="M9 5l7 7-7 7"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth="2"
+                                            />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="text-center">
+                                <h2 className="font-medium text-lg text-blue-500">Review is Empty</h2>
+                            </div>
+                        )
+                    }
+
                 </div>
             </section>
         </div>
