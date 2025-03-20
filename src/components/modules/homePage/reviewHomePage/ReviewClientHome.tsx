@@ -299,6 +299,7 @@ import "keen-slider/keen-slider.min.css"; // KeenSlider CSS ইম্পোর�
 import Image from "next/image";
 import { TReview } from "@/types/review";
 import { Star } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
 
 interface TReviewss {
     reviews: any
@@ -383,6 +384,11 @@ const ReviewClientHome = ({ reviews }: TReviewss) => {
         5: "bg-yellow-500",
     } as any;
 
+    const formatDate = (dateString: any) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString();
+    };
+
     return (
         <div>
             <section className="bg-white">
@@ -425,9 +431,23 @@ const ReviewClientHome = ({ reviews }: TReviewss) => {
 
                                             </div>
                                         </div>
-                                        <p className="mt-4 text-gray-700">
-                                            {review?.message}
-                                        </p>
+                                        <div>
+                                            <p className="mt-4 font-bold text-2xl text-gray-700">
+                                                {review?.title} <span className="text-sm font-normal">{`(${formatDate(review?.createdAt)})`}</span>
+                                            </p>
+                                            <Textarea value={review?.message} />
+                                            <p className="mt-1 text-gray-700">
+                                                {review?.message}
+                                            </p>
+                                        </div>
+                                        <div className="mt-8">
+                                            <h2 className="font-bold text-xl underline ">Review Details</h2>
+                                            <div>
+                                                <h3><span className="font-medium mr-2">Medicin Name:</span>{review?.product?.name}</h3>
+                                                <h3><span className="font-medium mr-2">Medicin Category:</span>{review?.product?.category}</h3>
+                                                <h3><span className="font-medium mr-2">Company Name:</span>{review?.product?.manufacturerDetails?.name}</h3>
+                                            </div>
+                                        </div>
                                     </blockquote>
                                 </div>
                             </>)}
