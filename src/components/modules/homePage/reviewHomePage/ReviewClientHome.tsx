@@ -22,6 +22,7 @@ const ReviewClientHome = ({ reviews }: TReviewss) => {
         if (sliderRef.current && !sliderInstance.current) {
             sliderInstance.current = new KeenSlider(sliderRef.current, {
                 loop: true,
+                
                 defaultAnimation: {
                     duration: 750,
                 },
@@ -58,11 +59,11 @@ const ReviewClientHome = ({ reviews }: TReviewss) => {
                     const countElement = document.getElementById("keen-slider-count");
 
                     if (activeElement && countElement) {
-                        activeElement.innerText = String(slider.track.details.rel + 1); 
-                        countElement.innerText = String(slider.slides.length); 
+                        activeElement.innerText = String(slider.track.details.rel + 1);
+                        countElement.innerText = String(slider.slides.length);
                     }
 
-          
+
                     slider.slides.forEach((slide, index) => {
                         if (index === slider.track.details.rel) {
                             slide.classList.remove("opacity-40");
@@ -78,7 +79,7 @@ const ReviewClientHome = ({ reviews }: TReviewss) => {
                         activeElement.innerText = String(slider.track.details.rel + 1);
                     }
 
-     
+
                     slider.slides.forEach((slide, index) => {
                         if (index === slider.track.details.rel) {
                             slide.classList.remove("opacity-40");
@@ -98,7 +99,7 @@ const ReviewClientHome = ({ reviews }: TReviewss) => {
             }
         }
 
-  
+
         return () => {
             if (sliderInstance.current) {
                 sliderInstance.current.destroy();
@@ -123,8 +124,8 @@ const ReviewClientHome = ({ reviews }: TReviewss) => {
     return (
         <div>
             <section className="bg-white">
-                <div className="mx-auto max-w-screen-xl px-4 py-12 sm:px-6 lg:py-16">
-                    <div className="flex items-center justify-center space-x-4 p-4 mb-4 mt-4">
+                <div className="mx-auto max-w-screen-xl px-4  sm:px-6 mt-8">
+                    <div className="flex items-center justify-center space-x-4 p-2  ">
                         <div>
                             <h1 className="text-3xl font-semibold">Review our Medicines</h1>
                         </div>
@@ -137,12 +138,20 @@ const ReviewClientHome = ({ reviews }: TReviewss) => {
                                     <blockquote className="rounded-lg bg-gray-50 p-6 shadow-xs sm:p-8">
                                         <div className="flex items-center gap-4">
                                             <Image
-                                                alt="sdfg"
+                                                alt="review user image"
                                                 src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
+                                                // src={review?.user?.image}
                                                 width={70}
                                                 height={70}
                                                 className="rounded-full"
                                             />
+                                            {/* <Image
+                                                src={review?.user?.image || "https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"}
+                                                width={70}
+                                                height={70}
+                                                className="rounded-full"
+                                                alt="User Image"
+                                            /> */}
                                             <div>
                                                 <p className="text-lg font-medium text-gray-900">{review?.user?.name}</p>
                                                 <p className="-mt-1 text-sm font-medium text-gray-900">{review?.user?.email}</p>
