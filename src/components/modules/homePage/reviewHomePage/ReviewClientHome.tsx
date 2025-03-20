@@ -1,317 +1,24 @@
-// "use client"
 
 
+"use client";
 
-// const ReviewClientHome = () => {
-
-//     return (
-//         <div>
-
-//             <link href="https://cdn.jsdelivr.net/npm/keen-slider@6.8.6/keen-slider.min.css" rel="stylesheet" />
-
-//             <script type="module">
-//                 import KeenSlider from 'https://cdn.jsdelivr.net/npm/keen-slider@6.8.6/+esm'
-
-//                 const keenSliderActive = document.getElementById('keen-slider-active')
-//                 const keenSliderCount = document.getElementById('keen-slider-count')
-
-//                 const keenSlider = new KeenSlider(
-//                 '#keen-slider',
-//                 {
-//                     loop: true,
-//                 defaultAnimation: {
-//                     duration: 750,
-//       },
-//                 slides: {
-//                     origin: 'center',
-//                 perView: 1,
-//                 spacing: 16,
-//       },
-//                 breakpoints: {
-//                     '(min-width: 640px)': {
-//                     slides: {
-//                     origin: 'center',
-//                 perView: 1.5,
-//                 spacing: 16,
-//           },
-//         },
-//                 '(min-width: 768px)': {
-//                     slides: {
-//                     origin: 'center',
-//                 perView: 1.75,
-//                 spacing: 16,
-//           },
-//         },
-//                 '(min-width: 1024px)': {
-//                     slides: {
-//                     origin: 'center',
-//                 perView: 3,
-//                 spacing: 16,
-//           },
-//         },
-//       },
-//                 created(slider) {
-//                     slider.slides[slider.track.details.rel].classList.remove('opacity-40')
-
-//         keenSliderActive.innerText = slider.track.details.rel + 1
-//                 keenSliderCount.innerText = slider.slides.length
-//       },
-//                 slideChanged(slider) {
-//                     slider.slides.forEach((slide) => slide.classList.add('opacity-40'))
-
-//         slider.slides[slider.track.details.rel].classList.remove('opacity-40')
-
-//                 keenSliderActive.innerText = slider.track.details.rel + 1
-//       },
-//     },
-//                 []
-//                 )
-
-//                 const keenSliderPrevious = document.getElementById('keen-slider-previous')
-//                 const keenSliderNext = document.getElementById('keen-slider-next')
-
-//   keenSliderPrevious.addEventListener('click', () => keenSlider.prev())
-//   keenSliderNext.addEventListener('click', () => keenSlider.next())
-//             </script>
-
-//             <section className="bg-white">
-//                 <div className="mx-auto max-w-screen-xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-//                     <h2 className="text-center text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-//                         Read trusted reviews from our customers
-//                     </h2>
-
-//                     <div className="mt-8">
-//                         <div id="keen-slider" className="keen-slider">
-
-//                             <div className="keen-slider__slide opacity-40 transition-opacity duration-500">
-//                                 <blockquote className="rounded-lg bg-gray-50 p-6 shadow-xs sm:p-8">
-//                                     <div className="flex items-center gap-4">
-//                                         <img
-//                                             alt=""
-//                                             src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
-//                                             className="size-14 rounded-full object-cover"
-//                                         />
-
-//                                         <div>
-//                                             <div className="flex justify-center gap-0.5 text-green-500">
-//                                                 <svg
-//                                                     xmlns="http://www.w3.org/2000/svg"
-//                                                     className="size-5"
-//                                                     viewBox="0 0 20 20"
-//                                                     fill="currentColor"
-//                                                 >
-//                                                     <path
-//                                                         d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-//                                                     />
-//                                                 </svg>
-//                                                 <svg
-//                                                     xmlns="http://www.w3.org/2000/svg"
-//                                                     className="size-5"
-//                                                     viewBox="0 0 20 20"
-//                                                     fill="currentColor"
-//                                                 >
-//                                                     <path
-//                                                         d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-//                                                     />
-//                                                 </svg>
-//                                                 <svg
-//                                                     xmlns="http://www.w3.org/2000/svg"
-//                                                     className="size-5"
-//                                                     viewBox="0 0 20 20"
-//                                                     fill="currentColor"
-//                                                 >
-//                                                     <path
-//                                                         d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-//                                                     />
-//                                                 </svg>
-//                                                 <svg
-//                                                     xmlns="http://www.w3.org/2000/svg"
-//                                                     className="size-5"
-//                                                     viewBox="0 0 20 20"
-//                                                     fill="currentColor"
-//                                                 >
-//                                                     <path
-//                                                         d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-//                                                     />
-//                                                 </svg>
-//                                                 <svg
-//                                                     xmlns="http://www.w3.org/2000/svg"
-//                                                     className="size-5"
-//                                                     viewBox="0 0 20 20"
-//                                                     fill="currentColor"
-//                                                 >
-//                                                     <path
-//                                                         d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-//                                                     />
-//                                                 </svg>
-//                                             </div>
-
-//                                             <p className="mt-0.5 text-lg font-medium text-gray-900">Paul Starr</p>
-//                                         </div>
-//                                     </div>
-
-//                                     <p className="mt-4 text-gray-700">
-//                                         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa sit rerum incidunt, a
-//                                         consequuntur recusandae ab saepe illo est quia obcaecati neque quibusdam eius
-//                                         accusamus error officiis atque voluptates magnam!
-//                                     </p>
-//                                 </blockquote>
-//                             </div>
-
-//                             <div className="keen-slider__slide opacity-40 transition-opacity duration-500">
-//                                 <blockquote className="rounded-lg bg-gray-50 p-6 shadow-xs sm:p-8">
-//                                     <div className="flex items-center gap-4">
-//                                         <img
-//                                             alt=""
-//                                             src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
-//                                             className="size-14 rounded-full object-cover"
-//                                         />
-
-//                                         <div>
-//                                             <div className="flex justify-center gap-0.5 text-green-500">
-//                                                 <svg
-//                                                     xmlns="http://www.w3.org/2000/svg"
-//                                                     className="size-5"
-//                                                     viewBox="0 0 20 20"
-//                                                     fill="currentColor"
-//                                                 >
-//                                                     <path
-//                                                         d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-//                                                     />
-//                                                 </svg>
-//                                                 <svg
-//                                                     xmlns="http://www.w3.org/2000/svg"
-//                                                     className="size-5"
-//                                                     viewBox="0 0 20 20"
-//                                                     fill="currentColor"
-//                                                 >
-//                                                     <path
-//                                                         d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-//                                                     />
-//                                                 </svg>
-//                                                 <svg
-//                                                     xmlns="http://www.w3.org/2000/svg"
-//                                                     className="size-5"
-//                                                     viewBox="0 0 20 20"
-//                                                     fill="currentColor"
-//                                                 >
-//                                                     <path
-//                                                         d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-//                                                     />
-//                                                 </svg>
-//                                                 <svg
-//                                                     xmlns="http://www.w3.org/2000/svg"
-//                                                     className="size-5"
-//                                                     viewBox="0 0 20 20"
-//                                                     fill="currentColor"
-//                                                 >
-//                                                     <path
-//                                                         d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-//                                                     />
-//                                                 </svg>
-//                                                 <svg
-//                                                     xmlns="http://www.w3.org/2000/svg"
-//                                                     className="size-5"
-//                                                     viewBox="0 0 20 20"
-//                                                     fill="currentColor"
-//                                                 >
-//                                                     <path
-//                                                         d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-//                                                     />
-//                                                 </svg>
-//                                             </div>
-
-//                                             <p className="mt-0.5 text-lg font-medium text-gray-900">Paul Starr</p>
-//                                         </div>
-//                                     </div>
-
-//                                     <p className="mt-4 text-gray-700">
-//                                         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa sit rerum incidunt, a
-//                                         consequuntur recusandae ab saepe illo est quia obcaecati neque quibusdam eius
-//                                         accusamus error officiis atque voluptates magnam!
-//                                     </p>
-//                                 </blockquote>
-//                             </div>
-
-//                         </div>
-
-//                         <div className="mt-6 flex items-center justify-center gap-4">
-//                             <button
-//                                 aria-label="Previous slide"
-//                                 id="keen-slider-previous"
-//                                 className="text-gray-600 transition-colors hover:text-gray-900"
-//                             >
-//                                 <svg
-//                                     xmlns="http://www.w3.org/2000/svg"
-//                                     fill="none"
-//                                     viewBox="0 0 24 24"
-//                                     strokeWidth="1.5"
-//                                     stroke="currentColor"
-//                                     className="size-5"
-//                                 >
-//                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-//                                 </svg>
-//                             </button>
-
-//                             <p className="w-16 text-center text-sm text-gray-700">
-//                                 <span id="keen-slider-active"></span>
-//                                 /
-//                                 <span id="keen-slider-count"></span>
-//                             </p>
-
-//                             <button
-//                                 aria-label="Next slide"
-//                                 id="keen-slider-next"
-//                                 className="text-gray-600 transition-colors hover:text-gray-900"
-//                             >
-//                                 <svg
-//                                     className="size-5"
-//                                     fill="none"
-//                                     stroke="currentColor"
-//                                     viewBox="0 0 24 24"
-//                                     xmlns="http://www.w3.org/2000/svg"
-//                                 >
-//                                     <path
-//                                         d="M9 5l7 7-7 7"
-//                                         strokeLinecap="round"
-//                                         strokeLinejoin="round"
-//                                         strokeWidth="2"
-//                                     />
-//                                 </svg>
-//                             </button>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </section>
-//         </div>
-//     );
-// };
-
-// export default ReviewClientHome;
-
-
-
-"use client"; // ক্লায়েন্ট সাইড রেন্ডারিং নিশ্চিত করুন
-
-import { useEffect, useRef } from "react"; // useEffect এবং useRef ইম্পোর্ট করুন
-import KeenSlider from "keen-slider"; // KeenSlider ইম্পোর্ট করুন
-import "keen-slider/keen-slider.min.css"; // KeenSlider CSS ইম্পোর্ট করুন
+import { useEffect, useRef } from "react";
+import KeenSlider, { KeenSliderInstance } from "keen-slider";
+import "keen-slider/keen-slider.min.css";
 import Image from "next/image";
 import { TReview } from "@/types/review";
 import { Star } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 
 interface TReviewss {
-    reviews: any
+    reviews: any;
 }
 
 const ReviewClientHome = ({ reviews }: TReviewss) => {
-
-    const sliderRef = useRef(null); // স্লাইডার রেফ তৈরি করুন
-    const sliderInstance = useRef(null); // স্লাইডার ইন্সট্যান্স রেফ তৈরি করুন
+    const sliderRef = useRef<HTMLDivElement>(null);
+    const sliderInstance = useRef<KeenSliderInstance | null>(null);
 
     useEffect(() => {
-        // KeenSlider ইনিশিয়ালাইজেশন
         if (sliderRef.current && !sliderInstance.current) {
             sliderInstance.current = new KeenSlider(sliderRef.current, {
                 loop: true,
@@ -347,34 +54,58 @@ const ReviewClientHome = ({ reviews }: TReviewss) => {
                     },
                 },
                 created(slider) {
-                    slider.slides[slider.track.details.rel].classList.remove("opacity-40");
-                    document.getElementById("keen-slider-active").innerText = slider.track.details.rel + 1;
-                    document.getElementById("keen-slider-count").innerText = slider.slides.length;
+                    const activeElement = document.getElementById("keen-slider-active");
+                    const countElement = document.getElementById("keen-slider-count");
+
+                    if (activeElement && countElement) {
+                        activeElement.innerText = String(slider.track.details.rel + 1); 
+                        countElement.innerText = String(slider.slides.length); 
+                    }
+
+          
+                    slider.slides.forEach((slide, index) => {
+                        if (index === slider.track.details.rel) {
+                            slide.classList.remove("opacity-40");
+                        } else {
+                            slide.classList.add("opacity-40");
+                        }
+                    });
                 },
                 slideChanged(slider) {
-                    slider.slides.forEach((slide) => slide.classList.add("opacity-40"));
-                    slider.slides[slider.track.details.rel].classList.remove("opacity-40");
-                    document.getElementById("keen-slider-active").innerText = slider.track.details.rel + 1;
+                    const activeElement = document.getElementById("keen-slider-active");
+
+                    if (activeElement) {
+                        activeElement.innerText = String(slider.track.details.rel + 1);
+                    }
+
+     
+                    slider.slides.forEach((slide, index) => {
+                        if (index === slider.track.details.rel) {
+                            slide.classList.remove("opacity-40");
+                        } else {
+                            slide.classList.add("opacity-40");
+                        }
+                    });
                 },
             });
 
-            // Previous এবং Next বাটন ইভেন্ট লিসেনার যোগ করুন
             const keenSliderPrevious = document.getElementById("keen-slider-previous");
             const keenSliderNext = document.getElementById("keen-slider-next");
 
-            keenSliderPrevious.addEventListener("click", () => sliderInstance.current.prev());
-            keenSliderNext.addEventListener("click", () => sliderInstance.current.next());
+            if (keenSliderPrevious && keenSliderNext) {
+                keenSliderPrevious.addEventListener("click", () => sliderInstance.current?.prev());
+                keenSliderNext.addEventListener("click", () => sliderInstance.current?.next());
+            }
         }
 
-        // ক্লিনআপ ফাংশন
+  
         return () => {
             if (sliderInstance.current) {
-                sliderInstance.current.destroy(); // স্লাইডার ডেস্ট্রয় করুন
+                sliderInstance.current.destroy();
                 sliderInstance.current = null;
             }
         };
     }, []);
-
 
     const starColors = {
         1: "bg-yellow-50",
@@ -392,7 +123,7 @@ const ReviewClientHome = ({ reviews }: TReviewss) => {
     return (
         <div>
             <section className="bg-white">
-                <div className="mx-auto max-w-screen-xl px-4 py-12 sm:px-6  lg:py-16">
+                <div className="mx-auto max-w-screen-xl px-4 py-12 sm:px-6 lg:py-16">
                     <div className="flex items-center justify-center space-x-4 p-4 mb-4 mt-4">
                         <div>
                             <h1 className="text-3xl font-semibold">Review our Medicines</h1>
@@ -401,23 +132,22 @@ const ReviewClientHome = ({ reviews }: TReviewss) => {
 
                     <div className="mt-8">
                         <div id="keen-slider" className="keen-slider" ref={sliderRef}>
-                            {reviews.map((review: TReview) => <>
+                            {reviews.map((review: TReview) => (
                                 <div key={review?._id} className="keen-slider__slide opacity-40 transition-opacity duration-500">
                                     <blockquote className="rounded-lg bg-gray-50 p-6 shadow-xs sm:p-8">
                                         <div className="flex items-center gap-4">
                                             <Image
                                                 alt="sdfg"
                                                 src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
-                                                width={80}
-                                                height={80}
+                                                width={70}
+                                                height={70}
                                                 className="rounded-full"
                                             />
                                             <div>
-                                                <p className=" text-lg font-medium text-gray-900">{review?.user?.name}</p>
+                                                <p className="text-lg font-medium text-gray-900">{review?.user?.name}</p>
                                                 <p className="-mt-1 text-sm font-medium text-gray-900">{review?.user?.email}</p>
-                                                <div className=" text-green-500">
-
-                                                    <div className="flex justify-start  mt-2">
+                                                <div className="text-green-500">
+                                                    <div className="flex justify-start mt-2">
                                                         {[1, 2, 3, 4, 5].map((star) => (
                                                             <Star
                                                                 key={star}
@@ -426,22 +156,17 @@ const ReviewClientHome = ({ reviews }: TReviewss) => {
                                                             />
                                                         ))}
                                                     </div>
-
                                                 </div>
-
                                             </div>
                                         </div>
                                         <div>
                                             <p className="mt-4 font-bold text-2xl text-gray-700">
                                                 {review?.title} <span className="text-sm font-normal">{`(${formatDate(review?.createdAt)})`}</span>
                                             </p>
-                                            <Textarea value={review?.message} />
-                                            <p className="mt-1 text-gray-700">
-                                                {review?.message}
-                                            </p>
+                                            <Textarea value={review?.message} className="text-lg" disabled />
                                         </div>
                                         <div className="mt-8">
-                                            <h2 className="font-bold text-xl underline ">Review Details</h2>
+                                            <h2 className="font-bold text-xl underline">Review Details</h2>
                                             <div>
                                                 <h3><span className="font-medium mr-2">Medicin Name:</span>{review?.product?.name}</h3>
                                                 <h3><span className="font-medium mr-2">Medicin Category:</span>{review?.product?.category}</h3>
@@ -450,7 +175,7 @@ const ReviewClientHome = ({ reviews }: TReviewss) => {
                                         </div>
                                     </blockquote>
                                 </div>
-                            </>)}
+                            ))}
                         </div>
 
                         {/* নেভিগেশন বাটন */}

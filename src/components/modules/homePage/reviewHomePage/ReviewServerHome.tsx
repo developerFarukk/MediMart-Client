@@ -48,7 +48,7 @@ const ReviewServerHome = async () => {
     const { data: review, isLoading, isError } = await getAllReview();
 
     // ডেটা সর্ট করুন (সর্বশেষ ডেটা প্রথমে)
-    const sortedReviews = review?.result.sort((a, b) => {
+    const sortedReviews = review?.result.sort((a: any, b: any) => {
         return new Date(b.createdAt) - new Date(a.createdAt); // createdAt ফিল্ড ব্যবহার করে সর্ট করুন
     });
 
