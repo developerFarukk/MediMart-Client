@@ -1,5 +1,6 @@
 import Banner from "@/components/modules/homePage/brandingSection/Banner";
 import FeaturedMedicines from "@/components/modules/homePage/featuredMedicines/FeaturedMedicines";
+import ReviewServerHome from "@/components/modules/homePage/reviewHomePage/ReviewServerHome";
 
 
 
@@ -19,6 +20,11 @@ const Home = () => {
                 {/* featuredMedicines Section */}
                 <div>
                     <FeaturedMedicines />
+                </div>
+
+                {/* Review Section */}
+                <div>
+                    <ReviewServerHome />
                 </div>
             </div>
         </div>
