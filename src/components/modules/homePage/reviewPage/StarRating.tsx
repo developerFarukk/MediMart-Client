@@ -1,4 +1,4 @@
-
+"use client"
 
 import { Star } from "lucide-react";
 
@@ -31,4 +31,4 @@ const StarRating = ({ rating, onRatingChange }: StarRatingProps) => {
     );
 };
 
-export default StarRating;
+export default StarRating; 
