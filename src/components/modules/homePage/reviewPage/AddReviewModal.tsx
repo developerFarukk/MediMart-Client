@@ -1,3 +1,5 @@
+
+
 "use client"
 
 import { Button } from "@/components/ui/button";
@@ -12,6 +14,7 @@ import { addReiewSchemaValidation } from "./addReviewSchema";
 import { useUser } from "@/context/UserContext";
 import { toast } from "sonner";
 import { addReview } from "@/services/ReviewService";
+import StarRating from "./StarRating";
 
 
 interface TReviews {
@@ -35,93 +38,45 @@ const AddReviewModal = ({ medicinId }: TReviews) => {
     const { formState: { isSubmitting, errors } } = form;
     const { setIsLoading, user } = useUser();
 
-    // const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-
-    //     console.log(data);
-
-
-    //     setIsLoading(true);
-
-    //     if ( !user ) {
-    //         toast.error("Please login than add review")
-    //     }
-
-    //     if ( user?.role === "admin" ) {
-    //         toast.error("Admin create review not allowed")
-    //     }
-
-    //     // const formData = new FormData();
-    //     const products = {
-    //         ...data,
-    //         product: medicinId
-    //     }
-
-    //     // console.log(products);
-    //     const formData = new FormData();
-
-    //     formData.append('data', JSON.stringify(products));
-
-
-
-    //     try {
-
-    //         const res = await addReview(products);
-    //         console.log(res);
-
-
-    //         if (res.success) {
-    //             toast.success(res.message);
-    //             form.reset();
-    //         } else {
-    //             toast.error(res.message);
-    //         }
-    //     } catch (err: any) {
-    //         toast.error(err.message || "Something went wrong");
-    //     } finally {
-    //         setIsLoading(false);
-    //     }
-    // };
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-        // console.log(data);
+
+        console.log(data);
+
 
         setIsLoading(true);
 
-        // ইউজার লগিন না থাকলে
         if (!user) {
             toast.error("Please login than add review");
             return;
         }
 
-        // ইউজার অ্যাডমিন হলে
         if (user?.role === "admin") {
             toast.error("Admin create review not allowed");
             return;
         }
 
-        // প্রোডাক্ট ডেটা প্রস্তুত করা
         const products = {
             ...data,
             product: medicinId
         };
 
         try {
-            // রিভিউ অ্যাড করার API কল
             const res = await addReview(products);
             console.log(res);
 
-            // সফল হলে
+
             if (res.success) {
                 toast.success(res.message);
                 form.reset();
-                setIsOpen(false) // ফর্ম রিসেট
+                setIsOpen(false)
             } else {
                 toast.error(res.message);
             }
         } catch (err: any) {
             toast.error(err.message || "Something went wrong");
         } finally {
-            setIsLoading(false); // লোডিং স্টেট বন্ধ
+            setIsLoading(false);
         }
     };
 
@@ -144,6 +99,7 @@ const AddReviewModal = ({ medicinId }: TReviews) => {
                         <div>
                             <Form {...form}>
                                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+
                                     {/* Title Field */}
                                     <FormField
                                         control={form.control}
@@ -152,14 +108,14 @@ const AddReviewModal = ({ medicinId }: TReviews) => {
                                             <FormItem>
                                                 <FormLabel>Review Title</FormLabel>
                                                 <FormControl>
-                                                    <Input placeholder="Inpute review title" {...field} />
+                                                    <Input placeholder="Input review title" {...field} />
                                                 </FormControl>
                                                 <FormMessage>{errors.title?.message as string}</FormMessage>
                                             </FormItem>
                                         )}
                                     />
 
-                                    {/* Description Field */}
+                                    {/* Message Field */}
                                     <FormField
                                         control={form.control}
                                         name="message"
@@ -167,26 +123,26 @@ const AddReviewModal = ({ medicinId }: TReviews) => {
                                             <FormItem>
                                                 <FormLabel>Review message</FormLabel>
                                                 <FormControl>
-                                                    <Textarea placeholder="Inpute review massage" {...field} />
+                                                    <Textarea placeholder="Input review message" {...field} />
                                                 </FormControl>
                                                 <FormMessage>{errors.message?.message as string}</FormMessage>
                                             </FormItem>
                                         )}
                                     />
 
-                                    {/* Price Field */}
+                                    {/* Review Count Field */}
                                     <FormField
                                         control={form.control}
                                         name="reviewCount"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Review Stare</FormLabel>
+                                                <FormLabel>Review Rating</FormLabel>
                                                 <FormControl>
-                                                    <Input
-                                                        type="number"
-                                                        placeholder="Enter review stare"
-                                                        {...field}
-                                                        onChange={(e) => field.onChange(parseFloat(e.target.value))}
+                                                    <StarRating
+                                                        rating={field.value}
+                                                        onRatingChange={(rating) => {
+                                                            field.onChange(rating);
+                                                        }}
                                                     />
                                                 </FormControl>
                                                 <FormMessage>{errors.reviewCount?.message as string}</FormMessage>
