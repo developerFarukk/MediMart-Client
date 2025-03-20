@@ -33,47 +33,97 @@ const AddReviewModal = ({ medicinId }: TReviews) => {
     });
 
     const { formState: { isSubmitting, errors } } = form;
-    const { setIsLoading } = useUser();
+    const { setIsLoading, user } = useUser();
+
+    // const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+
+    //     console.log(data);
+
+
+    //     setIsLoading(true);
+
+    //     if ( !user ) {
+    //         toast.error("Please login than add review")
+    //     }
+
+    //     if ( user?.role === "admin" ) {
+    //         toast.error("Admin create review not allowed")
+    //     }
+
+    //     // const formData = new FormData();
+    //     const products = {
+    //         ...data,
+    //         product: medicinId
+    //     }
+
+    //     // console.log(products);
+    //     const formData = new FormData();
+
+    //     formData.append('data', JSON.stringify(products));
+
+
+
+    //     try {
+
+    //         const res = await addReview(products);
+    //         console.log(res);
+
+
+    //         if (res.success) {
+    //             toast.success(res.message);
+    //             form.reset();
+    //         } else {
+    //             toast.error(res.message);
+    //         }
+    //     } catch (err: any) {
+    //         toast.error(err.message || "Something went wrong");
+    //     } finally {
+    //         setIsLoading(false);
+    //     }
+    // };
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-
-        console.log(data);
-        
+        // console.log(data);
 
         setIsLoading(true);
 
-        // const formData = new FormData();
+        // ইউজার লগিন না থাকলে
+        if (!user) {
+            toast.error("Please login than add review");
+            return;
+        }
+
+        // ইউজার অ্যাডমিন হলে
+        if (user?.role === "admin") {
+            toast.error("Admin create review not allowed");
+            return;
+        }
+
+        // প্রোডাক্ট ডেটা প্রস্তুত করা
         const products = {
             ...data,
             product: medicinId
-        }
-
-        // console.log(products);
-        const formData = new FormData();
-
-        formData.append('data', JSON.stringify(products));
-        
-
+        };
 
         try {
-
+            // রিভিউ অ্যাড করার API কল
             const res = await addReview(products);
             console.log(res);
-            
 
+            // সফল হলে
             if (res.success) {
                 toast.success(res.message);
                 form.reset();
+                setIsOpen(false) // ফর্ম রিসেট
             } else {
                 toast.error(res.message);
             }
         } catch (err: any) {
             toast.error(err.message || "Something went wrong");
         } finally {
-            setIsLoading(false);
+            setIsLoading(false); // লোডিং স্টেট বন্ধ
         }
     };
-
 
 
 

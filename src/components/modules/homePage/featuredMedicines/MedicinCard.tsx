@@ -306,7 +306,12 @@ const MedicinCard = ({ medici }: TMedicinss) => {
                             <p className="text-xl font-bold text-[#DF2626]">{medici?.price} TK</p>
                         </div>
                         <div>
-                            <AddReviewModal medicinId={medici?._id} />
+                            {user?.role === "admin" ? (
+                                null
+                            ) : (
+                                <AddReviewModal medicinId={medici?._id} />
+                            )}
+
                         </div>
                     </div>
 
