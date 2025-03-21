@@ -138,21 +138,21 @@ const ReviewClientHome = ({ reviews }: TReviewss) => {
                                         <div key={review?._id} className="keen-slider__slide opacity-40 transition-opacity duration-500">
                                             <blockquote className="rounded-lg bg-gray-50 p-6 shadow-xs sm:p-8">
                                                 <div className="flex items-center gap-4">
-                                                    <Image
+                                                    {/* <Image
                                                         alt="review user image"
                                                         src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
                                                         // src={review?.user?.image}
                                                         width={70}
                                                         height={70}
                                                         className="rounded-full"
+                                                    /> */}
+                                                    <Image
+                                                        src={review?.user?.image || "https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"}
+                                                        width={70}
+                                                        height={70}
+                                                        className="rounded-full"
+                                                        alt="NO"
                                                     />
-                                                    {/* <Image
-                                                src={review?.user?.image || "https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"}
-                                                width={70}
-                                                height={70}
-                                                className="rounded-full"
-                                                alt="User Image"
-                                            /> */}
                                                     <div>
                                                         <p className="text-lg font-medium text-gray-900">{review?.user?.name}</p>
                                                         <p className="-mt-1 text-sm font-medium text-gray-900">{review?.user?.email}</p>
