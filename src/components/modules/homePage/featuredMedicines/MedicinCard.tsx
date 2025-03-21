@@ -14,17 +14,23 @@ import Image from "next/image";
 import { useState } from "react";
 import { toast } from "sonner";
 import AddReviewModal from "../reviewPage/AddReviewModal";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface TMedicinss {
     medici: TMedicine;
+    isDialogOpen?: boolean;
+    setIsDialogOpen?: (isOpen: boolean) => void;
 }
 
-const MedicinCard = ({ medici }: TMedicinss) => {
+const MedicinCard = ({ medici, isDialogOpen, setIsDialogOpen }: TMedicinss) => {
     const medicinsCard = useAppSelector(orderMedicinsSelector);
     const dispatch = useAppDispatch();
     const { user } = useUser();
     const [orderQuantity, setOrderQuantity] = useState<number>(1);
-    const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const redirect = searchParams.get("redirectPath");
 
     const handleIncrementQuantity = () => {
         if (orderQuantity < medici?.quantity) {
@@ -42,7 +48,6 @@ const MedicinCard = ({ medici }: TMedicinss) => {
         }
     };
 
-
     const handleAddProduct = (medici: TMedicine) => {
         if (user?.role === "admin") {
             toast.error("Admins cannot place orders.");
@@ -54,13 +59,10 @@ const MedicinCard = ({ medici }: TMedicinss) => {
             return;
         }
 
-        // Check if the product is already in the cart
         const isProductAlreadyAdded = medicinsCard.some((medis: any) => medis?._id === medici?._id);
-
-        const subMediPrice = orderQuantity * medici?.price
+        const subMediPrice = orderQuantity * medici?.price;
 
         if (!isProductAlreadyAdded) {
-            // If the product is not already in the cart, add it
             const toastId = toast.loading("Adding to cart...");
 
             dispatch(
@@ -81,25 +83,28 @@ const MedicinCard = ({ medici }: TMedicinss) => {
                     createdAt: medici?.createdAt,
                     updatedAt: medici?.updatedAt,
                     length: medici?.length,
-                    subTotalPrice: subMediPrice
+                    subTotalPrice: subMediPrice,
                 })
             );
 
             toast.success("Added to cart successfully", { id: toastId, duration: 1500 });
-            setIsDialogOpen(false);
+            setIsDialogOpen?.(false);
+            if (redirect) {
+                router.push(redirect);
+            } else {
+                router.push("/");
+            }
+
         } else {
-            // If the product is already in the cart
             const existingProduct = medicinsCard.find((medis: any) => medis?._id === medici?._id);
 
             if (existingProduct?.orderQuantity === orderQuantity) {
-                // If orderQuantity is not updated
                 toast.error("Product is already added to cart.");
-                setIsDialogOpen(false);
+                setIsDialogOpen?.(false);
             } else {
-                // If orderQuantity is updated
                 dispatch(updateQuantity({ id: medici?._id, orderQuantity }));
                 toast.success("Product is already added to cart and orderQuantity updated successfully.");
-                setIsDialogOpen(false);
+                setIsDialogOpen?.(false);
             }
         }
     };
@@ -117,7 +122,7 @@ const MedicinCard = ({ medici }: TMedicinss) => {
                         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                             <DialogTrigger asChild>
                                 <Button className="mr-2 w-fit rounded-[4px] border px-7 py-5 text-sm uppercase leading-4 shadow-2xl duration-500 hover:border-[#DF2626]">
-                                    Quick View
+                                    <Link href={`/medicine/${medici?._id}`}> Quick View</Link>
                                 </Button>
                             </DialogTrigger>
                             <DialogContent className="sm:max-w-[90%] md:max-w-3xl lg:max-w-4xl xl:max-w-5xl p-4 overflow-y-auto max-h-[90vh]">
@@ -311,10 +316,8 @@ const MedicinCard = ({ medici }: TMedicinss) => {
                             ) : (
                                 <AddReviewModal medicinId={medici?._id} />
                             )}
-
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

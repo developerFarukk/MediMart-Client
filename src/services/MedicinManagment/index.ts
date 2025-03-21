@@ -76,8 +76,27 @@ export const updateMedicin = async (data: any, medicinId: string): Promise<any> 
         });
         revalidateTag("Medicin");
         return res.json();
-        
+
     } catch (error: any) {
         return Error(error);
+    }
+};
+
+
+// get single medicin
+export const getSinglemedicin = async (medicinId: string) => {
+    try {
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_API}/medicins/${medicinId}`,
+            {
+                next: {
+                    tags: ["Medicin"],
+                },
+            }
+        );
+        const data = await res.json();
+        return data;
+    } catch (error: any) {
+        return Error(error.message);
     }
 };

@@ -10,6 +10,8 @@ import { TMedicine } from "@/types/medicins";
 
 const FeaturedMedicines = () => {
 
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+
     const [isLoading, setIsLoading] = useState(false);
     const [medicins, setMedicin] = useState([]);
 
@@ -50,7 +52,13 @@ const FeaturedMedicines = () => {
 
             <div>
                 <div className='mx-auto mt-10 grid max-w-[1440px] grid-cols-1 gap-9 px-5 md:grid-cols-2 lg:grid-cols-3 lg:px-0'>
-                    {medicins?.map((medici: TMedicine) => <MedicinCard medici={medici} key={medici._id} />)}
+                    {medicins?.map((medici: TMedicine) =>
+                        <MedicinCard
+                            medici={medici}
+                            key={medici._id}
+                            isDialogOpen={isDialogOpen}
+                            setIsDialogOpen={setIsDialogOpen}
+                        />)}
                 </div>
             </div>
 

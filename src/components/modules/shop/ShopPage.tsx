@@ -8,18 +8,19 @@ import { getAllMedicins } from "@/services/MedicinManagment";
 import { TMedicine } from "@/types/medicins";
 import MedicinCard from "../homePage/featuredMedicines/MedicinCard";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"; 
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 
 const ShopPage = () => {
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [medicins, setMedicins] = useState<TMedicine[]>([]);
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const [searchQuery, setSearchQuery] = useState("");
-    const [categoryFilter, setCategoryFilter] = useState("all"); 
+    const [categoryFilter, setCategoryFilter] = useState("all");
     const [priceSort, setPriceSort] = useState<"asc" | "desc" | "none">("none");
-    const [prescriptionFilter, setPrescriptionFilter] = useState<"all" | "Yes" | "No">("all"); 
+    const [prescriptionFilter, setPrescriptionFilter] = useState<"all" | "Yes" | "No">("all");
 
     // Fetch medicines
     const getMedicins = useCallback(async (page: number) => {
@@ -182,6 +183,8 @@ const ShopPage = () => {
                     <MedicinCard
                         medici={medici}
                         key={index + 1}
+                        isDialogOpen={isDialogOpen}
+                        setIsDialogOpen={setIsDialogOpen}
                     />
                 ))}
             </div>
