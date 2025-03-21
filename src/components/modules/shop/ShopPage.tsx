@@ -7,6 +7,9 @@ import Loader from "@/components/shared/Loader";
 import { getAllMedicins } from "@/services/MedicinManagment";
 import { TMedicine } from "@/types/medicins";
 import MedicinCard from "../homePage/featuredMedicines/MedicinCard";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"; 
+import { Button } from "@/components/ui/button";
 
 const ShopPage = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -14,6 +17,9 @@ const ShopPage = () => {
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const [searchQuery, setSearchQuery] = useState("");
+    const [categoryFilter, setCategoryFilter] = useState("all"); 
+    const [priceSort, setPriceSort] = useState<"asc" | "desc" | "none">("none");
+    const [prescriptionFilter, setPrescriptionFilter] = useState<"all" | "Yes" | "No">("all"); 
 
     // Fetch medicines
     const getMedicins = useCallback(async (page: number) => {
@@ -71,12 +77,31 @@ const ShopPage = () => {
         return () => observer.disconnect();
     }, [medicins]);
 
-    // Filter medicines by name and category
-    const filteredMedicins = medicins.filter((medici) => {
-        const matchesName = medici.name.toLowerCase().includes(searchQuery.toLowerCase());
-        const matchesCategory = medici.category.toLowerCase().includes(searchQuery.toLowerCase());
-        return matchesName || matchesCategory;
-    });
+    // Filter and sort medicines
+    const filteredMedicins = medicins
+        .filter((medici) => {
+            const matchesName = medici.name.toLowerCase().includes(searchQuery.toLowerCase());
+            const matchesCategory = categoryFilter === "all" ? true : medici.category === categoryFilter;
+            const matchesPrescription =
+                prescriptionFilter === "all" ? true : medici.requiredPrescription === prescriptionFilter;
+            return matchesName && matchesCategory && matchesPrescription;
+        })
+        .sort((a, b) => {
+            if (priceSort === "asc") {
+                return a.price - b.price;
+            } else if (priceSort === "desc") {
+                return b.price - a.price;
+            } else {
+                return 0;
+            }
+        });
+
+    // Reset filters
+    const resetFilters = () => {
+        setCategoryFilter("all");
+        setPriceSort("none");
+        setPrescriptionFilter("all");
+    };
 
     return (
         <div className="pt-12">
@@ -89,16 +114,69 @@ const ShopPage = () => {
             </div>
 
             {/* Search Bar */}
-            <div className="mb-6 p-2 flex justify-center">
-                <input
+            <div className="flex justify-center mb-4">
+                <Input
                     type="text"
                     placeholder="Search by medicines name, category..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="lg:w-[60%] md:w-[80%] w-[95%] p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="lg:w-[40%] md:w-[60%] w-[95%]"
                 />
             </div>
 
+            {/* Filters */}
+            <div className="mb-6 p-2 flex flex-col lg:flex-row justify-center items-center gap-4">
+                {/* Category Filter */}
+                <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+                    <SelectTrigger className="lg:w-[200px] w-[95%]">
+                        <SelectValue placeholder="Filter by category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="all">All Categories</SelectItem>
+                        <SelectItem value="Analgesics">Analgesics</SelectItem>
+                        <SelectItem value="Antibiotics">Antibiotics</SelectItem>
+                        <SelectItem value="Antipyretics">Antipyretics</SelectItem>
+                        <SelectItem value="Antihistamines">Antihistamines</SelectItem>
+                        <SelectItem value="Antidepressants">Antidepressants</SelectItem>
+                        <SelectItem value="Antacids">Antacids</SelectItem>
+                        <SelectItem value="Antidiabetics">Antidiabetics</SelectItem>
+                        <SelectItem value="Cardiovascular">Cardiovascular</SelectItem>
+                        <SelectItem value="Respiratory">Respiratory</SelectItem>
+                        <SelectItem value="Vitamins & Supplements">Vitamins & Supplements</SelectItem>
+                    </SelectContent>
+                </Select>
+
+                {/* Price Sort */}
+                <Select value={priceSort} onValueChange={(value) => setPriceSort(value as "asc" | "desc" | "none")}>
+                    <SelectTrigger className="lg:w-[200px] w-[95%]">
+                        <SelectValue placeholder="Sort by price" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="none">None</SelectItem>
+                        <SelectItem value="asc">Price: Low to High</SelectItem>
+                        <SelectItem value="desc">Price: High to Low</SelectItem>
+                    </SelectContent>
+                </Select>
+
+                {/* Prescription Filter */}
+                <Select value={prescriptionFilter} onValueChange={(value) => setPrescriptionFilter(value as "all" | "Yes" | "No")}>
+                    <SelectTrigger className="lg:w-[200px] w-[95%]">
+                        <SelectValue placeholder="Prescription Required" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="all">All</SelectItem>
+                        <SelectItem value="Yes">Required Prescription</SelectItem>
+                        <SelectItem value="No">Not Required Prescription</SelectItem>
+                    </SelectContent>
+                </Select>
+
+                {/* Reset Filters Button */}
+                <Button onClick={resetFilters} variant="outline">
+                    Reset Filters
+                </Button>
+            </div>
+
+            {/* Medicine Cards */}
             <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-6 px-5 md:grid-cols-2 lg:grid-cols-3 lg:px-0">
                 {filteredMedicins.map((medici: TMedicine, index: number) => (
                     <MedicinCard

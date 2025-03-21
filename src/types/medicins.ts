@@ -1,4 +1,7 @@
 
+export type TMedicinCategory = "Analgesics" | "Antibiotics" | "Antipyretics" | "Antihistamines" | "Antidepressants" | "Antacids"
+    | "Antidiabetics" | "Cardiovascular" | "Respiratory" | "Vitamins & Supplements";
+
 interface ManufacturerDetails {
     name: string;
     address: string;
@@ -10,10 +13,10 @@ export interface TMedicine {
     name: string;
     description: string;
     price: number;
-    category: string;
+    category: TMedicinCategory;
     quantity: number;
     stockAvailability: string;
-    requiredPrescription: string;
+    requiredPrescription: "Yes" | "No";
     mediImage: string;
     massUnit: number;
     manufacturerDetails: ManufacturerDetails;
@@ -34,7 +37,7 @@ export type TCartItem = {
     orderQuantity: number;
     stockAvailability: string;
     requiredPrescription: string;
-    mediImage: string | undefined ;
+    mediImage: string | undefined;
     massUnit: number;
     manufacturerDetails: ManufacturerDetails;
     expiryDate: string;
