@@ -114,7 +114,7 @@ const data = {
             items: [
                 {
                     title: "My Card",
-                    url: "/customer/mycard",
+                    url: "/customer/cart",
                 },
             ],
         },

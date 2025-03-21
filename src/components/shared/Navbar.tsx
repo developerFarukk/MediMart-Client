@@ -137,7 +137,7 @@ const Navbar = () => {
                                             <li>
                                                 <div className="flex justify-center items-center md:block hover:bg-blue-100 duration-300 text-base font-medium p-4 rounded-full ">
                                                     <Link
-                                                        href={`${user?.role}/mycard`}
+                                                        href={`${user?.role}/cart`}
                                                     >
                                                         <div className="flex justify-center items-center text-center">
                                                             <div className="relative">
@@ -264,7 +264,7 @@ const Navbar = () => {
                                         <li>
                                             <div className="flex justify-center items-center md:block hover:bg-blue-100 duration-300 text-base font-medium p-4 rounded-full ">
                                                 <Link
-                                                    href={`${user?.role}/mycard`}
+                                                    href={`${user?.role}/cart`}
                                                 >
                                                     <div className="flex justify-center items-center text-center">
                                                         <div className="relative">
