@@ -1,12 +1,14 @@
-"use client"
 
-import Loader from "@/components/shared/Loader";
+
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useUser } from "@/context/UserContext";
+import { updateProfile } from "@/services/UserService";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PhoneCall, ShieldAlert, ShieldMinus, UserRoundCheck } from "lucide-react";
 import Image from "next/image";
@@ -14,132 +16,117 @@ import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-const MAX_FILE_SIZE = 300 * 1024;
 
+const MAX_FILE_SIZE = 300 * 1024;
 
 // Define the schema for validation
 const userSchema = z.object({
     name: z.string().optional(),
-    number: z.number().optional(),
     address: z.string().optional(),
-    image: z.string().optional()
+    image: z.string().optional(),
 });
 
+// Define the TUser interface
+interface TUser {
+    userId: string;
+    name: string;
+    address: string;
+    image: string;
+    email: string;
+    number: string;
+    status: string;
+    role: string;
+}
 
 const CustomerProfile = () => {
-
     const [isDialogOpen, setIsDialogOpen] = useState(false);
-    const { user, isLoading } = useUser();
+    const { user, setUser, setIsLoading } = useUser();
 
     const form = useForm({
         resolver: zodResolver(userSchema),
         defaultValues: {
-            name: user?.name,
-            address: user?.address,
-            number: user?.number,
-            image: user?.image
+            name: user?.name || "",
+            address: user?.address || "",
+            image: user?.image || "",
         },
     });
 
     const { formState: { isSubmitting, errors } } = form;
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+        const toastId = toast.loading("Loading...");
+        setIsLoading(true);
 
-        console.log(data);
-        
+        try {
+            if (!user) {
+                toast.error("User not found");
+                return;
+            }
 
-        // const toastId = toast.loading("Loading...");
-        // setIsLoading(true);
+            let imageUrl = user.image;
 
-        // if (!medicin?._id) {
-        //     toast.error("Invalid product ID", { id: toastId });
-        //     return;
-        // }
+            // Handle image upload
+            if (data.image && typeof data.image === "string") {
+                const base64Data = data.image.split(',')[1];
+                const fileSizeInBytes = (base64Data.length * 3) / 4;
 
-        // let imageUrl = medicin?.mediImage;
+                if (fileSizeInBytes > MAX_FILE_SIZE) {
+                    throw new Error("Image size must be less than 300KB");
+                }
 
-        // try {
+                const formData = new FormData();
+                formData.append('file', data.image);
+                formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!);
 
-        //     if (data.mediImage && typeof data.mediImage === "string") {
-        //         const base64Data = data.mediImage.split(',')[1];
-        //         const fileSizeInBytes = (base64Data.length * 3) / 4;
+                const cloudinaryResponse = await fetch(
+                    `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+                    {
+                        method: 'POST',
+                        body: formData,
+                    }
+                );
 
-        //         if (fileSizeInBytes > MAX_FILE_SIZE) {
-        //             throw new Error("Image size must be less than 300KB");
-        //         }
+                const cloudinaryData = await cloudinaryResponse.json();
+                if (cloudinaryData.secure_url) {
+                    imageUrl = cloudinaryData.secure_url;
+                } else {
+                    throw new Error("Image upload failed");
+                }
+            }
 
-        //         const formData = new FormData();
-        //         formData.append('file', data.mediImage);
-        //         formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!);
+            const updatedData: Partial<TUser> = {
+                name: data.name || user.name,
+                address: data.address || user.address,
+                image: imageUrl || user.image,
+            };
 
-        //         const cloudinaryResponse = await fetch(
-        //             `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
-        //             {
-        //                 method: 'POST',
-        //                 body: formData,
-        //             }
-        //         );
+            // Call the updateProfile API
+            const res = await updateProfile(updatedData, user.userId);
 
-        //         const cloudinaryData = await cloudinaryResponse.json();
+            if (res.success) {
+                toast.success(res.message);
+                form.reset();
+                setIsDialogOpen(false);
 
-        //         if (cloudinaryData.secure_url) {
-        //             imageUrl = cloudinaryData.secure_url;
-        //         } else {
-        //             throw new Error("Image upload failed");
-        //         }
-        //     }
-
-
-        //     const updatedData = {
-        //         ...data,
-        //         mediImage: imageUrl,
-        //         manufacturerDetails: {
-        //             name: data?.manufacturerDetails?.name || medicin?.manufacturerDetails?.name,
-        //             address: data?.manufacturerDetails?.address || medicin?.manufacturerDetails?.address,
-        //             contactNumber: data?.manufacturerDetails?.contactNumber || medicin?.manufacturerDetails?.contactNumber,
-        //         },
-        //         category: data?.category || medicin?.category,
-        //         requiredPrescription: data?.requiredPrescription || medicin?.requiredPrescription,
-        //     };
-
-        //     console.log(updatedData);
-
-        //     // Call the updateMedicin API
-        //     const res = await updateMedicin(updatedData, medicin?._id);
-        //     console.log(res);
-
-        //     if (res.success) {
-        //         toast.success(res.message);
-        //         form.reset();
-        //         setIsDialogOpen(false);
-
-        //         window.location.reload();
-        //     } else {
-        //         toast.error(res.message);
-        //         form.reset();
-        //         setIsDialogOpen(false);
-        //     }
-        // } catch (err: any) {
-        //     toast.error(err.message || "Something went wrong");
-        // } finally {
-        //     setIsLoading(false);
-        //     toast.dismiss(toastId);
-        // }
+                setUser({ ...user, ...updatedData });
+            } else {
+                toast.error(res.message);
+            }
+        } catch (err: any) {
+            toast.error(err.message || "Something went wrong");
+        } finally {
+            setIsLoading(false);
+            toast.dismiss(toastId);
+        }
     };
-
-
-    if (isLoading) {
-        <div><Loader /></div>
-    }
-
 
     return (
         <div className="flex justify-center p-4 mt-4">
             <div className="">
-                <div className="w-full max-w-sm overflow-hidden  rounded-lg shadow-lg ">
+                <div className="w-full max-w-sm overflow-hidden rounded-lg shadow-lg">
                     <div className="flex justify-center">
                         <Image
-                            className="  rounded-full p-1"
+                            className="rounded-full p-1"
                             src={user?.image || "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"}
                             alt="No"
                             height={250}
@@ -151,7 +138,7 @@ const CustomerProfile = () => {
                         <h1 className="text-xl font-semibold text-gray-800 dark:text-white">{user?.name}</h1>
 
                         <p className="py-2 text-gray-700 dark:text-gray-400">
-                            I am bussnes man. And self employe.
+                            I am a business person and self-employed.
                         </p>
 
                         {/* Address */}
@@ -205,12 +192,11 @@ const CustomerProfile = () => {
 
                         {/* Status */}
                         <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200 gap-3">
-                            {
-                                user?.status === "in-progress" ? (
-                                    <span><ShieldAlert /></span>
-                                ) :
-                                    <span><ShieldMinus /></span>
-                            }
+                            {user?.status === "in-progress" ? (
+                                <span><ShieldAlert /></span>
+                            ) : (
+                                <span><ShieldMinus /></span>
+                            )}
                             <h2>{user?.status}</h2>
                         </div>
 
@@ -232,10 +218,9 @@ const CustomerProfile = () => {
                                             Make changes to your profile here.
                                         </DialogDescription>
                                     </DialogHeader>
-                                    <div className=" justify-center flex">
+                                    <div className="justify-center flex">
                                         <Form {...form}>
                                             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-
                                                 {/* Name Field */}
                                                 <FormField
                                                     control={form.control}
@@ -244,14 +229,14 @@ const CustomerProfile = () => {
                                                         <FormItem>
                                                             <FormLabel>Your Name</FormLabel>
                                                             <FormControl>
-                                                                <Input  {...field} />
+                                                                <Input {...field} />
                                                             </FormControl>
                                                             <FormMessage>{errors.name?.message as string}</FormMessage>
                                                         </FormItem>
                                                     )}
                                                 />
 
-                                                {/* Description Field */}
+                                                {/* Address Field */}
                                                 <FormField
                                                     control={form.control}
                                                     name="address"
@@ -259,32 +244,12 @@ const CustomerProfile = () => {
                                                         <FormItem>
                                                             <FormLabel>Your Address</FormLabel>
                                                             <FormControl>
-                                                                <Textarea  {...field} />
+                                                                <Textarea {...field} />
                                                             </FormControl>
                                                             <FormMessage>{errors.address?.message as string}</FormMessage>
                                                         </FormItem>
                                                     )}
                                                 />
-
-                                                {/* Number Field */}
-                                                <FormField
-                                                    control={form.control}
-                                                    name="number"
-                                                    render={({ field }) => (
-                                                        <FormItem>
-                                                            <FormLabel>Your Number</FormLabel>
-                                                            <FormControl>
-                                                                <Input
-                                                                    type="number"
-                                                                    {...field}
-                                                                    onChange={(e) => field.onChange(parseFloat(e.target.value))}
-                                                                />
-                                                            </FormControl>
-                                                            <FormMessage>{errors.number?.message as string}</FormMessage>
-                                                        </FormItem>
-                                                    )}
-                                                />
-
 
                                                 {/* Image Field (Optional) */}
                                                 <div className="mt-4">
@@ -333,7 +298,7 @@ const CustomerProfile = () => {
                                                     className="mt-5 w-full"
                                                     disabled={isSubmitting}
                                                 >
-                                                    {isSubmitting ? "updating..." : "Ppdate Profile"}
+                                                    {isSubmitting ? "Updating..." : "Update Profile"}
                                                 </Button>
                                             </form>
                                         </Form>
@@ -341,9 +306,7 @@ const CustomerProfile = () => {
                                 </DialogContent>
                             </Dialog>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>
