@@ -3,7 +3,7 @@
 
 import * as React from "react"
 import medimart from '@/assets/nextmart.png'
-import {  BriefcaseMedical, DollarSign, Frame, IdCardIcon, LifeBuoy, LucideListOrdered, Map, PieChart, Send, Settings2,  StoreIcon, User2 } from "lucide-react"
+import {  BriefcaseMedical, DollarSign, Frame, IdCardIcon, LifeBuoy, LucideListOrdered, Map, PieChart, Send, Settings2,  StoreIcon, User2, UserCircle } from "lucide-react"
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar"
 import { NavMain } from "./nav-main"
 // import { NavProjects } from "./nav-projects"
@@ -110,7 +110,7 @@ const data = {
             title: "Cart Managments",
             url: null,
             icon: IdCardIcon,
-            isActive: true,
+            isActive: false,
             items: [
                 {
                     title: "My Card",
@@ -126,6 +126,17 @@ const data = {
                 {
                     title: "Order History",
                     url: "/customer/orders",
+                },
+            ],
+        },
+        {
+            title: "Profile Managments",
+            url: null,
+            icon: UserCircle,
+            items: [
+                {
+                    title: "Profile",
+                    url: "/customer/profile",
                 },
             ],
         },
