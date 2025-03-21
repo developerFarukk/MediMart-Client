@@ -124,8 +124,8 @@ const data = {
             icon: StoreIcon,
             items: [
                 {
-                    title: "All Users",
-                    url: "#",
+                    title: "Order History",
+                    url: "/customer/orders",
                 },
             ],
         },

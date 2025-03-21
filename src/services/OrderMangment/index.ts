@@ -93,7 +93,7 @@ export const deleteOrder = async (id: string): Promise<any> => {
 };
 
 
-// // Update Update
+// Update Update
 export const updateOrder = async (data: any, orderId: string): Promise<any> => {
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/orders/${orderId}`, {
@@ -112,5 +112,28 @@ export const updateOrder = async (data: any, orderId: string): Promise<any> => {
         return res.json();
     } catch (error: any) {
         return Error(error);
+    }
+};
+
+
+// get My order
+export const getAllMyOrders = async (page?: number, limit?: number) => {
+    const params = new URLSearchParams();
+
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/orders/me?limit=${limit}&page=${page}&${params}`, {
+            headers: {
+                Authorization: (await cookies()).get("accessToken")!.value,
+            },
+            next: {
+                tags: ["Order"],
+                revalidate: 10,
+            },
+        });
+        const data = await res.json();
+
+        return data;
+    } catch (error: any) {
+        return Error(error.message);
     }
 };
