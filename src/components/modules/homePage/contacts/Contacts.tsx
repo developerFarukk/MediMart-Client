@@ -23,7 +23,7 @@ const Contacts = () => {
 
                     <Image
                         className="object-cover w-full h-64 mt-10 rounded-lg lg:h-96"
-                        src="https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        src="https://images.unsplash.com/photo-1631085095031-049d439d6b27?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         alt="Friendly healthcare team"
                         height={600}
                         width={1000}

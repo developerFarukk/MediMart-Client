@@ -1,4 +1,5 @@
 import AboutPage from "@/components/modules/homePage/about/AboutPage";
+import BlogPage from "@/components/modules/homePage/blogs/BlogPage";
 import Banner from "@/components/modules/homePage/brandingSection/Banner";
 import Contacts from "@/components/modules/homePage/contacts/Contacts";
 import FeaturedMedicines from "@/components/modules/homePage/featuredMedicines/FeaturedMedicines";
@@ -34,10 +35,17 @@ const Home = () => {
                     <AboutPage />
                 </div>
 
+                {/* Blog section */}
+                <div id="blog">
+                    <BlogPage />
+                </div>
+
                 {/* Contacts Section */}
                 <div id="contact">
                     <Contacts />
                 </div>
+
+
             </div>
         </div>
     );

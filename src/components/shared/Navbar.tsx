@@ -89,7 +89,7 @@ const Navbar = () => {
 
         {
             title: 'Blogs',
-            path: '/blog',
+            path: '#blog',
         },
         {
             title: 'Contacts',
