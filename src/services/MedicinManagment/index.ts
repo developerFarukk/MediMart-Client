@@ -43,6 +43,27 @@ export const getAllMedicins = async (page?: number, limit?: number) => {
     }
 };
 
+// get All Stock medicin
+export const getAllStockMedicins = async () => {
+
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/medicins/stockmedicin`, {
+            headers: {
+                Authorization: (await cookies()).get("accessToken")!.value,
+            },
+            next: {
+                tags: ["Medicin"],
+                revalidate: 10,
+            },
+
+        });
+        const data = await res.json();
+        return data;
+    } catch (error: any) {
+        return Error(error.message);
+    }
+};
+
 
 // Delete Medicin
 export const deleteMedicin = async (id: string): Promise<any> => {
