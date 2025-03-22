@@ -84,7 +84,7 @@ const Navbar = () => {
         },
         {
             title: 'About',
-            path: '/aboutus',
+            path: '#about',
         },
 
         {
@@ -93,7 +93,7 @@ const Navbar = () => {
         },
         {
             title: 'Contacts',
-            path: '/contact-us',
+            path: '#contact',
         }
     ];
 

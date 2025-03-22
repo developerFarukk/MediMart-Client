@@ -1,4 +1,6 @@
+import AboutPage from "@/components/modules/homePage/about/AboutPage";
 import Banner from "@/components/modules/homePage/brandingSection/Banner";
+import Contacts from "@/components/modules/homePage/contacts/Contacts";
 import FeaturedMedicines from "@/components/modules/homePage/featuredMedicines/FeaturedMedicines";
 import ReviewServerHome from "@/components/modules/homePage/reviewHomePage/ReviewServerHome";
 
@@ -25,6 +27,16 @@ const Home = () => {
                 {/* Review Section */}
                 <div>
                     <ReviewServerHome />
+                </div>
+
+                {/* About section */}
+                <div id="about">
+                    <AboutPage />
+                </div>
+
+                {/* Contacts Section */}
+                <div id="contact">
+                    <Contacts />
                 </div>
             </div>
         </div>
