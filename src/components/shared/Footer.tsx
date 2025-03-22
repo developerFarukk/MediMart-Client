@@ -10,7 +10,7 @@ const Footer = () => {
     return (
         <div>
             <footer className="">
-                <div className="mx-auto  space-y-8 px-4 py-16 sm:px-6 lg:space-y-16 lg:px-8">
+                <div className="mx-auto bg-fuchsia-100 mt-8 space-y-8 px-4 py-4 sm:px-6  lg:px-8">
                     <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
                         <div>
                             <div className="">
@@ -24,8 +24,7 @@ const Footer = () => {
                             </div>
 
                             <p className="mt-4 max-w-xs text-gray-500">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse non cupiditate quae nam
-                                molestias.
+                                welcome to aout Medimart website
                             </p>
 
                             <ul className="mt-8 flex gap-6">
@@ -145,9 +144,6 @@ const Footer = () => {
                                         <a href="#" className="text-gray-700 transition hover:opacity-75"> HR Consulting </a>
                                     </li>
 
-                                    <li>
-                                        <a href="#" className="text-gray-700 transition hover:opacity-75"> SEO Optimisation </a>
-                                    </li>
                                 </ul>
                             </div>
 
@@ -202,18 +198,12 @@ const Footer = () => {
                                     <li>
                                         <a href="#" className="text-gray-700 transition hover:opacity-75"> Refund Policy </a>
                                     </li>
-
-                                    <li>
-                                        <a href="#" className="text-gray-700 transition hover:opacity-75">
-                                            Hiring-3 Statistics
-                                        </a>
-                                    </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
 
-                    <p className="text-xs text-gray-500 justify-center">&copy; 2022. Company Name. All rights reserved.</p>
+                    <p className=" text-gray-500 flex justify-center font-medium text-sm">&copy; 2025. MediMart. All rights reserved.</p>
                 </div>
             </footer>
         </div>
