@@ -9,7 +9,6 @@ const AdminDashboard = async (
 ) => {
 
     const { data: orders, isLoading, isError } = await getAllOrders();
-
     const totalOrder = orders?.meta?.total
     
 
