@@ -13,7 +13,7 @@ const ToolTipePage = ({title, tole}: TTolls) => {
                 <Tooltip>
                     <TooltipTrigger asChild>
                         {/* <Button variant="outline">Hover</Button> */}
-                        <div className="px-4 py-2 font-medium whitespace-nowrap hover:text-blue-500">{title}</div>
+                        <div className="px-4 py-2 font-medium text-blue-800 whitespace-nowrap hover:text-blue-500">{title}</div>
                     </TooltipTrigger>
                     <TooltipContent>
                         <p>{tole}</p>

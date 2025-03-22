@@ -9,3 +9,10 @@ export const status = [
     "Cancelled"
 ];
 
+
+export const approvalStatus = [
+    "Pending",
+    "Approved",
+    "Rejected"
+];
+

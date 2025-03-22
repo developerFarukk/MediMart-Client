@@ -16,6 +16,7 @@ import { TExtraError } from "@/types/global";
 import UpdateStatusByAdmin from "./UpdateStatusByAdmin";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import UpdateimageApproved from "./UpdateimageApproved";
 
 interface TOrderAdmin {
     orders: any;
@@ -137,7 +138,12 @@ const AllOrdersByAdmin = ({ orders }: TOrderAdmin) => {
                                     <th className="px-4 py-2 font-medium whitespace-nowrap">
                                         <ToolTipePage title="Prescription" tole="Show Prescription Image" />
                                     </th>
-                                    <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Status Approv</th>
+                                    <th className="px-4 py-2 font-medium whitespace-nowrap">
+                                        <ToolTipePage title="P. Status" tole="Show Prescription Image Status" />
+                                    </th>
+                                    <th className="px-4 py-2 font-medium whitespace-nowrap">
+                                        <ToolTipePage title="S. Status" tole="Shipping Status" />
+                                    </th>
                                     <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Transaction ID</th>
                                     <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Quantity</th>
                                     <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Price</th>
@@ -187,6 +193,10 @@ const AllOrdersByAdmin = ({ orders }: TOrderAdmin) => {
                                                         </td>
                                                     )
                                                 }
+                                                <td className="px-4 py-2 whitespace-nowrap text-gray-700 text-center">
+                                                    {/* {order?.status} */}
+                                                    <UpdateimageApproved orders={order} />
+                                                </td>
                                                 <td className="px-4 py-2 whitespace-nowrap text-gray-700 text-center">
                                                     {/* {order?.status} */}
                                                     <UpdateStatusByAdmin orders={order} />
