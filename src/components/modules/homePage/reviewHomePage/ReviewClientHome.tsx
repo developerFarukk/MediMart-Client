@@ -170,7 +170,7 @@ const ReviewClientHome = ({ reviews }: TReviewss) => {
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <p className="mt-4 font-bold text-2xl text-gray-700">
+                                                    <p className="mt-4 font-bold text-2xl text-gray-700 mb-1">
                                                         {review?.title} <span className="text-sm font-normal">{`(${formatDate(review?.createdAt)})`}</span>
                                                     </p>
                                                     <Textarea value={review?.message} className="text-lg" disabled />
