@@ -91,7 +91,6 @@ const AllUsersPage = ({ users }: any) => {
                                     <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Role</th>
                                     <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Status</th>
                                     <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Adress</th>
-                                    <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">Action</th>
                                 </tr>
                             </thead>
 
@@ -124,9 +123,6 @@ const AllUsersPage = ({ users }: any) => {
                                                 <td className="px-4 py-2 whitespace-nowrap text-gray-700">{user?.role}</td>
                                                 <td className="px-4 py-2 whitespace-nowrap text-gray-700">{user?.status}</td>
                                                 <td className="px-4 py-2 whitespace-nowrap text-gray-700">{user?.address || "N/A"}</td>
-                                                <td className="flex justify-center gap-4 px-4 py-2 whitespace-nowrap text-gray-700">
-                                                    <p>ami</p>
-                                                </td>
                                             </tr>
                                         );
                                     })

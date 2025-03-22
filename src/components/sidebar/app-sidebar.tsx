@@ -35,7 +35,7 @@ const data = {
                 },
                 {
                     title: "All Medicins",
-                    url: "/admin/allmedicin",
+                    url: "/admin/medicines",
                 },
             ],
         },
@@ -46,7 +46,7 @@ const data = {
             items: [
                 {
                     title: "All Users",
-                    url: "/admin/alluser",
+                    url: "/admin/users",
                 },
             ],
         },
