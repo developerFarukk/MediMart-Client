@@ -65,6 +65,7 @@ MediMart is an online platform where users can browse, search, and purchase medi
 ## Getting Started
 
 First, run the development server:
+First, run the development server:
 
 ```bash
 npm run dev
