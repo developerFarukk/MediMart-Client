@@ -51,7 +51,7 @@ MediMart is an online platform where users can browse, search, and purchase medi
 
 ### Backend
 - **Node.js** with **Express** for REST APIs.
-- **MongoDB** (with Mongoose) for storing user data, medicine inventory, and orders.
+- **MongoDB** (with Mongoose) for storing user data, medicine inventory, and orders manege.
 - **JWT** for authentication.
 - **bcryptjs** for password hashing.
 ---
