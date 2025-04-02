@@ -17,7 +17,7 @@ MediMart is an online platform where users can browse, search, and purchase medi
 
 ### User Roles
 - **Customers**: Can browse, add medicines to the cart, and place orders.
-- **Admin**: Manages products, orders, and user queries.
+- **Admin**: Manages products, orders, and users queries.
 
 
 ### Shopping Cart & Checkout
