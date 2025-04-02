@@ -60,7 +60,7 @@ const Cart = ({ idx, length, medicin }: CartProps) => {
                             <div className='relative h-32 w-32 bg-cover'>
                                 <Image
                                     className='w-full rounded-md border bg-[#EAEAEA] p-1'
-                                    src={medicin?.mediImage}
+                                    src={medicin?.mediImage || "https://img.freepik.com/free-photo/medicines-palm-hand_1150-13867.jpg?ga=GA1.1.1943003916.1738404104&semt=ais_hybrid"}
                                     alt='asdf'
                                     layout='fill'
                                     objectFit="cover"
