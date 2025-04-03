@@ -49,6 +49,8 @@ const MedicinCard = ({ medici, isDialogOpen, setIsDialogOpen }: TMedicinss) => {
     };
 
     const handleAddProduct = (medici: TMedicine) => {
+        console.log(medici);
+
         if (user?.role === "admin") {
             toast.error("Admins cannot place orders.");
             return;
@@ -279,9 +281,19 @@ const MedicinCard = ({ medici, isDialogOpen, setIsDialogOpen }: TMedicinss) => {
                                             >
                                                 ADD TO CART
                                             </Button>
-                                            <Button className="flex-1 py-3 text-base font-semibold bg-black text-white hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl">
-                                                Buy Now
-                                            </Button>
+
+
+                                            <Link
+                                                href={`/customer/cart`}
+                                            >
+                                                <Button
+                                                    onClick={() => handleAddProduct(medici)}
+                                                    className="flex-1 py-3 text-base font-semibold bg-black text-white hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl">
+                                                    Buy Now
+                                                </Button>
+                                            </Link>
+
+
                                         </div>
                                     </div>
                                 </div>
