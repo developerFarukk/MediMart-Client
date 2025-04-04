@@ -34,6 +34,13 @@ export const updateMedicinSchemaValidation = z.object({
     requiredPrescription: RequiredPrescriptions.optional(),
     massUnit: z.number().optional(),
     manufacturerDetails: manufacturerDetailsSchema.optional(),
-    mediImage: z.string().optional(),
+    mediImage: z.any()
+        .refine((val) => {
+            if (!val) return true;
+            return typeof val === "string" || val instanceof File;
+        }, {
+            message: "Must be a string (URL/base64) or File object",
+        })
+        .optional(),
     expiryDate: z.date(),
 });
