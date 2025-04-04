@@ -117,29 +117,247 @@ const MedicinCard = ({ medici, isDialogOpen, setIsDialogOpen }: TMedicinss) => {
     };
 
     return (
+        // <div className="border-2 p-2 rounded-xl">
+        //     <div className="group">
+        //         <div className="relative h-60 w-full rounded-md bg-cover">
+        //             <div className="absolute bottom-5 left-7 z-50 mt-5 flex scale-y-0 items-center font-medium opacity-0 transition-all duration-500 ease-out group-hover:scale-y-100 group-hover:opacity-100">
+        //                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        //                     <DialogTrigger asChild>
+        //                         {/* <Button className="mr-2 w-fit rounded-[4px] border px-7 py-5 text-sm uppercase leading-4 shadow-2xl duration-500 hover:border-[#DF2626]">
+        //                             <Link href={`/medicine/${medici?._id}`}> Quick View</Link>
+        //                         </Button> */}
+        //                         <div className="z-0">ami</div>
+        //                     </DialogTrigger>
+        //                     <DialogContent className="sm:max-w-[90%] md:max-w-3xl lg:max-w-4xl xl:max-w-5xl p-4 overflow-y-auto max-h-[90vh]">
+        //                         <DialogHeader>
+        //                             <DialogTitle className="text-center text-2xl">Medicine Details</DialogTitle>
+        //                         </DialogHeader>
+        //                         <div className="flex gap-8">
+        //                             {/* Medicine Image */}
+        //                             {medici?.mediImage && (
+        //                                 <div className="relative flex-1 h-96">
+        //                                     <Image
+        //                                         src={medici.mediImage}
+        //                                         alt={medici?.name}
+        //                                         layout="fill"
+        //                                         objectFit="cover"
+        //                                         className="z-0 h-full w-full rounded-md"
+        //                                     />
+        //                                 </div>
+        //                             )}
+
+        //                             {/* Medicine Details */}
+        //                             <div className="flex-1">
+        //                                 {/* Medicine Name */}
+        //                                 <h1 className="text-2xl font-bold uppercase italic text-black mb-2">
+        //                                     {medici?.name}
+        //                                 </h1>
+
+        //                                 {/* Category */}
+        //                                 <h4 className="text-base font-medium mb-2">
+        //                                     <span className="uppercase text-gray-500">Category: </span>
+        //                                     {medici?.category}
+        //                                 </h4>
+
+        //                                 {/* Description */}
+        //                                 <h4 className="text-base font-medium mb-2">
+        //                                     <span className="uppercase text-gray-500">Description: </span>
+        //                                     {medici?.description}
+        //                                 </h4>
+
+        //                                 {/* Required Prescription */}
+        //                                 <div className="">
+        //                                     <h4 className="text-base font-medium mb-2">
+        //                                         <span className="uppercase text-gray-500">Required Prescription: </span>
+        //                                         {medici?.requiredPrescription}
+        //                                     </h4>
+        //                                 </div>
+
+        //                                 {/* Price and Quantity */}
+        //                                 <div className="grid grid-cols-2 gap-6 mb-2">
+        //                                     <div>
+        //                                         <p className="text-sm font-semibold text-gray-600 uppercase mb-2">Price:</p>
+        //                                         <h5 className="text-2xl font-bold text-[#DF2626]">{medici?.price} TK</h5>
+        //                                     </div>
+        //                                     <div>
+        //                                         <p className="text-sm font-semibold text-gray-600 uppercase mb-2">Quantity:</p>
+        //                                         <h5 className="text-2xl font-bold text-black">{medici?.quantity}</h5>
+        //                                     </div>
+        //                                 </div>
+
+        //                                 {/* Stock Availability and Mass Unit */}
+        //                                 <div className="lg:flex justify-between mb-2">
+        //                                     <h4 className="text-base font-medium mb-2">
+        //                                         <span className="uppercase text-gray-500">Stock Availability: </span>
+        //                                         {medici?.stockAvailability}
+        //                                     </h4>
+        //                                     <h4 className="text-base font-medium mb-2 lg:mr-4">
+        //                                         <span className="uppercase text-gray-500">Mass Unit: </span>
+        //                                         {medici?.massUnit}
+        //                                     </h4>
+        //                                 </div>
+
+        //                                 {/* Manufacturer Details */}
+        //                                 <div className="mb-2">
+        //                                     <p className="text-xl font-bold text-gray-600 uppercase mb-2 underline">
+        //                                         Manufacturer Details
+        //                                     </p>
+        //                                     <div className="">
+        //                                         {/* Company Name and Contact */}
+        //                                         <div className="lg:flex justify-between">
+        //                                             <h4 className="text-base font-medium mb-2">
+        //                                                 <span className="uppercase text-gray-500">Company Name: </span>
+        //                                                 {medici?.manufacturerDetails?.name}
+        //                                             </h4>
+        //                                             <h4 className="text-base font-medium mb-2 lg:mr-4">
+        //                                                 <span className="uppercase text-gray-500">Contact: </span>
+        //                                                 {medici?.manufacturerDetails?.contactNumber}
+        //                                             </h4>
+        //                                         </div>
+
+        //                                         {/* Manufacture Date and Expire Date */}
+        //                                         <div className="lg:flex justify-between">
+        //                                             <h4 className="text-base font-medium mb-2">
+        //                                                 <span className="uppercase text-gray-500">Manufacture Date: </span>
+        //                                                 {formatDate(medici?.createdAt)}
+        //                                             </h4>
+        //                                             <h4 className="text-base font-medium mb-2 lg:mr-4">
+        //                                                 <span className="uppercase text-gray-500">Expire Date: </span>
+        //                                                 {formatDate(medici?.expiryDate)}
+        //                                             </h4>
+        //                                         </div>
+
+        //                                         {/* Address */}
+        //                                         <h4 className="text-base font-medium mb-2">
+        //                                             <span className="uppercase text-gray-500">Address: </span>
+        //                                             {medici?.manufacturerDetails?.address}
+        //                                         </h4>
+        //                                     </div>
+        //                                 </div>
+
+        //                                 {/* Order Quantity */}
+        //                                 <div className="mb-4">
+        //                                     <div className="lg:flex lg:items-center lg:justify-start lg:gap-2">
+        //                                         <label htmlFor="Quantity" className="font-bold text-gray-700 dark:text-gray-300 mr-2">
+        //                                             Order Quantity :
+        //                                         </label>
+        //                                         <div className="flex items-center rounded-sm border w-fit">
+        //                                             <button
+        //                                                 type="button"
+        //                                                 onClick={handleDecrementQuantity}
+        //                                                 className="size-10 leading-10 text-gray-600 transition hover:opacity-75 p-2"
+        //                                             >
+        //                                                 <BadgeMinus />
+        //                                             </button>
+        //                                             <Input
+        //                                                 type="number"
+        //                                                 id="orderQuantity"
+        //                                                 value={orderQuantity}
+        //                                                 onChange={(e) => {
+        //                                                     const newQuantity = Number(e.target.value);
+        //                                                     if (newQuantity <= medici?.quantity && newQuantity >= 1) {
+        //                                                         setOrderQuantity(newQuantity);
+        //                                                     } else {
+        //                                                         toast.error("Quantity cannot exceed available stock.");
+        //                                                     }
+        //                                                 }}
+        //                                                 className="h-6 w-10 border-blue-600 text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none mx-2"
+        //                                             />
+        //                                             <button
+        //                                                 type="button"
+        //                                                 onClick={handleIncrementQuantity}
+        //                                                 className="size-10 leading-10 text-gray-600 transition hover:opacity-75 p-2"
+        //                                             >
+        //                                                 <BadgePlus />
+        //                                             </button>
+        //                                         </div>
+        //                                     </div>
+        //                                 </div>
+
+        //                                 {/* Buttons */}
+        //                                 <div className="flex items-center gap-4">
+        //                                     <Button
+        //                                         onClick={() => handleAddProduct(medici)}
+        //                                         className="flex-1 py-3 text-base font-semibold bg-[#DF2626] text-white hover:bg-[#BF1E1E] transition-all duration-300 shadow-lg hover:shadow-xl"
+        //                                     >
+        //                                         ADD TO CART
+        //                                     </Button>
+
+
+        //                                     <Link
+        //                                         href={`/customer/cart`}
+        //                                     >
+        //                                         <Button
+        //                                             onClick={() => handleAddProduct(medici)}
+        //                                             className="flex-1 py-3 text-base font-semibold bg-black text-white hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl">
+        //                                             Buy Now
+        //                                         </Button>
+        //                                     </Link>
+
+
+        //                                 </div>
+        //                             </div>
+        //                         </div>
+        //                     </DialogContent>
+        //                 </Dialog>
+        //             </div>
+
+        //             {/* Medicine Image */}
+        //             {medici?.mediImage && (
+        //                 <Image
+        //                     src={medici.mediImage}
+        //                     alt={medici?.name}
+        //                     layout="fill"
+        //                     objectFit="cover"
+        //                     className="z-0 h-full w-full rounded-xl"
+        //                 />
+        //             )}
+        //         </div>
+
+        //         {/* Medicine Name and Price */}
+        //         <div className="mt-6">
+        //             <h3 className="z-50 w-fit cursor-pointer text-lg font-semibold duration-300 hover:text-[#DF2626]">
+        //                 {medici?.name}
+        //             </h3>
+        //             <div className="flex justify-between p-1">
+        //                 <div className="mt-2 flex items-end gap-1">
+        //                     <p className="text-xl font-bold text-[#DF2626]">{medici?.price} TK</p>
+        //                 </div>
+        //                 <div>
+        //                     {user?.role === "admin" ? (
+        //                         null
+        //                     ) : (
+        //                         <AddReviewModal medicinId={medici?._id} />
+        //                     )}
+        //                 </div>
+        //             </div>
+        //         </div>
+        //     </div>
+        // </div>
         <div className="border-2 p-2 rounded-xl">
             <div className="group">
                 <div className="relative h-60 w-full rounded-md bg-cover">
-                    <div className="absolute bottom-5 left-7 z-10 mt-5 flex scale-y-0 items-center font-medium opacity-0 transition-all duration-500 ease-out group-hover:scale-y-100 group-hover:opacity-100">
+                    {/* Quick View Button - Always Visible */}
+                    <div className="absolute bottom-5 left-7 z-50 mt-5 flex items-center font-medium">
                         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                             <DialogTrigger asChild>
-                                <Button className="mr-2 w-fit rounded-[4px] border px-7 py-5 text-sm uppercase leading-4 shadow-2xl duration-500 hover:border-[#DF2626]">
-                                    <Link href={`/medicine/${medici?._id}`}> Quick View</Link>
+                                <Button className=" mr-2 w-fit rounded-[4px] border px-4 py-2 sm:px-6 sm:py-3 text-xs sm:text-sm uppercase leading-4 shadow-md sm:shadow-xl duration-300   backdrop-blur-sm transition-all bg-green-300 text-black hover:bg-green-500">
+                                    Quick View
                                 </Button>
                             </DialogTrigger>
                             <DialogContent className="sm:max-w-[90%] md:max-w-3xl lg:max-w-4xl xl:max-w-5xl p-4 overflow-y-auto max-h-[90vh]">
                                 <DialogHeader>
                                     <DialogTitle className="text-center text-2xl">Medicine Details</DialogTitle>
                                 </DialogHeader>
-                                <div className="flex gap-8">
+                                <div className="flex flex-col md:flex-row gap-8">
                                     {/* Medicine Image */}
                                     {medici?.mediImage && (
-                                        <div className="relative flex-1 h-96">
+                                        <div className="relative flex-1 h-64 md:h-96">
                                             <Image
                                                 src={medici.mediImage}
                                                 alt={medici?.name}
                                                 layout="fill"
-                                                objectFit="cover"
+                                                objectFit="contain"
                                                 className="z-0 h-full w-full rounded-md"
                                             />
                                         </div>
@@ -147,24 +365,20 @@ const MedicinCard = ({ medici, isDialogOpen, setIsDialogOpen }: TMedicinss) => {
 
                                     {/* Medicine Details */}
                                     <div className="flex-1">
-                                        {/* Medicine Name */}
                                         <h1 className="text-2xl font-bold uppercase italic text-black mb-2">
                                             {medici?.name}
                                         </h1>
 
-                                        {/* Category */}
                                         <h4 className="text-base font-medium mb-2">
                                             <span className="uppercase text-gray-500">Category: </span>
                                             {medici?.category}
                                         </h4>
 
-                                        {/* Description */}
                                         <h4 className="text-base font-medium mb-2">
                                             <span className="uppercase text-gray-500">Description: </span>
                                             {medici?.description}
                                         </h4>
 
-                                        {/* Required Prescription */}
                                         <div className="">
                                             <h4 className="text-base font-medium mb-2">
                                                 <span className="uppercase text-gray-500">Required Prescription: </span>
@@ -172,7 +386,6 @@ const MedicinCard = ({ medici, isDialogOpen, setIsDialogOpen }: TMedicinss) => {
                                             </h4>
                                         </div>
 
-                                        {/* Price and Quantity */}
                                         <div className="grid grid-cols-2 gap-6 mb-2">
                                             <div>
                                                 <p className="text-sm font-semibold text-gray-600 uppercase mb-2">Price:</p>
@@ -184,7 +397,6 @@ const MedicinCard = ({ medici, isDialogOpen, setIsDialogOpen }: TMedicinss) => {
                                             </div>
                                         </div>
 
-                                        {/* Stock Availability and Mass Unit */}
                                         <div className="lg:flex justify-between mb-2">
                                             <h4 className="text-base font-medium mb-2">
                                                 <span className="uppercase text-gray-500">Stock Availability: </span>
@@ -196,13 +408,11 @@ const MedicinCard = ({ medici, isDialogOpen, setIsDialogOpen }: TMedicinss) => {
                                             </h4>
                                         </div>
 
-                                        {/* Manufacturer Details */}
                                         <div className="mb-2">
                                             <p className="text-xl font-bold text-gray-600 uppercase mb-2 underline">
                                                 Manufacturer Details
                                             </p>
                                             <div className="">
-                                                {/* Company Name and Contact */}
                                                 <div className="lg:flex justify-between">
                                                     <h4 className="text-base font-medium mb-2">
                                                         <span className="uppercase text-gray-500">Company Name: </span>
@@ -214,7 +424,6 @@ const MedicinCard = ({ medici, isDialogOpen, setIsDialogOpen }: TMedicinss) => {
                                                     </h4>
                                                 </div>
 
-                                                {/* Manufacture Date and Expire Date */}
                                                 <div className="lg:flex justify-between">
                                                     <h4 className="text-base font-medium mb-2">
                                                         <span className="uppercase text-gray-500">Manufacture Date: </span>
@@ -226,7 +435,6 @@ const MedicinCard = ({ medici, isDialogOpen, setIsDialogOpen }: TMedicinss) => {
                                                     </h4>
                                                 </div>
 
-                                                {/* Address */}
                                                 <h4 className="text-base font-medium mb-2">
                                                     <span className="uppercase text-gray-500">Address: </span>
                                                     {medici?.manufacturerDetails?.address}
@@ -234,11 +442,10 @@ const MedicinCard = ({ medici, isDialogOpen, setIsDialogOpen }: TMedicinss) => {
                                             </div>
                                         </div>
 
-                                        {/* Order Quantity */}
                                         <div className="mb-4">
                                             <div className="lg:flex lg:items-center lg:justify-start lg:gap-2">
                                                 <label htmlFor="Quantity" className="font-bold text-gray-700 dark:text-gray-300 mr-2">
-                                                    Order Quantity :
+                                                    Order Quantity:
                                                 </label>
                                                 <div className="flex items-center rounded-sm border w-fit">
                                                     <button
@@ -273,27 +480,22 @@ const MedicinCard = ({ medici, isDialogOpen, setIsDialogOpen }: TMedicinss) => {
                                             </div>
                                         </div>
 
-                                        {/* Buttons */}
-                                        <div className="flex items-center gap-4">
+                                        <div className="flex flex-col sm:flex-row items-center gap-4 mt-6">
                                             <Button
                                                 onClick={() => handleAddProduct(medici)}
-                                                className="flex-1 py-3 text-base font-semibold bg-[#DF2626] text-white hover:bg-[#BF1E1E] transition-all duration-300 shadow-lg hover:shadow-xl"
+                                                className="w-full sm:flex-1 py-3 text-base font-semibold bg-[#DF2626] text-white hover:bg-[#BF1E1E] transition-all duration-300 shadow-lg hover:shadow-xl"
                                             >
                                                 ADD TO CART
                                             </Button>
 
-
-                                            <Link
-                                                href={`/customer/cart`}
-                                            >
+                                            <Link href={`/customer/cart`} className="w-full sm:flex-1">
                                                 <Button
                                                     onClick={() => handleAddProduct(medici)}
-                                                    className="flex-1 py-3 text-base font-semibold bg-black text-white hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl">
+                                                    className="w-full py-3 text-base font-semibold bg-black text-white hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl"
+                                                >
                                                     Buy Now
                                                 </Button>
                                             </Link>
-
-
                                         </div>
                                     </div>
                                 </div>
@@ -323,11 +525,7 @@ const MedicinCard = ({ medici, isDialogOpen, setIsDialogOpen }: TMedicinss) => {
                             <p className="text-xl font-bold text-[#DF2626]">{medici?.price} TK</p>
                         </div>
                         <div>
-                            {user?.role === "admin" ? (
-                                null
-                            ) : (
-                                <AddReviewModal medicinId={medici?._id} />
-                            )}
+                            {user?.role === "admin" ? null : <AddReviewModal medicinId={medici?._id} />}
                         </div>
                     </div>
                 </div>
