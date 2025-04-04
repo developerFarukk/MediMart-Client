@@ -20,7 +20,7 @@ MediMart is an online platform where users can browse, search, and purchase medi
 ## Key Features
 
 ### User Authentication
-- Custom login system for users and admins using email and password.
+- Custom login system for users and admin using email and password.
 
 ### User Roles
 - **Customers**: Can browse, add medicines to the cart, and place orders.
