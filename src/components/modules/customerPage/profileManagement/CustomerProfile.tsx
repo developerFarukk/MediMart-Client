@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 
 "use client";
@@ -8,6 +9,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useUser } from "@/context/UserContext";
+import { useImageUpload } from "@/hooks/useImageUpload";
 import { updateProfile } from "@/services/UserService";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PhoneCall, ShieldAlert, ShieldMinus, UserRoundCheck } from "lucide-react";
@@ -23,7 +25,14 @@ const MAX_FILE_SIZE = 300 * 1024;
 const userSchema = z.object({
     name: z.string().optional(),
     address: z.string().optional(),
-    image: z.string().optional(),
+    image: z.any()
+        .refine((val) => {
+            if (!val) return true;
+            return typeof val === "string" || val instanceof File;
+        }, {
+            message: "Must be a string (URL/base64) or File object",
+        })
+        .optional(),
 });
 
 // Define the TUser interface
@@ -41,6 +50,7 @@ interface TUser {
 const CustomerProfile = () => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const { user, setUser, setIsLoading } = useUser();
+    const { uploadImage, isUploading } = useImageUpload();
 
     const form = useForm({
         resolver: zodResolver(userSchema),
@@ -54,43 +64,27 @@ const CustomerProfile = () => {
     const { formState: { isSubmitting, errors } } = form;
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+
         const toastId = toast.loading("Loading...");
         setIsLoading(true);
 
+        if (!user) {
+            toast.error("User not found");
+            return;
+        }
+
         try {
-            if (!user) {
-                toast.error("User not found");
-                return;
-            }
+
 
             let imageUrl = user.image;
 
             // Handle image upload
-            if (data.image && typeof data.image === "string") {
-                const base64Data = data.image.split(',')[1];
-                const fileSizeInBytes = (base64Data.length * 3) / 4;
 
-                if (fileSizeInBytes > MAX_FILE_SIZE) {
-                    throw new Error("Image size must be less than 300KB");
-                }
-
-                const formData = new FormData();
-                formData.append('file', data.image);
-                formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!);
-
-                const cloudinaryResponse = await fetch(
-                    `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
-                    {
-                        method: 'POST',
-                        body: formData,
-                    }
-                );
-
-                const cloudinaryData = await cloudinaryResponse.json();
-                if (cloudinaryData.secure_url) {
-                    imageUrl = cloudinaryData.secure_url;
-                } else {
-                    throw new Error("Image upload failed");
+            if (data.image) {
+                if (typeof data.image === "string") {
+                    imageUrl = data.image;
+                } else if (data.image instanceof File) {
+                    imageUrl = await uploadImage(data.image);
                 }
             }
 
@@ -253,7 +247,7 @@ const CustomerProfile = () => {
 
                                                 {/* Image Field (Optional) */}
                                                 <div className="mt-4">
-                                                    <FormField
+                                                    {/* <FormField
                                                         name="image"
                                                         control={form.control}
                                                         defaultValue=""
@@ -288,6 +282,27 @@ const CustomerProfile = () => {
                                                                 <FormMessage />
                                                             </FormItem>
                                                         )}
+                                                    /> */}
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="image"
+                                                        render={({ field: { value: any, onChange, ...fieldProps } }) => (
+                                                            <FormItem>
+                                                                <FormLabel>Upload your image</FormLabel>
+                                                                <FormControl>
+                                                                    <Input
+                                                                        type="file"
+                                                                        accept="image/*"
+                                                                        onChange={(e) => {
+                                                                            const file = e.target.files?.[0];
+                                                                            onChange(file || null);
+                                                                        }}
+                                                                        {...fieldProps}
+                                                                    />
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
                                                     />
                                                 </div>
 
@@ -296,9 +311,9 @@ const CustomerProfile = () => {
                                                     suppressHydrationWarning
                                                     type="submit"
                                                     className="mt-5 w-full"
-                                                    disabled={isSubmitting}
+                                                    disabled={isSubmitting || isUploading}
                                                 >
-                                                    {isSubmitting ? "Updating..." : "Update Profile"}
+                                                    {isSubmitting || isUploading ? "Updating..." : "Update Profile"}
                                                 </Button>
                                             </form>
                                         </Form>
