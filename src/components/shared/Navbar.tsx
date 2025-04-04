@@ -244,9 +244,9 @@ const Navbar = () => {
 
                 {/* Mobile Menu */}
                 {isMenuOpen && (
-                    <div className="md:hidden">
+                    <div className="md:hidden ">
                         <nav aria-label="Global">
-                            <ul className="flex flex-col items-center gap-4 text-sm py-4">
+                            <ul className="flex flex-col items-center gap-4 text-sm py-4 bg-sky-50 ml-10 mr-10 rounded-2xl">
                                 {navItems?.map((navItem) => (
                                     <li key={navItem.path}>
                                         <Link
