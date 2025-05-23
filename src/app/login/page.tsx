@@ -7,7 +7,7 @@ import { Suspense } from "react";
 const LoginPage = () => {
 
     return (
-        <div>
+        <div className="min-h-screen">
 
             <Suspense fallback={<Loader />}>
                 <Login />

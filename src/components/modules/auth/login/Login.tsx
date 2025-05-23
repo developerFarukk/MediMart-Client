@@ -31,6 +31,20 @@ const Login = () => {
     const router = useRouter();
 
 
+    const handleAdminCredentials = () => {
+        form.setValue("email", `${process.env.NEXT_PUBLIC_ADMIN_EMAIL}`);
+        // form.setValue("email", "test@user.com");
+        form.setValue("password", `${process.env.NEXT_PUBLIC_ADMIN_PASSWORD}`);
+        toast.warning('Admin credentials filled. This is for demo purposes only.');
+    };
+
+    const handleUserCredentials = () => {
+        form.setValue("email", `${process.env.NEXT_PUBLIC_USER_EMAIL}`);
+        form.setValue("password", `${process.env.NEXT_PUBLIC_USER_PASSWORD}`);
+        toast.warning('Test user credentials filled. This is for demo purposes only.');
+    };
+
+
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
 
         try {
@@ -52,14 +66,39 @@ const Login = () => {
     };
 
     return (
-        <div className='flex justify-center mt-4 p-2'>
+        <div className='flex justify-center mt-4 p-2 items-center'>
             <div className="border-2 border-gray-300 rounded-xl flex-grow max-w-md w-full p-5">
+
                 <div className="flex items-center justify-center space-x-4 p-4 mb-4">
                     <Image src={medimart} height={40} width={40} alt="medimart" />
                     <div>
                         <h1 className="text-xl font-semibold">Login</h1>
                     </div>
+
                 </div>
+
+                <div className="flex justify-center items-center gap-4">
+                    <div>
+                        <Button
+                            type="button"
+                            onClick={handleAdminCredentials}
+                            variant="outline"
+                        >
+                            Admin Credential
+                        </Button>
+                    </div>
+
+                    <div>
+                        <Button
+                            type="button"
+                            onClick={handleUserCredentials}
+                            variant="outline"
+                        >
+                            User Credential
+                        </Button>
+                    </div>
+                </div>
+
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)}>
                         <FormField
