@@ -94,6 +94,10 @@ const Navbar = () => {
         {
             title: 'Contacts',
             path: '#contact',
+        },
+        {
+            title: 'FAQ',
+            path: '#faq',
         }
     ];
 
