@@ -9,6 +9,7 @@ import Image from "next/image";
 import { TReview } from "@/types/review";
 import { Star } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
+import TitleButton from "@/components/shared/TitleButton";
 
 interface TReviewss {
     reviews: any;
@@ -127,7 +128,7 @@ const ReviewClientHome = ({ reviews }: TReviewss) => {
                 <div className="mx-auto max-w-screen-xl px-4  sm:px-6 mt-8">
                     <div className="flex items-center justify-center space-x-4 p-2  ">
                         <div>
-                            <h1 className="text-3xl font-semibold">Review our Medicines</h1>
+                            <TitleButton title="Review our Medicines" />
                         </div>
                     </div>
                     {

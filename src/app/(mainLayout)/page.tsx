@@ -5,6 +5,7 @@ import Contacts from "@/components/modules/homePage/contacts/Contacts";
 import FaqComponent from "@/components/modules/homePage/faqPage/FaqComponent";
 import FeaturedMedicines from "@/components/modules/homePage/featuredMedicines/FeaturedMedicines";
 import ReviewServerHome from "@/components/modules/homePage/reviewHomePage/ReviewServerHome";
+import TeamComponent from "@/components/modules/homePage/team/TeamComponent";
 
 
 
@@ -49,6 +50,11 @@ const Home = () => {
                 {/* Contacts Section */}
                 <div id="faq">
                     <FaqComponent />
+                </div>
+
+                {/* Team */}
+                <div>
+                    <TeamComponent />
                 </div>
 
 

@@ -1,5 +1,6 @@
 "use client"
 
+import TitleButton from "@/components/shared/TitleButton";
 import Image from "next/image";
 
 
@@ -12,9 +13,9 @@ const Contacts = () => {
                     <div className="text-center">
                         <p className="font-medium text-blue-600 dark:text-blue-400">Contact Us</p>
 
-                        <h1 className="mt-2 text-2xl font-semibold text-gray-800 md:text-3xl dark:text-white">
-                            We are Here to Help You
-                        </h1>
+                        <div>
+                            <TitleButton title="We are Here to Help You" />
+                        </div>
 
                         <p className="mt-3 text-gray-500 dark:text-gray-400">
                             Reach out to our friendly team for any questions or support regarding your health and medications.

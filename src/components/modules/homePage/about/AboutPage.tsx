@@ -1,5 +1,6 @@
 "use client"
 
+import TitleButton from "@/components/shared/TitleButton";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -13,7 +14,7 @@ const AboutPage = () => {
             <section>
                 <div className="flex items-center justify-center space-x-4 p-2  ">
                     <div>
-                        <h1 className="text-3xl font-semibold">About Us</h1>
+                        <TitleButton title="About Us" />
                     </div>
                 </div>
                 <div className="mx-auto max-w-screen-xl px-4 py-6 sm:px-6 lg:px-8">

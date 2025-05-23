@@ -520,6 +520,10 @@ const MedicinCard = ({ medici, isDialogOpen, setIsDialogOpen }: TMedicinss) => {
                     <h3 className="z-50 w-fit cursor-pointer text-lg font-semibold duration-300 hover:text-[#DF2626]">
                         {medici?.name}
                     </h3>
+                    <h4 className="text-base font-medium mb-2">
+                        <span className="uppercase text-gray-500">Category: </span>
+                        {medici?.category}
+                    </h4>
                     <div className="flex justify-between p-1">
                         <div className="mt-2 flex items-end gap-1">
                             <p className="text-xl font-bold text-[#DF2626]">{medici?.price} TK</p>
@@ -535,3 +539,5 @@ const MedicinCard = ({ medici, isDialogOpen, setIsDialogOpen }: TMedicinss) => {
 };
 
 export default MedicinCard;
+
+

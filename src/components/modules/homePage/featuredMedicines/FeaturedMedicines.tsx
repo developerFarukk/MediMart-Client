@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import MedicinCard from "./MedicinCard";
 import { TMedicine } from "@/types/medicins";
 import { Input } from "@/components/ui/input";
+import TitleButton from "@/components/shared/TitleButton";
 
 const FeaturedMedicines = () => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -51,7 +52,7 @@ const FeaturedMedicines = () => {
             <div>
                 <div className="flex items-center justify-center space-x-4 p-4 mb-4 mt-4">
                     <div>
-                        <h1 className="text-3xl font-semibold">Featured Medicines</h1>
+                        <TitleButton title="Featured Medicines" />
                     </div>
                 </div>
             </div>

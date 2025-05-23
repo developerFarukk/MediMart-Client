@@ -153,7 +153,7 @@ const ShopPage = () => {
                         <SelectValue placeholder="Sort by price" />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="none">None</SelectItem>
+                        <SelectItem value="none">Price</SelectItem>
                         <SelectItem value="asc">Price: Low to High</SelectItem>
                         <SelectItem value="desc">Price: High to Low</SelectItem>
                     </SelectContent>
@@ -165,7 +165,7 @@ const ShopPage = () => {
                         <SelectValue placeholder="Prescription Required" />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="all">All</SelectItem>
+                        <SelectItem value="all">All Prescription</SelectItem>
                         <SelectItem value="Yes">Required Prescription</SelectItem>
                         <SelectItem value="No">Not Required Prescription</SelectItem>
                     </SelectContent>
