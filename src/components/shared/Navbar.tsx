@@ -186,7 +186,9 @@ const Navbar = () => {
                                                         <DropdownMenuContent className='mr-16'>
                                                             <DropdownMenuLabel>My Account</DropdownMenuLabel>
                                                             <DropdownMenuSeparator />
-                                                            <DropdownMenuItem>Profile</DropdownMenuItem>
+                                                            <DropdownMenuItem>
+                                                                <Link href={`/${user?.role}/profile`}>Profile</Link>
+                                                            </DropdownMenuItem>
                                                             <DropdownMenuItem>
                                                                 <Link href={`/${user?.role}/dashboard`}>Dashboard</Link>
                                                             </DropdownMenuItem>

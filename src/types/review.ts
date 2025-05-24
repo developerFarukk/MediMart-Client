@@ -9,6 +9,6 @@ export interface TReview {
     title: string;
     message: string;
     reviewCount: number;
-    createdAt?: Date;
-    updatedAt?: Date;
+    createdAt?: string | undefined
+    updatedAt?: string | undefined
 }
