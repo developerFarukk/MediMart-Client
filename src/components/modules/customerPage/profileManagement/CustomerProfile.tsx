@@ -446,11 +446,11 @@ const CustomerProfile = () => {
                         <div className="flex flex-col items-center text-center">
                             <div className="relative mb-4 rounded-full">
                                 <Image
-                                    className="rounded-full border-4 border-gray-500 shadow-sm"
+                                    className="rounded-full border-4 border-gray-500 shadow-sm h-36 w-36"
                                     src={user?.image || "/default-avatar.png"}
                                     alt="Profile"
-                                    width={120}
-                                    height={120}
+                                    width={100}
+                                    height={100}
                                     priority
                                 />
                             </div>
