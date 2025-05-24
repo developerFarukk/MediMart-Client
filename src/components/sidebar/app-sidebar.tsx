@@ -4,8 +4,9 @@
 
 import * as React from "react"
 import medimart from '@/assets/nextmart.png'
-import { BriefcaseMedical, DollarSign, Frame, IdCardIcon, LifeBuoy, LucideListOrdered, Map, PieChart, Send,  StoreIcon, User2, UserCircle,
-  type LucideIcon 
+import {
+  BriefcaseMedical, DollarSign, Frame, IdCardIcon, LifeBuoy, LucideListOrdered, Map, PieChart, Send, StoreIcon, User2, UserCircle,
+  type LucideIcon
 } from "lucide-react"
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar"
 import { NavMain } from "./nav-main"
@@ -90,6 +91,18 @@ const data = {
         {
           title: "Success payments",
           url: "/admin/successpayment",
+        },
+      ],
+    },
+    {
+      title: "Profile Managments",
+      url: "#",
+      icon: UserCircle,
+      isActive: false,
+      items: [
+        {
+          title: "Profile",
+          url: "/admin/profile",
         },
       ],
     },
