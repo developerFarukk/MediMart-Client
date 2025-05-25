@@ -53,7 +53,7 @@ const Home = () => {
                 </div>
 
                 {/* Team */}
-                <div>
+                <div id="team">
                     <TeamComponent />
                 </div>
 
