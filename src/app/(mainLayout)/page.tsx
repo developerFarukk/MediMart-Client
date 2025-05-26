@@ -14,7 +14,7 @@ const Home = () => {
     return (
         <div className="">
 
-            {/* Branding Banner Sction */}
+            {/* Branding Banner Sctions */}
             <div>
                 <Banner />
             </div>
