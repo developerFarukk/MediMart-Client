@@ -1,6 +1,5 @@
-
-
 /* eslint-disable @typescript-eslint/no-unused-vars */
+
 
 "use client"
 
@@ -19,32 +18,46 @@ import { toast } from 'sonner';
 import { LogOut, ShoppingCart } from 'lucide-react';
 import { useAppSelector } from '@/redux/hooks';
 import { orderMedicinsSelector } from '@/redux/features/cart/cartSlice';
+import { Input } from '../ui/input';
 
 const Navbar = () => {
     const medicins = useAppSelector(orderMedicinsSelector);
+
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
     const pathname = usePathname();
     const router = useRouter();
-    const { user, setIsLoading, setUser } = useUser();
-    const [scrolled, setScrolled] = useState(false);
 
-    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
+    const { user, setIsLoading, setUser } = useUser();
 
     const handleLogOut = () => {
+
         setIsLoading(true);
+
         try {
             logout();
+
             toast.success("Logout successful!");
+
             setUser(null);
+
             if (protectedRoutes.some((route) => pathname.match(route))) {
                 router.push("/");
             }
+
+
         } catch (error) {
             toast.error("Logout failed. Please try again.");
         } finally {
             setIsLoading(false);
         }
     };
+
+    const [scrolled, setScrolled] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -54,6 +67,7 @@ const Navbar = () => {
                 setScrolled(false);
             }
         };
+
         window.addEventListener('scroll', handleScroll);
         return () => {
             window.removeEventListener('scroll', handleScroll);
@@ -61,133 +75,272 @@ const Navbar = () => {
     }, []);
 
     const navItems: { title: string; path: string }[] = [
-        { title: 'Home', path: '/' },
-        { title: 'Shop', path: '/shop' },
-        { title: 'About', path: '#about' },
-        { title: 'Blogs', path: '#blog' },
-        { title: 'Contacts', path: '#contact' },
-        { title: 'FAQ', path: '#faq' },
+        {
+            title: 'Home',
+            path: '/',
+        },
+        {
+            title: 'Shop',
+            path: '/shop',
+        },
+        {
+            title: 'About',
+            path: '#about',
+        },
+
+        {
+            title: 'Blogs',
+            path: '#blog',
+        },
+        {
+            title: 'Contacts',
+            path: '#contact',
+        },
+        {
+            title: 'FAQ',
+            path: '#faq',
+        }
     ];
 
+
+
+
+
     return (
-        <section>
-            <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-lg' : 'bg-white'}`}>
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between items-center h-16">
-                        {/* Logo */}
-                        <div className="flex items-center">
-                            <Link href="/" className="flex items-center">
-                                <Image src={medimart} height={40} width={40} alt="medimart" />
-                                <span className="ml-2 text-xl font-bold text-blue-700">MediMart</span>
+        <section
+        // className={` fixed z-50   ${scrolled ? ' bg-blue-100' : 'bg-base'}`}
+        >
+            <header className={` fixed z-1000 w-full   ${scrolled ? ' bg-blue-50' : 'bg-base'}`} >
+                <div className="mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex h-16 items-center justify-between">
+                        <div className="md:flex md:items-center md:gap-12">
+                            <Link className="block text-teal-600" href="/">
+                                <span className="sr-only">MediMart</span>
+                                <div className="flex justify-center items-center">
+                                    <Image src={medimart} height={40} width={40} alt="medimart" />
+                                    <span className="ml-2 text-xl font-bold text-blue-700 shadow-2xl">MediMart</span>
+                                </div>
                             </Link>
                         </div>
 
-                        {/* Desktop Nav */}
-                        <div className="hidden md:flex items-center gap-8">
-                            {navItems.map((item) => (
-                                <Link
-                                    key={item.path}
-                                    href={item.path}
-                                    className={`px-3 py-2 rounded-xl font-medium transition duration-300 ${pathname === item.path ? "bg-amber-400 text-blue-700 font-bold" : "hover:bg-blue-100 text-gray-700"}`}
+                        <div className="hidden md:block">
+                            <nav aria-label="Global">
+                                <ul className="flex items-center gap-6 text-sm">
+
+                                    {navItems?.map((navItem) => (
+                                        <li key={navItem.path}>
+                                            <Link
+                                                // className='rounded-full text-base font-medium duration-500 hover:bg-orange-200 hover:text-black'
+                                                className={`${pathname === navItem.path ? "text-blue-700  font-bold bg-amber-400 p-2 rounded-xl" : "hover:bg-blue-100 duration-300 text-base font-medium p-2 rounded-xl "}`}
+                                                href={navItem.path}
+                                            >
+                                                {navItem.title}
+                                            </Link>
+
+                                        </li>
+                                    ))}
+                                    <Input
+                                        type="text"
+                                        placeholder="Search medicines, health products..."
+                                        className=" py-2 w-full rounded-full border border-gray-300 focus:outline-none  focus:ring-blue-500"
+                                    // value={searchQuery}
+                                    // onChange={onSearchChange}
+                                    />
+                                    {
+                                        user?.role === "customer" && (
+                                            <li>
+                                                <div className="flex justify-center items-center md:block hover:bg-blue-100 duration-300 text-base font-medium p-4 rounded-full ">
+                                                    <Link
+                                                        href={`${user?.role}/cart`}
+                                                    >
+                                                        <div className="flex justify-center items-center text-center">
+                                                            <div className="relative">
+                                                                <div className="t-0 absolute left-3 z-50 ">
+                                                                    <p className="flex h-1 text-2xl  w-1 items-center justify-center rounded-full text-black font-semibold  ml-3 ">
+                                                                        {medicins?.length}
+                                                                    </p>
+                                                                </div>
+                                                                <div className=''>
+                                                                    <ShoppingCart />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                </div>
+                                            </li>
+                                        )
+                                    }
+
+
+                                </ul>
+                            </nav>
+                        </div>
+
+                        <div className="flex items-center gap-4">
+                            <div className=" flex">
+
+
+
+                                <div className="hidden sm:flex gap-4">
+
+                                    {
+                                        user ? (
+                                            <>
+                                                <DropdownMenu>
+                                                    <DropdownMenuTrigger className='border-none'>
+                                                        <Avatar>
+                                                            <AvatarImage src={user?.image} />
+                                                            <AvatarFallback>User</AvatarFallback>
+                                                        </Avatar>
+                                                    </DropdownMenuTrigger>
+                                                    <div className=''>
+                                                        <DropdownMenuContent className='mr-16'>
+                                                            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                                                            <DropdownMenuSeparator />
+                                                            <DropdownMenuItem>
+                                                                <Link href={`/${user?.role}/profile`}>Profile</Link>
+                                                            </DropdownMenuItem>
+                                                            <DropdownMenuItem>
+                                                                <Link href={`/${user?.role}/dashboard`}>Dashboard</Link>
+                                                            </DropdownMenuItem>
+                                                            <DropdownMenuItem>My Shop</DropdownMenuItem>
+                                                            <DropdownMenuSeparator />
+                                                            <DropdownMenuItem
+                                                                className="bg-red-500 cursor-pointer"
+                                                                onClick={handleLogOut}
+                                                            >
+                                                                <LogOut />
+                                                                <span>Log Out</span>
+                                                            </DropdownMenuItem>
+                                                        </DropdownMenuContent>
+                                                    </div>
+                                                </DropdownMenu>
+                                            </>
+                                        ) : (
+                                            <Link href="/login" >
+                                                <Button>Login</Button>
+                                            </Link>
+                                        )
+                                    }
+                                </div>
+                            </div>
+
+                            <div className="block md:hidden">
+                                <button
+                                    className="rounded-sm bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75"
+                                    onClick={toggleMenu}
                                 >
-                                    {item.title}
-                                </Link>
-                            ))}
-
-                            {user?.role === "customer" && (
-                                <Link href={`${user?.role}/cart`} className="relative">
-                                    <ShoppingCart className="w-6 h-6 text-gray-700" />
-                                    <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full">{medicins?.length}</span>
-                                </Link>
-                            )}
-                        </div>
-
-                        {/* Account */}
-                        <div className="hidden md:flex items-center gap-4">
-                            {user ? (
-                                <DropdownMenu>
-                                    <DropdownMenuTrigger className="border-none focus:outline-none">
-                                        <Avatar>
-                                            <AvatarImage src={user?.image} />
-                                            <AvatarFallback>User</AvatarFallback>
-                                        </Avatar>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent className="w-48">
-                                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                                        <DropdownMenuSeparator />
-                                        <DropdownMenuItem>
-                                            <Link href={`/${user?.role}/profile`}>Profile</Link>
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem>
-                                            <Link href={`/${user?.role}/dashboard`}>Dashboard</Link>
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem>My Shop</DropdownMenuItem>
-                                        <DropdownMenuSeparator />
-                                        <DropdownMenuItem className="text-red-600 cursor-pointer" onClick={handleLogOut}>
-                                            <LogOut className="mr-2" />
-                                            Log Out
-                                        </DropdownMenuItem>
-                                    </DropdownMenuContent>
-                                </DropdownMenu>
-                            ) : (
-                                <Link href="/login">
-                                    <Button>Login</Button>
-                                </Link>
-                            )}
-                        </div>
-
-                        {/* Mobile Menu Button */}
-                        <div className="md:hidden">
-                            <button onClick={toggleMenu} className="p-2 bg-gray-100 rounded-full">
-                                {isMenuOpen ? (
-                                    <svg className="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                ) : (
-                                    <svg className="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-                                    </svg>
-                                )}
-                            </button>
+                                    {isMenuOpen ? (
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="size-5"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                        >
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    ) : (
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="size-5"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                        >
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                                        </svg>
+                                    )}
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 {/* Mobile Menu */}
                 {isMenuOpen && (
-                    <div className="md:hidden bg-white shadow-lg">
-                        <div className="flex flex-col gap-4 p-4">
-                            {navItems.map((item) => (
-                                <Link
-                                    key={item.path}
-                                    href={item.path}
-                                    className={`block text-base font-medium px-4 py-2 rounded-xl transition ${pathname === item.path ? "bg-amber-400 text-blue-700 font-bold" : "hover:bg-blue-100 text-gray-700"}`}
-                                    onClick={() => setIsMenuOpen(false)}
-                                >
-                                    {item.title}
-                                </Link>
-                            ))}
+                    <div className="md:hidden ">
+                        <nav aria-label="Global">
+                            <ul className="flex flex-col items-center gap-4 text-sm py-4 bg-sky-50 ml-10 mr-10 rounded-2xl">
+                                {navItems?.map((navItem) => (
+                                    <li key={navItem.path}>
+                                        <Link
+                                            // className='rounded-full text-base font-medium duration-500 hover:bg-orange-200 hover:text-black'
+                                            className={`${pathname === navItem.path ? "text-blue-700  font-bold bg-amber-400 p-2 rounded-xl" : "hover:bg-blue-100 duration-300 text-base font-medium p-2 rounded-xl "}`}
+                                            href={navItem.path}
+                                        >
+                                            {navItem.title}
+                                        </Link>
+                                    </li>
+                                ))}
 
-                            {user?.role === "customer" && (
-                                <Link href={`${user?.role}/cart`} className="relative px-4 py-2">
-                                    <ShoppingCart className="w-6 h-6 inline-block mr-2" />
-                                    Cart 
-                                    <span className="ml-2 bg-red-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full">{medicins?.length}</span>
-                                </Link>
-                            )}
+                                {
+                                    user?.role === "customer" && (
+                                        <li>
+                                            <div className="flex justify-center items-center md:block hover:bg-blue-100 duration-300 text-base font-medium p-4 rounded-full ">
+                                                <Link
+                                                    href={`${user?.role}/cart`}
+                                                >
+                                                    <div className="flex justify-center items-center text-center">
+                                                        <div className="relative">
+                                                            <div className="t-0 absolute left-3 z-50 ">
+                                                                <p className="flex h-1 text-2xl  w-1 items-center justify-center rounded-full text-black font-semibold  ml-3 ">
+                                                                    {medicins?.length}
+                                                                </p>
+                                                            </div>
+                                                            <div className=''>
+                                                                <ShoppingCart />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </Link>
+                                            </div>
+                                        </li>
+                                    )
+                                }
 
-                            {user ? (
-                                <div className="border-t pt-4">
-                                    <Link href={`/${user?.role}/profile`} className="block px-4 py-2 hover:bg-blue-100 rounded-xl">Profile</Link>
-                                    <Link href={`/${user?.role}/dashboard`} className="block px-4 py-2 hover:bg-blue-100 rounded-xl">Dashboard</Link>
-                                    <button onClick={handleLogOut} className="w-full text-left px-4 py-2 text-red-600 hover:bg-red-100 rounded-xl">Log Out</button>
-                                </div>
-                            ) : (
-                                <Link href="/login" className="block px-4 py-2">
-                                    <Button className="w-full">Login</Button>
-                                </Link>
-                            )}
-                        </div>
+                                <li>
+                                    {
+                                        user ? (
+                                            <>
+                                                <DropdownMenu>
+                                                    <DropdownMenuTrigger>
+                                                        <Avatar>
+                                                            <AvatarImage src="https://github.com/shadcn.png" />
+                                                            <AvatarFallback>User</AvatarFallback>
+                                                        </Avatar>
+                                                    </DropdownMenuTrigger>
+                                                    <DropdownMenuContent>
+                                                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                                                        <DropdownMenuSeparator />
+                                                        <DropdownMenuItem>Profile</DropdownMenuItem>
+                                                        <DropdownMenuItem>
+                                                            <Link href={`/${user?.role}/dashboard`}>Dashboard</Link>
+                                                        </DropdownMenuItem>
+                                                        <DropdownMenuItem>My Shop</DropdownMenuItem>
+                                                        <DropdownMenuSeparator />
+                                                        <DropdownMenuItem
+                                                            className="bg-red-500 cursor-pointer"
+                                                            onClick={handleLogOut}
+                                                        >
+                                                            <LogOut />
+                                                            <span>Log Out</span>
+                                                        </DropdownMenuItem>
+                                                    </DropdownMenuContent>
+                                                </DropdownMenu>
+                                            </>
+                                        ) : (
+                                            <Link href="/login" >
+                                                <Button>Login</Button>
+                                            </Link>
+                                        )
+                                    }
+                                </li>
+
+                            </ul>
+                        </nav>
                     </div>
                 )}
             </header>
@@ -196,3 +349,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
