@@ -1,14 +1,15 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 
+
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
 
 import {
     BadgeCheck,
     Bell,
     ChevronsUpDown,
-    CreditCard,
     LogOut,
-    Sparkles,
+    LucideHome,
 } from "lucide-react"
 
 import {
@@ -36,25 +37,20 @@ import { toast } from "sonner"
 import { logout } from "@/services/AuthService"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import { Button } from "../ui/button"
 
 export function NavUser() {
     const { isMobile } = useSidebar();
     const router = useRouter();
     const { user, setUser, setIsLoading } = useUser();
+
     const handleLogOut = () => {
-
         setIsLoading(true);
-
         try {
             logout();
-
             toast.success("Logout successful!");
-
             setUser(null);
-
             router.push("/");
-
-
         } catch (error) {
             toast.error("Logout failed. Please try again.");
         } finally {
@@ -64,7 +60,15 @@ export function NavUser() {
 
     return (
         <SidebarMenu>
-            <SidebarMenuItem>
+            <SidebarMenuItem className="flex items-center gap-2">
+                {/* Home Button */}
+                <Link href="/">
+                    <SidebarMenuButton size="lg">
+                        <LucideHome className="size-4 font-semibold" />
+                    </SidebarMenuButton>
+                </Link>
+
+                {/* Dropdown Button */}
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <SidebarMenuButton
@@ -114,9 +118,7 @@ export function NavUser() {
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem
-                            onClick={handleLogOut}
-                        >
+                        <DropdownMenuItem onClick={handleLogOut}>
                             <LogOut />
                             Log out
                         </DropdownMenuItem>
@@ -124,5 +126,5 @@ export function NavUser() {
                 </DropdownMenu>
             </SidebarMenuItem>
         </SidebarMenu>
-    )
+    );
 }
