@@ -178,7 +178,7 @@ const ShopPage = () => {
             </div>
 
             {/* Medicine Cards */}
-            <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-6 px-5 md:grid-cols-2 lg:grid-cols-3 lg:px-0">
+            <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-6 px-5 md:grid-cols-2 lg:grid-cols-4 lg:px-0">
                 {filteredMedicins.map((medici: TMedicine, index: number) => (
                     <MedicinCard
                         medici={medici}

@@ -345,115 +345,117 @@ const MedicinCard = ({ medici, isDialogOpen, setIsDialogOpen }: TMedicinss) => {
                                     Quick View
                                 </Button>
                             </DialogTrigger>
-                            <DialogContent className="sm:max-w-[90%] md:max-w-3xl lg:max-w-4xl xl:max-w-5xl p-4 overflow-y-auto max-h-[90vh]">
-                                <DialogHeader>
-                                    <DialogTitle className="text-center text-2xl">Medicine Details</DialogTitle>
-                                </DialogHeader>
-                                <div className="flex flex-col md:flex-row gap-8">
-                                    {/* Medicine Image */}
-                                    {medici?.mediImage && (
-                                        <div className="relative flex-1 h-64 md:h-96">
-                                            <Image
-                                                src={medici.mediImage}
-                                                alt={medici?.name}
-                                                layout="fill"
-                                                objectFit="contain"
-                                                className="z-0 h-full w-full rounded-md"
-                                            />
-                                        </div>
-                                    )}
-
-                                    {/* Medicine Details */}
-                                    <div className="flex-1">
-                                        <h1 className="text-2xl font-bold uppercase italic text-black mb-2">
-                                            {medici?.name}
-                                        </h1>
-
-                                        <h4 className="text-base font-medium mb-2">
-                                            <span className="uppercase text-gray-500">Category: </span>
-                                            {medici?.category}
-                                        </h4>
-
-                                        <h4 className="text-base font-medium mb-2">
-                                            <span className="uppercase text-gray-500">Description: </span>
-                                            {medici?.description}
-                                        </h4>
-
-                                        <div className="">
-                                            <h4 className="text-base font-medium mb-2">
-                                                <span className="uppercase text-gray-500">Required Prescription: </span>
-                                                {medici?.requiredPrescription}
-                                            </h4>
-                                        </div>
-
-                                        <div className="grid grid-cols-2 gap-6 mb-2">
-                                            <div>
-                                                <p className="text-sm font-semibold text-gray-600 uppercase mb-2">Price:</p>
-                                                <h5 className="text-2xl font-bold text-[#DF2626]">{medici?.price} TK</h5>
+                           
+                            <DialogContent className="sm:max-w-4xl p-0 overflow-hidden rounded-lg">
+                                <div className="grid grid-cols-1 md:grid-cols-2">
+                                    {/* Image Section */}
+                                    <div className="bg-gray-50 p-6 flex items-center justify-center">
+                                        {medici?.mediImage && (
+                                            <div className="relative w-full h-64 md:h-96">
+                                                <Image
+                                                    src={medici.mediImage}
+                                                    alt={medici?.name}
+                                                    layout="fill"
+                                                    objectFit="contain"
+                                                    className="rounded-lg"
+                                                />
                                             </div>
-                                            <div>
-                                                <p className="text-sm font-semibold text-gray-600 uppercase mb-2">Quantity:</p>
-                                                <h5 className="text-2xl font-bold text-black">{medici?.quantity}</h5>
+                                        )}
+                                    </div>
+
+                                    {/* Details Section */}
+                                    <div className="p-6 overflow-y-auto max-h-[80vh]">
+                                        <DialogHeader>
+                                            <DialogTitle className="text-2xl font-bold text-gray-900">
+                                                {medici?.name}
+                                            </DialogTitle>
+                                        </DialogHeader>
+
+                                        <div className="mt-4 space-y-4">
+                                            {/* Basic Info */}
+                                            <div className="grid grid-cols-2 gap-4">
+                                                <div>
+                                                    <p className="text-sm font-medium text-gray-500">Category</p>
+                                                    <p className="text-gray-900">{medici?.category}</p>
+                                                </div>
+                                                <div>
+                                                    <p className="text-sm font-medium text-gray-500">Mass Unit</p>
+                                                    <p className="text-gray-900">{medici?.massUnit}</p>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div className="lg:flex justify-between mb-2">
-                                            <h4 className="text-base font-medium mb-2">
-                                                <span className="uppercase text-gray-500">Stock Availability: </span>
-                                                {medici?.stockAvailability}
-                                            </h4>
-                                            <h4 className="text-base font-medium mb-2 lg:mr-4">
-                                                <span className="uppercase text-gray-500">Mass Unit: </span>
-                                                {medici?.massUnit}
-                                            </h4>
-                                        </div>
+                                            {/* Price & Stock */}
+                                            <div className="grid grid-cols-2 gap-4">
+                                                <div>
+                                                    <p className="text-sm font-medium text-gray-500">Price</p>
+                                                    <p className="text-2xl font-bold text-primary">{medici?.price} TK</p>
+                                                </div>
+                                                <div>
+                                                    <p className="text-sm font-medium text-gray-500">Stock</p>
+                                                    <p className={`text-lg font-semibold ${medici?.stockAvailability === 'In Stock'
+                                                            ? 'text-green-600'
+                                                            : 'text-red-600'
+                                                        }`}>
+                                                        {medici?.stockAvailability}
+                                                    </p>
+                                                </div>
+                                            </div>
 
-                                        <div className="mb-2">
-                                            <p className="text-xl font-bold text-gray-600 uppercase mb-2 underline">
-                                                Manufacturer Details
-                                            </p>
-                                            <div className="">
-                                                <div className="lg:flex justify-between">
-                                                    <h4 className="text-base font-medium mb-2">
-                                                        <span className="uppercase text-gray-500">Company Name: </span>
+                                            {/* Description */}
+                                            <div>
+                                                <p className="text-sm font-medium text-gray-500">Description</p>
+                                                <p className="text-gray-700">{medici?.description}</p>
+                                            </div>
+
+                                            {/* Prescription */}
+                                            <div>
+                                                <p className="text-sm font-medium text-gray-500">Prescription Required</p>
+                                                <p className="text-gray-700">{medici?.requiredPrescription}</p>
+                                            </div>
+
+                                            {/* Manufacturer */}
+                                            <div className="border-t pt-4">
+                                                <h4 className="font-medium text-gray-900 mb-2">Manufacturer Details</h4>
+                                                <div className="space-y-2">
+                                                    <p>
+                                                        <span className="text-sm text-gray-500">Company: </span>
                                                         {medici?.manufacturerDetails?.name}
-                                                    </h4>
-                                                    <h4 className="text-base font-medium mb-2 lg:mr-4">
-                                                        <span className="uppercase text-gray-500">Contact: </span>
+                                                    </p>
+                                                    <p>
+                                                        <span className="text-sm text-gray-500">Contact: </span>
                                                         {medici?.manufacturerDetails?.contactNumber}
-                                                    </h4>
+                                                    </p>
+                                                    <p>
+                                                        <span className="text-sm text-gray-500">Address: </span>
+                                                        {medici?.manufacturerDetails?.address}
+                                                    </p>
                                                 </div>
-
-                                                <div className="lg:flex justify-between">
-                                                    <h4 className="text-base font-medium mb-2">
-                                                        <span className="uppercase text-gray-500">Manufacture Date: </span>
-                                                        {formatDate(medici?.createdAt)}
-                                                    </h4>
-                                                    <h4 className="text-base font-medium mb-2 lg:mr-4">
-                                                        <span className="uppercase text-gray-500">Expire Date: </span>
-                                                        {formatDate(medici?.expiryDate)}
-                                                    </h4>
-                                                </div>
-
-                                                <h4 className="text-base font-medium mb-2">
-                                                    <span className="uppercase text-gray-500">Address: </span>
-                                                    {medici?.manufacturerDetails?.address}
-                                                </h4>
                                             </div>
-                                        </div>
 
-                                        <div className="mb-4">
-                                            <div className="lg:flex lg:items-center lg:justify-start lg:gap-2">
-                                                <label htmlFor="Quantity" className="font-bold text-gray-700 dark:text-gray-300 mr-2">
-                                                    Order Quantity:
+                                            {/* Dates */}
+                                            <div className="grid grid-cols-2 gap-4">
+                                                <div>
+                                                    <p className="text-sm font-medium text-gray-500">Manufactured</p>
+                                                    <p className="text-gray-700">{formatDate(medici?.createdAt)}</p>
+                                                </div>
+                                                <div>
+                                                    <p className="text-sm font-medium text-gray-500">Expires</p>
+                                                    <p className="text-gray-700">{formatDate(medici?.expiryDate)}</p>
+                                                </div>
+                                            </div>
+
+                                            {/* Quantity Selector */}
+                                            <div className="pt-4 border-t">
+                                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                                    Order Quantity
                                                 </label>
-                                                <div className="flex items-center rounded-sm border w-fit">
+                                                <div className="flex items-center">
                                                     <button
                                                         type="button"
                                                         onClick={handleDecrementQuantity}
-                                                        className="size-10 leading-10 text-gray-600 transition hover:opacity-75 p-2"
+                                                        className="p-2 border border-gray-300 rounded-l-md bg-gray-50 hover:bg-gray-100"
                                                     >
-                                                        <BadgeMinus />
+                                                        <BadgeMinus className="h-4 w-4 text-gray-600" />
                                                     </button>
                                                     <Input
                                                         type="number"
@@ -467,35 +469,36 @@ const MedicinCard = ({ medici, isDialogOpen, setIsDialogOpen }: TMedicinss) => {
                                                                 toast.error("Quantity cannot exceed available stock.");
                                                             }
                                                         }}
-                                                        className="h-6 w-10 border-blue-600 text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none mx-2"
+                                                        className="w-16 text-center border-t border-b border-gray-300 rounded-none h-10"
                                                     />
                                                     <button
                                                         type="button"
                                                         onClick={handleIncrementQuantity}
-                                                        className="size-10 leading-10 text-gray-600 transition hover:opacity-75 p-2"
+                                                        className="p-2 border border-gray-300 rounded-r-md bg-gray-50 hover:bg-gray-100"
                                                     >
-                                                        <BadgePlus />
+                                                        <BadgePlus className="h-4 w-4 text-gray-600" />
                                                     </button>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div className="flex flex-col sm:flex-row items-center gap-4 mt-6">
-                                            <Button
-                                                onClick={() => handleAddProduct(medici)}
-                                                className="w-full sm:flex-1 py-3 text-base font-semibold bg-[#DF2626] text-white hover:bg-[#BF1E1E] transition-all duration-300 shadow-lg hover:shadow-xl"
-                                            >
-                                                ADD TO CART
-                                            </Button>
-
-                                            <Link href={`/customer/cart`} className="w-full sm:flex-1">
+                                            {/* Action Buttons */}
+                                            <div className="grid grid-cols-2 gap-4 pt-4">
                                                 <Button
                                                     onClick={() => handleAddProduct(medici)}
-                                                    className="w-full py-3 text-base font-semibold bg-black text-white hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl"
+                                                    className="w-full py-3 bg-primary hover:bg-primary-dark transition-colors"
                                                 >
-                                                    Buy Now
+                                                    Add to Cart
                                                 </Button>
-                                            </Link>
+                                                <Link href={`/customer/cart`} passHref>
+                                                    <Button
+                                                        onClick={() => handleAddProduct(medici)}
+                                                        variant="outline"
+                                                        className="w-full py-3 border-gray-300 hover:bg-gray-50"
+                                                    >
+                                                        Buy Now
+                                                    </Button>
+                                                </Link>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
