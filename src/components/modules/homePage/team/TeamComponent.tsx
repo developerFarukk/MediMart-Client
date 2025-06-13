@@ -47,7 +47,7 @@ const TeamComponent = () => {
     ];
 
     return (
-        <section className="bg-white dark:bg-gray-900 py-16">
+        <section className=" py-16">
             <div className="container px-6 mx-auto">
                 <div className="text-center mb-12">
                     <div>

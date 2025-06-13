@@ -12,7 +12,7 @@ const AboutPage = () => {
     return (
         <div className="mt-8">
             <section>
-                <div className="flex items-center justify-center space-x-4 p-2  ">
+                <div className="flex items-center justify-center   ">
                     <div>
                         <TitleButton title="About Us" />
                     </div>
