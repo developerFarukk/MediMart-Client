@@ -16,6 +16,7 @@ import { toast } from "sonner";
 import AddReviewModal from "../reviewPage/AddReviewModal";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+// import { RootState } from "@/redux/store";
 
 interface TMedicinss {
     medici: TMedicine;
@@ -25,6 +26,9 @@ interface TMedicinss {
 
 const MedicinCard = ({ medici, isDialogOpen, setIsDialogOpen }: TMedicinss) => {
     const medicinsCard = useAppSelector(orderMedicinsSelector);
+    // const orderMedicinss = useAppSelector((state: RootState) => state.cart);
+    // const medicinsCard = orderMedicinss?.medicins;
+
     const dispatch = useAppDispatch();
     const { user } = useUser();
     const [orderQuantity, setOrderQuantity] = useState<number>(1);
@@ -49,7 +53,7 @@ const MedicinCard = ({ medici, isDialogOpen, setIsDialogOpen }: TMedicinss) => {
     };
 
     const handleAddProduct = (medici: TMedicine) => {
-        console.log(medici);
+        // console.log(medici);
 
         if (user?.role === "admin") {
             toast.error("Admins cannot place orders.");
@@ -62,6 +66,8 @@ const MedicinCard = ({ medici, isDialogOpen, setIsDialogOpen }: TMedicinss) => {
         }
 
         const isProductAlreadyAdded = medicinsCard.some((medis: any) => medis?._id === medici?._id);
+        // console.log(isProductAlreadyAdded);
+        
         const subMediPrice = orderQuantity * medici?.price;
 
         if (!isProductAlreadyAdded) {
@@ -110,6 +116,71 @@ const MedicinCard = ({ medici, isDialogOpen, setIsDialogOpen }: TMedicinss) => {
             }
         }
     };
+
+    // const handleAddProduct = (medici: TMedicine) => {
+    //     // const currentMedicinsCard = orderMedicinsSelector(store.getState());
+    //     const currentMedicinsCard = useAppSelector((state: RootState) => state.cart);
+
+    //     if (user?.role === "admin") {
+    //         toast.error("Admins cannot place orders.");
+    //         return;
+    //     }
+
+    //     if (!user) {
+    //         toast.error("You must be logged in to add to cart.");
+    //         return;
+    //     }
+
+    //     const isProductAlreadyAdded = currentMedicinsCard.some((medis: any) => medis?._id === medici?._id);
+    //     const subMediPrice = orderQuantity * medici?.price;
+
+    //     if (!isProductAlreadyAdded) {
+    //         const toastId = toast.loading("Adding to cart...");
+
+    //         dispatch(
+    //             addMedicin({
+    //                 _id: medici?._id,
+    //                 name: medici?.name,
+    //                 description: medici?.description,
+    //                 price: medici?.price,
+    //                 category: medici?.category,
+    //                 quantity: medici?.quantity,
+    //                 orderQuantity: orderQuantity,
+    //                 stockAvailability: medici?.stockAvailability,
+    //                 requiredPrescription: medici?.requiredPrescription,
+    //                 mediImage: medici?.mediImage,
+    //                 massUnit: medici?.massUnit,
+    //                 manufacturerDetails: medici?.manufacturerDetails,
+    //                 expiryDate: medici?.expiryDate,
+    //                 createdAt: medici?.createdAt,
+    //                 updatedAt: medici?.updatedAt,
+    //                 length: medici?.length,
+    //                 subTotalPrice: subMediPrice,
+    //             })
+    //         );
+
+    //         toast.success("Added to cart successfully", { id: toastId, duration: 1500 });
+    //         setIsDialogOpen?.(false);
+    //         if (redirect) {
+    //             router.push(redirect);
+    //         } else {
+    //             router.push("/");
+    //         }
+
+    //     } else {
+    //         const existingProduct = currentMedicinsCard.find((medis: any) => medis?._id === medici?._id);
+
+    //         if (existingProduct?.orderQuantity === orderQuantity) {
+    //             toast.error("Product is already added to cart.");
+    //             setIsDialogOpen?.(false);
+    //         } else {
+    //             dispatch(updateQuantity({ id: medici?._id, orderQuantity }));
+    //             toast.success("Product is already added to cart and orderQuantity updated successfully.");
+    //             setIsDialogOpen?.(false);
+    //         }
+    //     }
+    // };
+
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -345,7 +416,7 @@ const MedicinCard = ({ medici, isDialogOpen, setIsDialogOpen }: TMedicinss) => {
                                     Quick View
                                 </Button>
                             </DialogTrigger>
-                           
+
                             <DialogContent className="sm:max-w-4xl p-0 overflow-hidden rounded-lg">
                                 <div className="grid grid-cols-1 md:grid-cols-2">
                                     {/* Image Section */}
@@ -393,8 +464,8 @@ const MedicinCard = ({ medici, isDialogOpen, setIsDialogOpen }: TMedicinss) => {
                                                 <div>
                                                     <p className="text-sm font-medium text-gray-500">Stock</p>
                                                     <p className={`text-lg font-semibold ${medici?.stockAvailability === 'In Stock'
-                                                            ? 'text-green-600'
-                                                            : 'text-red-600'
+                                                        ? 'text-green-600'
+                                                        : 'text-red-600'
                                                         }`}>
                                                         {medici?.stockAvailability}
                                                     </p>
@@ -542,5 +613,4 @@ const MedicinCard = ({ medici, isDialogOpen, setIsDialogOpen }: TMedicinss) => {
 };
 
 export default MedicinCard;
-
 
