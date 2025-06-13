@@ -188,7 +188,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton className="bg-fuchsia-400 hover:bg-fuchsia-500" size="lg" asChild>
-              <Link href="/">
+              <Link href={user?.role === "admin" ? "/admin/dashboard" : "/customer/dashboard"}>
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg">
                   <Image src={medimart} height={40} width={40} alt="medimart" />
                 </div>
