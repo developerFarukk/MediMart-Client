@@ -34,7 +34,8 @@ import {
 import { useUser } from "@/context/UserContext"
 import { toast } from "sonner"
 import { logout } from "@/services/AuthService"
-import {  useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
+import Link from "next/link"
 
 export function NavUser() {
     const { isMobile } = useSidebar();
@@ -101,20 +102,11 @@ export function NavUser() {
                         </DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuGroup>
-                            <DropdownMenuItem>
-                                <Sparkles />
-                                Upgrade to Pro
-                            </DropdownMenuItem>
-                        </DropdownMenuGroup>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuGroup>
-                            <DropdownMenuItem>
-                                <BadgeCheck />
-                                Account
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                <CreditCard />
-                                Billing
+                            <DropdownMenuItem asChild>
+                                <Link href={user?.role === "admin" ? "/admin/profile" : "/customer/profile"}>
+                                    <BadgeCheck />
+                                    Account
+                                </Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem>
                                 <Bell />

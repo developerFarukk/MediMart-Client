@@ -36,8 +36,8 @@ interface CustomerNavItem extends NavItem {
 
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
+    name: "OMAR FARUK",
+    email: "web.omarfaruk.dev.com",
     avatar: "/avatars/shadcn.jpg",
   },
 
