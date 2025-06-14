@@ -29,12 +29,14 @@ const AboutPage = () => {
                                     At MediMart, we are committed to providing high-quality medicines and healthcare products to support your well-being. Whether you need prescription medications, over-the-counter remedies, or wellness essentials, we have got you covered.
                                 </p>
 
-                                <Link
-                                    href="/shop"
-                                    className="mt-6 inline-block rounded bg-blue-600 px-6 py-3 text-sm font-medium text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
-                                >
-                                    Shop Now
-                                </Link>
+                                <div className="mt-10">
+                                    <Link
+                                        href="/shop"
+                                        className=" w-fit rounded-[4px] border px-4 py-2 sm:px-6 sm:py-3 text-xs sm:text-sm uppercase leading-4 shadow-md sm:shadow-xl duration-300   backdrop-blur-sm transition-all bg-green-300 text-black hover:bg-green-500"
+                                    >
+                                        Shop Now
+                                    </Link>
+                                </div>
                             </div>
                         </div>
 

@@ -118,8 +118,8 @@ const FaqComponent = () => {
                 <p className="text-gray-600 mb-4">
                     Still have questions?
                 </p>
-                <Link href="contact" >
-                    <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition-colors">
+                <Link href="#contact" >
+                    <button className=" mr-2 w-fit rounded-[4px] border px-4 py-2 sm:px-6 sm:py-3 text-xs sm:text-sm uppercase leading-4 shadow-md sm:shadow-xl duration-300   backdrop-blur-sm transition-all bg-green-300 text-black hover:bg-green-500">
                         Contact Support
                     </button>
                 </Link>
