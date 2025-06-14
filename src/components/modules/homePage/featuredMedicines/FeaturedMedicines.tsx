@@ -76,8 +76,8 @@ const FeaturedMedicines = () => {
                         <MedicinCard
                             medici={medici}
                             key={medici._id}
-                            isDialogOpen={isDialogOpen}
-                            setIsDialogOpen={setIsDialogOpen}
+                            // isDialogOpen={isDialogOpen}
+                            // setIsDialogOpen={setIsDialogOpen}
                         />
                     ))}
                 </div>
