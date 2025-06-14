@@ -20,6 +20,7 @@ const ClearButton = () => {
         <div className="p-1">
             <Button
             onClick={ () => handelClearButton()}
+            className="bg-green-300 hover:bg-green-500 uppercase text-black"
             >
                 Clear cart
             </Button>
