@@ -16,7 +16,6 @@ import { toast } from "sonner";
 import AddReviewModal from "../reviewPage/AddReviewModal";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-// import { RootState } from "@/redux/store";
 
 interface TMedicinss {
     medici: TMedicine;
@@ -556,7 +555,7 @@ const MedicinCard = ({ medici, isDialogOpen, setIsDialogOpen }: TMedicinss) => {
                                             <div className="grid grid-cols-2 gap-4 pt-4">
                                                 <Button
                                                     onClick={() => handleAddProduct(medici)}
-                                                    className="w-full py-3 bg-primary hover:bg-primary-dark transition-colors"
+                                                    className="w-full py-3 bg-green-300 text-black hover:bg-green-500 transition-colors"
                                                 >
                                                     Add to Cart
                                                 </Button>
@@ -564,7 +563,7 @@ const MedicinCard = ({ medici, isDialogOpen, setIsDialogOpen }: TMedicinss) => {
                                                     <Button
                                                         onClick={() => handleAddProduct(medici)}
                                                         variant="outline"
-                                                        className="w-full py-3 border-gray-300 hover:bg-gray-50"
+                                                        className="w-full py-3 border-gray-300 hover:bg-gray-100"
                                                     >
                                                         Buy Now
                                                     </Button>
