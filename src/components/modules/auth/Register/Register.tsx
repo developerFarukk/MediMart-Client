@@ -288,7 +288,7 @@ const Register = () => {
                         <Button
                             disabled={isSubmitting || !passwordConfirm || password !== passwordConfirm}
                             type="submit"
-                            className="mt-5 w-full"
+                            className="mt-5 w-full bg-green-300 hover:bg-green-500 uppercase text-black"
                         >
                             {isSubmitting ? "Registering..." : "Register"}
                         </Button>

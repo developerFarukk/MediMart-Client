@@ -626,7 +626,7 @@ const Navbar = () => {
                                         </>
                                     ) : (
                                         <Link href="/login">
-                                            <Button>Login</Button>
+                                            <Button className='w-full py-3 bg-green-300 text-black hover:bg-green-500 transition-colors uppercase'>Login</Button>
                                         </Link>
                                     )}
                                 </div>
@@ -761,7 +761,7 @@ const Navbar = () => {
                                         </>
                                     ) : (
                                         <Link href="/login">
-                                            <Button>Login</Button>
+                                            <Button className='w-full py-3 bg-green-300 text-black hover:bg-green-500 transition-colors uppercase'>Login</Button>
                                         </Link>
                                     )}
                                 </li>
