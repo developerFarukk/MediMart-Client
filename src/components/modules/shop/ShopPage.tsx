@@ -77,7 +77,7 @@ const ShopPage = () => {
         return () => observer.disconnect();
     }, [medicins]);
 
-    // Filter and sort medicines
+    // Filter and sort medicines function
     const filteredMedicins = medicins
         .filter((medici) => {
             const matchesName = medici.name.toLowerCase().includes(searchQuery.toLowerCase());
