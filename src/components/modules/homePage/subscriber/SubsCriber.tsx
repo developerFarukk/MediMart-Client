@@ -55,7 +55,7 @@ const SubsCriber = () => {
                                     </div>
                                     <h3 className="text-2xl font-bold text-gray-800 mb-2">Thank You!</h3>
                                     <p className="text-gray-600 mb-6">
-                                        You're now subscribed to our newsletter.
+                                        You are now subscribed to our newsletter.
                                     </p>
                                     <Button 
                                         variant="outline" 

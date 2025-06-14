@@ -12,7 +12,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Button } from "@/components/ui/button";
 
 const ShopPage = () => {
-    const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [medicins, setMedicins] = useState<TMedicine[]>([]);
     const [page, setPage] = useState(1);
@@ -183,8 +182,6 @@ const ShopPage = () => {
                     <MedicinCard
                         medici={medici}
                         key={index + 1}
-                        isDialogOpen={isDialogOpen}
-                        setIsDialogOpen={setIsDialogOpen}
                     />
                 ))}
             </div>
