@@ -68,6 +68,31 @@ MediMart is an online platform where users can browse, search, and purchase medi
    ```bash
    git clone https://github.com/developerFarukk/MediMart-Client.git
    cd medimart
+   ```
+
+2. **Install Dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Configure Environment**  
+    Create a `.env` file in the root directory. Refer to `.env.example` for guidance:
+
+   ```
+   NEXT_PUBLIC_BASE_API=********
+   NEXT_PUBLIC_BASE_API_CLIENT=********
+   NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=********
+   NEXT_PUBLIC_CLOUDINARY_API_KEY=********
+   NEXT_PUBLIC_CLOUDINARY_API_SECRET=********
+   NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=********
+   NEXT_PUBLIC_ADMIN_EMAIL=********
+   NEXT_PUBLIC_ADMIN_PASSWORD=********
+   NEXT_PUBLIC_USER_EMAIL=********
+   NEXT_PUBLIC_USER_PASSWORD=********
+   ```
+
+   Refer to `.env.example` for additional configuration options.
 
 ## Getting Started
 
@@ -76,4 +101,10 @@ First, run the development server:
 ```bash
 npm run dev
 ```
+The app will run at `http://localhost:3000`.
+
+
+📬 **Contact**  
+For issues or inquiries, reach out to [Developerfaruk](mailto:web.omarfaruk.dev@gmail.com). Thank you 💜
+
 
